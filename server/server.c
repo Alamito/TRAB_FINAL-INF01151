@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#define PORT 9000
+#define PORT 4000
 #define BUFFER_SIZE 1024
 
 // Função para obter o endereço IP da máquina local

@@ -7,7 +7,7 @@
 #include <sys/socket.h>
 
 #define BROADCAST_IP "255.255.255.255"  // Endereço de broadcast
-#define PORT 9000                        // Porta do servidor
+#define PORT 4000                        // Porta do servidor
 #define BUFFER_SIZE 1024                 // Tamanho do buffer para receber a resposta
 
 int main() {
