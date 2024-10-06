@@ -8,6 +8,8 @@
 #define SERVER_IP "127.0.0.1"
 #define BUFFER_SIZE 1024
 
+#define NUM_REQUESTS 100
+
 int main() {
     int sockfd;
     struct sockaddr_in servaddr;
@@ -27,7 +29,7 @@ int main() {
     servaddr.sin_port = htons(SERVER_PORT);
     servaddr.sin_addr.s_addr = inet_addr(SERVER_IP);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < NUM_REQUESTS; i++) {
         sprintf(buffer, "%d", i);
         printf("Enviando %d\n", i);
 
@@ -40,6 +42,7 @@ int main() {
         buffer[n] = '\0';
 
         printf("Resposta do servidor: %s\n", buffer);
+        sleep(1);
     }
 
     // Fecha o socket
