@@ -1,5 +1,5 @@
 # Usando uma imagem base do gcc
-FROM gcc:latest
+FROM gcc:12.2.0
 
 # Definindo o diretório de trabalho
 WORKDIR /app

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   server:
     build:
@@ -8,7 +6,33 @@ services:
       rede-sisop-2:
         ipv4_address: 172.20.0.254  # Definindo um IP fixo
     ports:
-      - "4000:4000/udp"              
+      - "4000:4000/udp"
+    stdin_open: true
+    tty: true
+
+  client1:
+    build:
+      context: ./client  # Diretório onde está o Dockerfile do cliente
+    networks:
+      - rede-sisop-2
+    stdin_open: true
+    tty: true
+
+  client2:
+    build:
+      context: ./client  # Diretório onde está o Dockerfile do cliente
+    networks:
+      - rede-sisop-2
+    stdin_open: true
+    tty: true
+    
+  client3:
+    build:
+      context: ./client  # Diretório onde está o Dockerfile do cliente
+    networks:
+      - rede-sisop-2
+    stdin_open: true
+    tty: true
 
 networks:
   rede-sisop-2:

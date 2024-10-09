@@ -1,5 +1,5 @@
 # Usando uma imagem base do gcc
-FROM gcc:latest
+FROM gcc:12.2.0
 
 # Definindo o diretório de trabalho
 WORKDIR /app
@@ -9,8 +9,6 @@ COPY server.c ./
 
 # Compilando o código do servidor
 RUN gcc -o server server.c
-
-RUN ls -l /app
 
 # Comando para rodar o servidor
 CMD ["./server"]
