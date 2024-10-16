@@ -14,6 +14,7 @@ private:
     const int BUFFER_SIZE = 1024;
     int broadcastPermission;       // 0 ou 1, com bool não funcionou
     std::string message;
+    struct timeval timeout;        // Struct para definir o tempo limite
 
     std::string getLocalIP() {
         char hostbuffer[256];
@@ -51,6 +52,15 @@ public:
             exit(EXIT_FAILURE);
         }
 
+        // Configura o timeout para recebimento
+        timeout.tv_sec = 0;        // Segundos
+        timeout.tv_usec = 10000;   // Microsegundos (0 para não usar)
+        if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+            perror("Erro ao configurar timeout");
+            close(sockfd);
+            exit(EXIT_FAILURE);
+        }
+
         memset(&broadcast_addr, 0, sizeof(broadcast_addr));
         broadcast_addr.sin_family = AF_INET;
         broadcast_addr.sin_port = htons(PORT);
@@ -66,12 +76,24 @@ public:
 
     void sendMessage() {
         socklen_t addr_len = sizeof(broadcast_addr);
-        if (sendto(sockfd, message.c_str(), message.length(), 0, (struct sockaddr *) &broadcast_addr, addr_len) < 0) {
-            perror("Erro ao enviar mensagem de broadcast");
-            close(sockfd);
-            exit(EXIT_FAILURE);
+        while (true) {
+            if (sendto(sockfd, message.c_str(), message.length(), 0, (struct sockaddr *) &broadcast_addr, addr_len) < 0) {
+                perror("Erro ao enviar mensagem de broadcast");
+                close(sockfd);
+                exit(EXIT_FAILURE);
+            }
+            std::cout << "Mensagem de broadcast enviada pelo cliente: " << message << std::endl;
+
+            // Aguardando resposta (opcional, pode não haver resposta em um broadcast)
+            char buffer[BUFFER_SIZE];
+            int n = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *) &broadcast_addr, &addr_len);
+            if (n > 0) {
+                buffer[n] = '\0';
+                std::cout << "Resposta recebida pelo cliente: " << buffer << std::endl;
+                break;
+            }
+            sleep(1);
         }
-        std::cout << "Mensagem de broadcast enviada pelo cliente: " << message << std::endl;
     }
 
     void receiveResponse() {
