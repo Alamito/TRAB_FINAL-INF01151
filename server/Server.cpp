@@ -4,7 +4,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-class BroadcastServer {
+class Server {
 private:
     int sockfd;
     struct sockaddr_in servaddr, cliaddr;
@@ -12,7 +12,7 @@ private:
     const int BUFFER_SIZE = 1024;
 
 public:
-    BroadcastServer() {
+    Server() {
         if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
             perror("Erro ao criar o socket");
             exit(EXIT_FAILURE);
@@ -34,7 +34,7 @@ public:
         std::cout << "Servidor aguardando mensagens..." << std::endl;
     }
 
-    ~BroadcastServer() {
+    ~Server() {
         close(sockfd);
     }
 
@@ -45,7 +45,10 @@ public:
             int n = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *) &cliaddr, &len);
             buffer[n] = '\0';
 
-            std::cout << "Mensagem recebida pelo servidor: " << buffer << std::endl;
+            char client_ip[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &(cliaddr.sin_addr), client_ip, INET_ADDRSTRLEN);
+
+            std::cout << "Mensagem recebida pelo servidor de " << client_ip << ": " << buffer << std::endl;
 
             char local_ip[BUFFER_SIZE];
             getLocalIp(local_ip, sizeof(local_ip));
@@ -77,7 +80,7 @@ private:
 };
 
 int main() {
-    BroadcastServer server;
+    Server server;
     server.run();
     return 0;
 }
