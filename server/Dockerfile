@@ -5,10 +5,10 @@ FROM gcc:12.2.0
 WORKDIR /app
 
 # Copiando o código do servidor para o container
-COPY server.c ./
+COPY Server.cpp ./
 
 # Compilando o código do servidor
-RUN gcc -o server server.c
+RUN g++ -o Server Server.cpp
 
 # Comando para rodar o servidor
-CMD ["./server"]
+CMD ["./Server"]

@@ -5,11 +5,11 @@ FROM gcc:12.2.0
 WORKDIR /app
 
 # Copiando o código do cliente para o container
-COPY client.c ./
+COPY Client.cpp ./
 
 # Compilando o código do cliente
-RUN gcc -o client client.c
+RUN g++ -o Client Client.cpp
 
 # Comando para rodar o cliente
-CMD ["./client"]
+CMD ["./Client"]
 
