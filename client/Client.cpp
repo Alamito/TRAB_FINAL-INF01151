@@ -5,42 +5,26 @@
 #include <sys/socket.h>
 #include <netdb.h>
 
-class BroadcastClient {
+struct Data {
+    int id;
+    int value;
+};
+
+class Client {
 private:
     int sockfd;
     struct sockaddr_in broadcast_addr;
     const std::string BROADCAST_IP = "255.255.255.255";
     const int PORT = 4000;
-    const int BUFFER_SIZE = 1024;
+    static const int BUFFER_SIZE = 1024;
     int broadcastPermission;       // 0 ou 1, com bool não funcionou
     std::string message;
     struct timeval timeout;        // Struct para definir o tempo limite
 
-    std::string getLocalIP() {
-        char hostbuffer[256];
-        char *IPbuffer;
-        struct hostent *host_entry;
-
-        // Recupera o nome do host
-        if (gethostname(hostbuffer, sizeof(hostbuffer)) == -1) {
-            perror("Erro ao obter o nome do host");
-            exit(EXIT_FAILURE);
-        }
-
-        // Recupera o endereço IP usando o nome do host
-        if ((host_entry = gethostbyname(hostbuffer)) == nullptr) {
-            perror("Erro ao obter o endereço IP");
-            exit(EXIT_FAILURE);
-        }
-
-        // Converte o endereço IP para uma string
-        IPbuffer = inet_ntoa(*((struct in_addr*) host_entry->h_addr_list[0]));
-
-        return std::string(IPbuffer);
-    }
+    char ipServer[BUFFER_SIZE];
 
 public:
-    BroadcastClient(const std::string& msg) : message(msg), broadcastPermission(1) { 
+    Client(const std::string& msg) : message(msg), broadcastPermission(1) { 
         if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
             perror("Erro ao criar o socket");
             exit(EXIT_FAILURE);
@@ -65,19 +49,20 @@ public:
         broadcast_addr.sin_family = AF_INET;
         broadcast_addr.sin_port = htons(PORT);
         broadcast_addr.sin_addr.s_addr = inet_addr(BROADCAST_IP.c_str());
-
-        // Adiciona o IP local à mensagem
-        message += "(Cliente IP: " + getLocalIP() + ")";
     }
 
-    ~BroadcastClient() {
+    ~Client() {
         close(sockfd);
     }
 
-    void sendMessage() {
+    bool sendBroadcastMessage() {
+        Data broadcast;
+        broadcast.id = -1;
+        broadcast.value = 0;
         socklen_t addr_len = sizeof(broadcast_addr);
+
         while (true) {
-            if (sendto(sockfd, message.c_str(), message.length(), 0, (struct sockaddr *) &broadcast_addr, addr_len) < 0) {
+            if (sendto(sockfd, &broadcast, sizeof(broadcast), 0, (struct sockaddr *) &broadcast_addr, addr_len) < 0) {
                 perror("Erro ao enviar mensagem de broadcast");
                 close(sockfd);
                 exit(EXIT_FAILURE);
@@ -90,26 +75,46 @@ public:
             if (n > 0) {
                 buffer[n] = '\0';
                 std::cout << "Resposta recebida pelo cliente: " << buffer << std::endl;
+
+                strncpy(ipServer, buffer, BUFFER_SIZE - 1);
+                ipServer[BUFFER_SIZE - 1] = '\0'; // Ensure null-termination
                 break;
             }
-            sleep(1);
         }
+        return true;
     }
 
-    void receiveResponse() {
-        char buffer[BUFFER_SIZE];
-        socklen_t addr_len = sizeof(broadcast_addr);
-        int n = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *) &broadcast_addr, &addr_len);
-        if (n > 0) {
-            buffer[n] = '\0';
-            std::cout << "Resposta recebida pelo cliente: " << buffer << std::endl;
+    void sendData() {
+        struct sockaddr_in server_addr;
+        memset(&server_addr, 0, sizeof(server_addr));
+        server_addr.sin_family = AF_INET;
+        server_addr.sin_port = htons(PORT);
+        server_addr.sin_addr.s_addr = inet_addr(ipServer);
+
+        Data data;
+        data.id = 1;
+
+        while (true) {
+            std::cout << "";
+            std::cin >> data.value;
+
+            socklen_t addr_len = sizeof(server_addr);
+            if (sendto(sockfd, &data, sizeof(data), 0, (struct sockaddr *) &server_addr, addr_len) < 0) {
+                perror("Erro ao enviar dados");
+                close(sockfd);
+                exit(EXIT_FAILURE);
+            }
+
+            std::cout << "Dados enviados para o servidor: id = " << data.id << ", value = " << data.value << std::endl;
+            data.id++;
         }
     }
 };
 
 int main() {
-    BroadcastClient client("Mensagem de BROADCAST!");
-    client.sendMessage();
-    client.receiveResponse();
+    Client client("Mensagem de BROADCAST!");
+    if (client.sendBroadcastMessage()) {
+        client.sendData();
+    }
     return 0;
 }

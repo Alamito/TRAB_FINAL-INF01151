@@ -4,7 +4,12 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-class BroadcastServer {
+struct Data {
+    int id;
+    int value;
+};
+
+class Server {
 private:
     int sockfd;
     struct sockaddr_in servaddr, cliaddr;
@@ -12,7 +17,7 @@ private:
     const int BUFFER_SIZE = 1024;
 
 public:
-    BroadcastServer() {
+    Server() {
         if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
             perror("Erro ao criar o socket");
             exit(EXIT_FAILURE);
@@ -34,26 +39,36 @@ public:
         std::cout << "Servidor aguardando mensagens..." << std::endl;
     }
 
-    ~BroadcastServer() {
+    ~Server() {
         close(sockfd);
     }
 
     void run() {
         char buffer[BUFFER_SIZE];
         socklen_t len = sizeof(cliaddr);
+        Data data;
         while (true) {
-            int n = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *) &cliaddr, &len);
-            buffer[n] = '\0';
+            int n = recvfrom(sockfd, &data, sizeof(data), 0, (struct sockaddr *) &cliaddr, &len);
 
-            std::cout << "Mensagem recebida pelo servidor: " << buffer << std::endl;
+            char client_ip[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &(cliaddr.sin_addr), client_ip, INET_ADDRSTRLEN);
 
-            char local_ip[BUFFER_SIZE];
-            getLocalIp(local_ip, sizeof(local_ip));
+            std::cout << "Mensagem recebida pelo servidor de " << client_ip << ": id = " << data.id << ", value = " << data.value << std::endl;
 
-            snprintf(buffer, BUFFER_SIZE, "(Servidor IP: %s)", local_ip);
-            sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr *) &cliaddr, len);
+            if (data.id == -1) {
+                // A mensagem que o cliente enviou é um broadcast
+                char local_ip[BUFFER_SIZE];
+                getLocalIp(local_ip, sizeof(local_ip));
 
-            std::cout << "Resposta enviada ao cliente: " << buffer << std::endl;
+                snprintf(buffer, BUFFER_SIZE, "%s", local_ip);
+                sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr *) &cliaddr, len);
+
+                std::cout << "Broadcast! Resposta enviada ao cliente: " << buffer << std::endl;
+            } else {
+                // A mensagem que o cliente enviou é um dado
+                std::cout << "Dado recebido do cliente: id = " << data.id << ", value = " << data.value << std::endl;
+            }
+
         }
     }
 
@@ -77,7 +92,7 @@ private:
 };
 
 int main() {
-    BroadcastServer server;
+    Server server;
     server.run();
     return 0;
 }
