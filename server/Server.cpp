@@ -4,6 +4,11 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
+struct Data {
+    int id;
+    int value;
+};
+
 class Server {
 private:
     int sockfd;
@@ -41,22 +46,29 @@ public:
     void run() {
         char buffer[BUFFER_SIZE];
         socklen_t len = sizeof(cliaddr);
+        Data data;
         while (true) {
-            int n = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *) &cliaddr, &len);
-            buffer[n] = '\0';
+            int n = recvfrom(sockfd, &data, sizeof(data), 0, (struct sockaddr *) &cliaddr, &len);
 
             char client_ip[INET_ADDRSTRLEN];
             inet_ntop(AF_INET, &(cliaddr.sin_addr), client_ip, INET_ADDRSTRLEN);
 
-            std::cout << "Mensagem recebida pelo servidor de " << client_ip << ": " << buffer << std::endl;
+            std::cout << "Mensagem recebida pelo servidor de " << client_ip << ": id = " << data.id << ", value = " << data.value << std::endl;
 
-            char local_ip[BUFFER_SIZE];
-            getLocalIp(local_ip, sizeof(local_ip));
+            if (data.id == -1) {
+                // A mensagem que o cliente enviou é um broadcast
+                char local_ip[BUFFER_SIZE];
+                getLocalIp(local_ip, sizeof(local_ip));
 
-            snprintf(buffer, BUFFER_SIZE, "(Servidor IP: %s)", local_ip);
-            sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr *) &cliaddr, len);
+                snprintf(buffer, BUFFER_SIZE, "%s", local_ip);
+                sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr *) &cliaddr, len);
 
-            std::cout << "Resposta enviada ao cliente: " << buffer << std::endl;
+                std::cout << "Broadcast! Resposta enviada ao cliente: " << buffer << std::endl;
+            } else {
+                // A mensagem que o cliente enviou é um dado
+                std::cout << "Dado recebido do cliente: id = " << data.id << ", value = " << data.value << std::endl;
+            }
+
         }
     }
 
