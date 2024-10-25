@@ -1,0 +1,7 @@
+# Ignorar arquivos binários compilados em C
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dll
