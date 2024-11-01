@@ -10,10 +10,10 @@
 class Socket {
 
     private:
-    std::string ip;
-    int port;
-    int socketFd;   //um identificador inteiro atribuído pelo sistema operacional quando um socket é criado. 
-    struct sockaddr_in serverAddr;  // serverAddr é uma estrutura sockaddr_in que agrupa IP e porta, além de especificar o tipo de protocolo.
+        std::string ip;
+        int port;
+        int socketFd;   //um identificador inteiro atribuído pelo sistema operacional quando um socket é criado. 
+        struct sockaddr_in serverAddr;  // serverAddr é uma estrutura sockaddr_in que agrupa IP e porta, além de especificar o tipo de protocolo.
 
     public:
         Socket(const std::string& ip = "127.0.0.1", int port = 8080);
