@@ -1,9 +1,10 @@
-
 #ifndef MESSAGE__H
 #define MESSAGE__H
 
 #include <map>
 #include <string>
+#include <array>
+#include <Socket.h>
 
 constexpr std::array<const char*, 3> possibleTypes = {"sum", "ack", "discover"};
 
@@ -11,22 +12,26 @@ class Message {
     private:
         int numberToSum;
         int id;
-        
         int type;
-        std::map<std::string, int> destination;  // dict with the destination ip and port
-        std::map<std::string, int> sender;  // dict with the destination ip and port
+        // std::map<std::string, int> destination;  // dict with the destination ip and port
+        // std::map<std::string, int> sender;       // dict with the sender ip and port
+
+        Socket recipient;
+        Socket sender;
 
     public:
-        Message(int destinationIp, int destinationPort, int senderIp, int senderPort) {
-            destination["ip"] = destIp;
-            destination["port"] = destPort;
+        Message(int numberToSum, const std::string& recipientIp, int recipientPort, const std::string& senderIp, int senderPort);
 
-            sender["ip"] = senderIp;
-            sender["port"] = senderPort;
-        }
-        void send(int port, std::string ip);
+        void send();
         void waitAck();
 
-        std::map<std::string, int> getDestination() const { return destination; }
-        std::map<std::string, int> getSender() const { return sender; }
+        //getters
+        int getNumberToSum() const { return numberToSum; }
+        int getSenderPort() const { return sender.getPort(); }  
+        std::string getSenderIp() const { return sender.getIp(); }
+        int getRecipientPort() const { return recipient.getPort(); }
+        std::string getRecipientIp() const { return recipient.getIp(); }
+
 };
+
+#endif // MESSAGE__H
