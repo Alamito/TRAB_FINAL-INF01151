@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/SocketTest.dir/tests/shared/src/SocketTest.cpp.o CMakeFiles/SocketTest.dir/shared/src/classes/Socket.cpp.o -o SocketTest  lib/libgtest.a lib/libgtest_main.a -lpthread lib/libgtest.a 
+/usr/bin/c++ CMakeFiles/SocketTest.dir/tests/shared/src/SocketTest.cpp.o -o build/SocketTest  libshared.a /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 

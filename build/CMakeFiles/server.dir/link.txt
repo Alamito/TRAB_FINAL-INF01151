@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/server.dir/server/src/classes/tables/ClientsTable.cpp.o CMakeFiles/server.dir/server/src/classes/tables/SumTable.cpp.o CMakeFiles/server.dir/server/src/classes/Server.cpp.o CMakeFiles/server.dir/server/src/mainServer.cpp.o -o build/server  libshared.a 
