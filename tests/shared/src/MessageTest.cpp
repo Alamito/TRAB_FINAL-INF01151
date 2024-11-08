@@ -7,7 +7,7 @@
 #define SENDER_IP "127.0.0.1"
 
 #define RECIPIENT_PORT 8081 // Porta do servidor
-#define RECIPIENT_IP "172.17.0.1" // IP do servidor  
+#define RECIPIENT_IP "172.17.0.2" // IP do servidor  
 
 TEST(MessageTest, SendMessageAndWaitAck) {
     int numberToSum = 42;

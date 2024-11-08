@@ -30,6 +30,7 @@ ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, i
     }
 
     struct sockaddr_in destAddr;
+    memset(&destAddr, 0, sizeof(destAddr));  // Inicializa a estrutura com zeros
     destAddr.sin_family = AF_INET;
     destAddr.sin_port = htons(destPort);
 
@@ -41,11 +42,12 @@ ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, i
     printf("  - socketFd: %d\n", socketFd);
     printf("  - destIp: %s\n", destIp.c_str());
     printf("  - destPort: %d\n", destPort);
+    printf("  - data size: %zu\n", size);
 
     ssize_t bytesSent = sendto(socketFd, data, size, 0, (struct sockaddr*)&destAddr, sizeof(destAddr));
-    printf("bytesSent: %ld\n", bytesSent);
     if (bytesSent == -1) {
         perror("Erro ao enviar mensagem com sendto");
+        printf("  - errno: %d\n", errno);
     }
     return bytesSent;
 }

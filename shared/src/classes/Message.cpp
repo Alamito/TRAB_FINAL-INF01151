@@ -11,7 +11,6 @@ Message::Message(int numberToSum, const std::string& recipientIp, int recipientP
 
 void Message::send() {
     sender.create();
-    sender.bind();  // Garante que o socket do cliente (sender) está vinculado à porta correta
     printf("Cliente: Socket criado e vinculado à porta %d\n", sender.getPort());
 
     int netOrderNumber = htonl(numberToSum);  // Converte para Big-endian
@@ -28,20 +27,26 @@ void Message::send() {
 }
 
 void Message::waitAck() {
-    try {
-        char ackBuffer[4];
-        ssize_t ackReceived = sender.receive(ackBuffer, sizeof(ackBuffer));
+    char ackBuffer[4];
+    ssize_t ackReceived = -1;
+    int retry = 0;
+
+    while (ackReceived <= 0) {
+        ackReceived = sender.receive(ackBuffer, sizeof(ackBuffer));
         printf("Cliente: ackReceived: %ld\n", ackReceived);
+
         if (ackReceived > 0) {
-            ackBuffer[ackReceived] = '\0';  // Garante que a string esteja terminada
+            if (ackReceived < sizeof(ackBuffer)) {
+                ackBuffer[ackReceived] = '\0';  // Garante que a string esteja terminada
+            } else {
+                ackBuffer[sizeof(ackBuffer) - 1] = '\0';  // Evita estouro de buffer
+            }
             printf("Cliente: Ack recebido: %s\n", ackBuffer);
-        } else if (ackReceived == 0) {
-            printf("Cliente: Timeout ao receber o ack\n");
-        } else {
-            printf("Cliente: Falha ao receber o ack\n");
+            return;  // Ack recebido com sucesso, sai da função
         }
-    } catch (const std::runtime_error& e) {
-        printf("Cliente: Erro: %s\n", e.what());
-        throw;
+        retry++;
+        printf("Cliente: Retry %d\n", retry);
     }
+
+    printf("Cliente: Tentativas esgotadas\n");
 }

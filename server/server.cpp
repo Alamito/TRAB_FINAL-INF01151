@@ -19,6 +19,9 @@ int main() {
         return -1;
     }
 
+    // Inicializa a estrutura clientAddr com zeros
+    memset(&clientAddr, 0, sizeof(clientAddr));
+
     printf("clientAddr antes de chamar o recvfrom: %s\n", inet_ntoa(clientAddr.sin_addr));    
 
     // Configuração do endereço do servidor
@@ -32,14 +35,16 @@ int main() {
         close(serverSocket);
         return -1;
     }
+    printf("Server socket: %d\n", serverSocket);
     std::cout << "Servidor UDP aguardando na porta " << PORT << "..." << std::endl;
 
     // Receber mensagem do cliente (listen)
     ssize_t receivedBytes = recvfrom(serverSocket, &buffer, sizeof(buffer), 0, (struct sockaddr*)&clientAddr, &addrLen);
-
     printf("clientAddr depois de receber o recvfrom: %s\n", inet_ntoa(clientAddr.sin_addr));    //recvfrom recebe no header o endereço e porta do cliente.
     if (receivedBytes < 0) {
         perror("Erro ao receber dados");
+    } else if (receivedBytes != sizeof(buffer)) {
+        std::cerr << "Erro: Tamanho de dados recebidos inesperado." << std::endl;
     } else {
         // Converte o valor para a ordem de bytes do host
         int receivedNumber = ntohl(buffer);
