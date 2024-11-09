@@ -192,7 +192,10 @@ CMakeFiles/shared.dir/shared/src/classes/Message.cpp.o: ../shared/src/classes/Me
   /usr/include/c++/11/bits/exception_ptr.h \
   /usr/include/c++/11/bits/cxxabi_init_exception.h \
   /usr/include/c++/11/typeinfo \
-  /usr/include/c++/11/bits/nested_exception.h
+  /usr/include/c++/11/bits/nested_exception.h \
+  /usr/include/c++/11/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h
 
 CMakeFiles/shared.dir/shared/src/classes/Socket.cpp.o: ../shared/src/classes/Socket.cpp \
   /usr/include/stdc-predef.h \
@@ -385,10 +388,6 @@ CMakeFiles/shared.dir/shared/src/classes/Socket.cpp.o: ../shared/src/classes/Soc
   /usr/include/strings.h
 
 
-/usr/include/string.h:
-
-/usr/include/c++/11/cstring:
-
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
@@ -398,6 +397,10 @@ CMakeFiles/shared.dir/shared/src/classes/Socket.cpp.o: ../shared/src/classes/Soc
 /usr/include/x86_64-linux-gnu/bits/environments.h:
 
 /usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+
+/usr/include/string.h:
+
+/usr/include/c++/11/cstring:
 
 /usr/include/c++/11/bits/nested_exception.h:
 
