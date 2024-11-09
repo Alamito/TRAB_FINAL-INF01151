@@ -2,9 +2,31 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <cstring>
+#include <ifaddrs.h>
 
 #define PORT 8081
 #define BUFFER_SIZE 1024
+
+struct ServerResponse {
+    char serverIp[INET_ADDRSTRLEN];
+    double totalSum;
+};
+
+// Função para obter o IP do servidor
+void getIp(char* ipBuffer, const char* interface = "eth0") {
+    struct ifaddrs *ifAddrStruct = nullptr;
+    getifaddrs(&ifAddrStruct);
+
+    for (struct ifaddrs *ifa = ifAddrStruct; ifa != nullptr; ifa = ifa->ifa_next) {
+        if (ifa->ifa_addr && ifa->ifa_addr->sa_family == AF_INET) { // Interface IPv4
+            if (strcmp(ifa->ifa_name, interface) == 0) { // Substitua "eth0" pela interface desejada
+                inet_ntop(AF_INET, &((struct sockaddr_in *)ifa->ifa_addr)->sin_addr, ipBuffer, INET_ADDRSTRLEN);
+                break;
+            }
+        }
+    }
+    if (ifAddrStruct != nullptr) freeifaddrs(ifAddrStruct);
+}
 
 int main() {
     int serverSocket;
@@ -35,8 +57,7 @@ int main() {
         close(serverSocket);
         return -1;
     }
-    printf("Server socket: %d\n", serverSocket);
-    std::cout << "Servidor UDP aguardando na porta " << PORT << "..." << std::endl;
+    std::cout << "Servidor UDP com IP " << inet_ntoa(serverAddr.sin_addr) << " aguardando na porta " << PORT << "..." << std::endl;
 
     // Receber mensagem do cliente (listen)
     ssize_t receivedBytes = recvfrom(serverSocket, &buffer, sizeof(buffer), 0, (struct sockaddr*)&clientAddr, &addrLen);
@@ -50,9 +71,12 @@ int main() {
         int receivedNumber = ntohl(buffer);
         std::cout << "Servidor: Mensagem recebida: " << receivedNumber << std::endl;
 
-        // Enviar ACK para o cliente
-        const char* ackMessage = "ack";
-        ssize_t sentBytes = sendto(serverSocket, ackMessage, strlen(ackMessage) + 1, 0, (struct sockaddr*)&clientAddr, addrLen);
+        // Enviar o ServerResponse para o cliente
+        ServerResponse responseToClient;
+        getIp(responseToClient.serverIp);  // Obter o IP do servidor
+        responseToClient.totalSum = receivedNumber;
+        
+        ssize_t sentBytes = sendto(serverSocket, &responseToClient, sizeof(responseToClient), 0, (struct sockaddr*)&clientAddr, addrLen);
         if (sentBytes < 0) {
             perror("Erro ao enviar o ACK");
         } else {

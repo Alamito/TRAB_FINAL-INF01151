@@ -2,6 +2,8 @@
 #include <string>
 #include <cstdio>
 #include <stdexcept>
+#include <cstring>
+#include <arpa/inet.h>
 
 Message::Message(int numberToSum, const std::string& recipientIp, int recipientPort, const std::string& senderIp, int senderPort)
     : numberToSum(numberToSum) {
@@ -26,27 +28,31 @@ void Message::send() {
     }
 }
 
-void Message::waitAck() {
-    char ackBuffer[4];
+ServerResponse Message::waitAck() {
+    char responseBuffer[sizeof(ServerResponse)];
     ssize_t ackReceived = -1;
     int retry = 0;
 
     while (ackReceived <= 0) {
-        ackReceived = sender.receive(ackBuffer, sizeof(ackBuffer));
-        printf("Cliente: ackReceived: %ld\n", ackReceived);
+        ackReceived = sender.receive(responseBuffer, sizeof(responseBuffer));
 
         if (ackReceived > 0) {
-            if (ackReceived < sizeof(ackBuffer)) {
-                ackBuffer[ackReceived] = '\0';  // Garante que a string esteja terminada
-            } else {
-                ackBuffer[sizeof(ackBuffer) - 1] = '\0';  // Evita estouro de buffer
-            }
-            printf("Cliente: Ack recebido: %s\n", ackBuffer);
-            return;  // Ack recebido com sucesso, sai da função
+            printf("Cliente: Ack recebido\n");
+
+            // Desserializa os dados recebidos no buffer para a struct ServerResponse
+            ServerResponse response;
+            memcpy(&response, responseBuffer, sizeof(ServerResponse));
+
+            // Exibir os dados recebidos
+            printf("Cliente: IP do servidor: %s\n", response.serverIp);
+            printf("Cliente: Soma total: %f\n", response.totalSum);
+
+            return response;  // Ack recebido com sucesso, retorna a struct
         }
         retry++;
         printf("Cliente: Retry %d\n", retry);
     }
 
     printf("Cliente: Tentativas esgotadas\n");
+    return {"", 0.0};  // Retorna uma struct vazia indicando falha
 }

@@ -8,13 +8,16 @@
 
 constexpr std::array<const char*, 3> possibleTypes = {"sum", "ack", "discover"};
 
+struct ServerResponse {
+    char serverIp[INET_ADDRSTRLEN];
+    double totalSum;
+};
+
 class Message {
     private:
         int numberToSum;
         int id;
         int type;
-        // std::map<std::string, int> destination;  // dict with the destination ip and port
-        // std::map<std::string, int> sender;       // dict with the sender ip and port
 
         Socket recipient;
         Socket sender;
@@ -23,7 +26,7 @@ class Message {
         Message(int numberToSum, const std::string& recipientIp, int recipientPort, const std::string& senderIp, int senderPort);
 
         void send();
-        void waitAck();
+        ServerResponse waitAck();  // Alteração aqui
 
         //getters
         int getNumberToSum() const { return numberToSum; }
