@@ -1,56 +1,88 @@
 #include "Socket.h"
-
 #include <stdexcept>
-#include <sys/socket.h>
-#include <arpa/inet.h>
 #include <unistd.h>
-
-#define DEFAULT_IP "127.0.0.1"
-#define DEFAULT_PORT 8080
+#include <cstring>
 
 Socket::Socket(const std::string& ip, int port)
     : ip(ip), port(port), socketFd(-1) {}
 
 void Socket::create() {
-    socketFd = socket(AF_INET, SOCK_STREAM, 0);
-    if (socketFd < 0) throw std::runtime_error("Failed to create socket");
+    socketFd = socket(AF_INET, SOCK_DGRAM, 0);  // Cria um socket UDP
+    if (socketFd < 0) {
+        perror("Falha ao criar socket");
+        throw std::runtime_error("Failed to create socket");
+    }
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(port);
-    if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0)
-        throw std::runtime_error("Invalid IP address");
-}
-
-void Socket::connect() {
-    if (::connect(socketFd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0)
-        throw std::runtime_error("Connection failed");
+    if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0) {
+        throw std::runtime_error("Endereço IP inválido para o socket");
+    }
 }
 
 void Socket::bind() {
     if (::bind(socketFd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0)
-        throw std::runtime_error("Bind failed");
+        throw std::runtime_error("Failed to bind socket to port");
 }
 
-void Socket::listen(int backlog) {   // backlog = limite de conexões que podem estar em fila aguardando para serem aceitas pela função accept()
-    if (::listen(socketFd, backlog) < 0)
-        throw std::runtime_error("Listen failed");
-}
+ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, int destPort) const {
+    if (socketFd < 0) {
+        throw std::runtime_error("Socket não inicializado corretamente");
+    }
 
-Socket Socket::accept() {
-    int new_socketFd = ::accept(socketFd, nullptr, nullptr);
-    if (new_socketFd < 0)
-        throw std::runtime_error("Accept failed");
+    struct sockaddr_in destAddr;
+    memset(&destAddr, 0, sizeof(destAddr));  // Inicializa a estrutura com zeros
+    destAddr.sin_family = AF_INET;
+    destAddr.sin_port = htons(destPort);
 
-    Socket new_socket;
-    new_socket.socketFd = new_socketFd;
-    return new_socket;
-}
+    if (inet_pton(AF_INET, destIp.c_str(), &destAddr.sin_addr) <= 0) {
+        throw std::runtime_error("Endereço IP de destino inválido");
+    }
 
-ssize_t Socket::send(const void* data, size_t size) const {
-    return ::send(socketFd, data, size, 0);
+    printf("Tentando enviar dados:\n");
+    printf("  - socketFd: %d\n", socketFd);
+    printf("  - destIp: %s\n", destIp.c_str());
+    printf("  - destPort: %d\n", destPort);
+    printf("  - data size: %zu\n", size);
+
+    ssize_t bytesSent = sendto(socketFd, data, size, 0, (struct sockaddr*)&destAddr, sizeof(destAddr));
+    if (bytesSent == -1) {
+        perror("Erro ao enviar mensagem com sendto");
+        printf("  - errno: %d\n", errno);
+    }
+    return bytesSent;
 }
 
 ssize_t Socket::receive(void* buffer, size_t size) const {
-    return ::recv(socketFd, buffer, size, 0);
+    struct sockaddr_in srcAddr;
+    socklen_t addrLen = sizeof(srcAddr);
+
+    struct timeval timeout;
+    timeout.tv_sec = 1;
+    timeout.tv_usec = 0;
+    fd_set readfds;
+    FD_ZERO(&readfds);
+    FD_SET(socketFd, &readfds);
+
+    int selectResult = select(socketFd + 1, &readfds, nullptr, nullptr, &timeout);
+    if (selectResult == -1) {
+        perror("Erro ao usar select");
+        return -1;
+    } else if (selectResult == 0) {
+        printf("Timeout ao esperar pela mensagem.\n");
+        return 0;
+    }
+
+    ssize_t bytesReceived = recvfrom(socketFd, buffer, size, 0, (struct sockaddr*)&srcAddr, &addrLen);  //listen
+
+    if (bytesReceived < 0) {
+        perror("Erro ao receber a mensagem");
+    } else if (bytesReceived == 0) {
+        printf("Conexão fechada ao receber a mensagem.\n");
+    } else {
+        printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
+    }
+
+    return bytesReceived;
 }
 
 void Socket::close() {
@@ -63,4 +95,3 @@ void Socket::close() {
 Socket::~Socket() {
     close();
 }
-

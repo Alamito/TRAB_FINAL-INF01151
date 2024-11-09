@@ -1,18 +1,67 @@
+# Versão mínima do CMake
 cmake_minimum_required(VERSION 3.10)
 
 # Nome do projeto
-project(SocketTestProject)
+project(MyProject)
 
-# Configurar a versão do C++
-set(CMAKE_CXX_STANDARD 11)
+# Define o padrão C++
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Incluir o Google Test como subdiretório
-add_subdirectory(tests/googletest)
+# Diretório de build
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
-# Incluir o diretório dos headers e os arquivos fontes
-include_directories(shared/include)
-add_executable(SocketTest tests/shared/src/SocketTest.cpp shared/src/classes/Socket.cpp)
-add_executable(SocketTest2 tests/shared/src/SocketTest2.cpp shared/src/classes/Socket.cpp)
+# Adiciona a biblioteca compartilhada
+add_library(shared STATIC
+    shared/src/classes/Message.cpp
+    shared/src/classes/Socket.cpp
+)
 
-# Linkar com o Google Test
-target_link_libraries(SocketTest gtest gtest_main pthread)
+# Inclui os diretórios de cabeçalhos da biblioteca compartilhada
+target_include_directories(shared PUBLIC shared/src/classes/include)
+
+# Client
+add_executable(client
+    client/src/classes/Client.cpp
+    client/src/mainClient.cpp
+)
+
+# Inclui os diretórios de cabeçalhos do client
+target_include_directories(client PUBLIC client/src/classes/include)
+
+# Linka a biblioteca compartilhada ao client
+target_link_libraries(client shared)
+
+# Server
+add_executable(server
+    server/src/classes/tables/ClientsTable.cpp
+    server/src/classes/tables/SumTable.cpp
+    server/src/classes/Server.cpp
+    server/src/mainServer.cpp
+)
+
+# Inclui os diretórios de cabeçalhos do server
+target_include_directories(server PUBLIC server/src/classes/include)
+
+# Linka a biblioteca compartilhada ao server
+target_link_libraries(server shared)
+
+# Testes
+enable_testing()
+
+# Encontra o Google Test
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+# Adiciona os executáveis de teste
+add_executable(MessageTest tests/shared/src/MessageTest.cpp)
+
+# Inclui os diretórios de cabeçalhos para os testes
+target_include_directories(MessageTest PUBLIC shared/src/classes/include)
+
+# Linka a biblioteca compartilhada e o Google Test aos testes
+target_link_libraries(MessageTest shared ${GTEST_LIBRARIES} pthread)
+
+
+# Adiciona os testes para o CTest
+add_test(NAME MessageTest COMMAND MessageTest)

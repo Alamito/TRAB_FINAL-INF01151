@@ -1,7 +1,7 @@
 CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o: \
  /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp \
  /usr/include/stdc-predef.h \
- /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/shared/include/Socket.h \
+ /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/shared/src/classes/include/Socket.h \
  /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -13,6 +13,7 @@ CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
+ /usr/include/c++/11/pstl/pstl_config.h \
  /usr/include/c++/11/bits/stringfwd.h \
  /usr/include/c++/11/bits/memoryfwd.h \
  /usr/include/c++/11/bits/char_traits.h \
@@ -102,7 +103,10 @@ CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o: \
  /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
  /usr/include/c++/11/ext/alloc_traits.h \
  /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
+ /usr/include/c++/11/bits/stl_construct.h /usr/include/c++/11/string_view \
+ /usr/include/c++/11/bits/functional_hash.h \
+ /usr/include/c++/11/bits/hash_bytes.h \
+ /usr/include/c++/11/bits/string_view.tcc \
  /usr/include/c++/11/ext/string_conversions.h /usr/include/c++/11/cstdlib \
  /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
@@ -125,8 +129,6 @@ CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o: \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
  /usr/include/c++/11/bits/basic_string.tcc \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
