@@ -1,7 +1,0 @@
-/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles/shared.dir
-/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles/client.dir
-/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles/server.dir
-/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles/MessageTest.dir
-/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles/test.dir
-/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles/edit_cache.dir
-/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles/rebuild_cache.dir

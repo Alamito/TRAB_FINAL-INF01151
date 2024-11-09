@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/client.dir/client/src/classes/Client.cpp.o CMakeFiles/client.dir/client/src/mainClient.cpp.o -o build/client  libshared.a 
