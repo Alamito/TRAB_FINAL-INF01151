@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o -o SocketTest2 
