@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151
+CMAKE_SOURCE_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build
+CMAKE_BINARY_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -85,56 +85,11 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"gmock\" \"gtest\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -162,157 +117,89 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named SocketTest
+# Target rules for targets named Tables
 
 # Build rule for target.
-SocketTest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SocketTest
-.PHONY : SocketTest
+Tables: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Tables
+.PHONY : Tables
 
 # fast build rule for target.
-SocketTest/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest.dir/build.make CMakeFiles/SocketTest.dir/build
-.PHONY : SocketTest/fast
+Tables/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/build
+.PHONY : Tables/fast
 
-#=============================================================================
-# Target rules for targets named SocketTest2
-
-# Build rule for target.
-SocketTest2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SocketTest2
-.PHONY : SocketTest2
-
-# fast build rule for target.
-SocketTest2/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest2.dir/build.make CMakeFiles/SocketTest2.dir/build
-.PHONY : SocketTest2/fast
-
-#=============================================================================
-# Target rules for targets named gmock
-
-# Build rule for target.
-gmock: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
-.PHONY : gmock
-
-# fast build rule for target.
-gmock/fast:
-	$(MAKE) $(MAKESILENT) -f tests/googletest/googlemock/CMakeFiles/gmock.dir/build.make tests/googletest/googlemock/CMakeFiles/gmock.dir/build
-.PHONY : gmock/fast
-
-#=============================================================================
-# Target rules for targets named gmock_main
-
-# Build rule for target.
-gmock_main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
-.PHONY : gmock_main
-
-# fast build rule for target.
-gmock_main/fast:
-	$(MAKE) $(MAKESILENT) -f tests/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make tests/googletest/googlemock/CMakeFiles/gmock_main.dir/build
-.PHONY : gmock_main/fast
-
-#=============================================================================
-# Target rules for targets named gtest
-
-# Build rule for target.
-gtest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
-.PHONY : gtest
-
-# fast build rule for target.
-gtest/fast:
-	$(MAKE) $(MAKESILENT) -f tests/googletest/googletest/CMakeFiles/gtest.dir/build.make tests/googletest/googletest/CMakeFiles/gtest.dir/build
-.PHONY : gtest/fast
-
-#=============================================================================
-# Target rules for targets named gtest_main
-
-# Build rule for target.
-gtest_main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
-.PHONY : gtest_main
-
-# fast build rule for target.
-gtest_main/fast:
-	$(MAKE) $(MAKESILENT) -f tests/googletest/googletest/CMakeFiles/gtest_main.dir/build.make tests/googletest/googletest/CMakeFiles/gtest_main.dir/build
-.PHONY : gtest_main/fast
-
-shared/src/classes/Socket.o: shared/src/classes/Socket.cpp.o
-.PHONY : shared/src/classes/Socket.o
+server/src/classes/ClientsTable.o: server/src/classes/ClientsTable.cpp.o
+.PHONY : server/src/classes/ClientsTable.o
 
 # target to build an object file
-shared/src/classes/Socket.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest.dir/build.make CMakeFiles/SocketTest.dir/shared/src/classes/Socket.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest2.dir/build.make CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o
-.PHONY : shared/src/classes/Socket.cpp.o
+server/src/classes/ClientsTable.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/classes/ClientsTable.cpp.o
+.PHONY : server/src/classes/ClientsTable.cpp.o
 
-shared/src/classes/Socket.i: shared/src/classes/Socket.cpp.i
-.PHONY : shared/src/classes/Socket.i
+server/src/classes/ClientsTable.i: server/src/classes/ClientsTable.cpp.i
+.PHONY : server/src/classes/ClientsTable.i
 
 # target to preprocess a source file
-shared/src/classes/Socket.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest.dir/build.make CMakeFiles/SocketTest.dir/shared/src/classes/Socket.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest2.dir/build.make CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.i
-.PHONY : shared/src/classes/Socket.cpp.i
+server/src/classes/ClientsTable.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/classes/ClientsTable.cpp.i
+.PHONY : server/src/classes/ClientsTable.cpp.i
 
-shared/src/classes/Socket.s: shared/src/classes/Socket.cpp.s
-.PHONY : shared/src/classes/Socket.s
+server/src/classes/ClientsTable.s: server/src/classes/ClientsTable.cpp.s
+.PHONY : server/src/classes/ClientsTable.s
 
 # target to generate assembly for a file
-shared/src/classes/Socket.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest.dir/build.make CMakeFiles/SocketTest.dir/shared/src/classes/Socket.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest2.dir/build.make CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.s
-.PHONY : shared/src/classes/Socket.cpp.s
+server/src/classes/ClientsTable.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/classes/ClientsTable.cpp.s
+.PHONY : server/src/classes/ClientsTable.cpp.s
 
-tests/shared/src/SocketTest.o: tests/shared/src/SocketTest.cpp.o
-.PHONY : tests/shared/src/SocketTest.o
+server/src/classes/SumTable.o: server/src/classes/SumTable.cpp.o
+.PHONY : server/src/classes/SumTable.o
 
 # target to build an object file
-tests/shared/src/SocketTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest.dir/build.make CMakeFiles/SocketTest.dir/tests/shared/src/SocketTest.cpp.o
-.PHONY : tests/shared/src/SocketTest.cpp.o
+server/src/classes/SumTable.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/classes/SumTable.cpp.o
+.PHONY : server/src/classes/SumTable.cpp.o
 
-tests/shared/src/SocketTest.i: tests/shared/src/SocketTest.cpp.i
-.PHONY : tests/shared/src/SocketTest.i
+server/src/classes/SumTable.i: server/src/classes/SumTable.cpp.i
+.PHONY : server/src/classes/SumTable.i
 
 # target to preprocess a source file
-tests/shared/src/SocketTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest.dir/build.make CMakeFiles/SocketTest.dir/tests/shared/src/SocketTest.cpp.i
-.PHONY : tests/shared/src/SocketTest.cpp.i
+server/src/classes/SumTable.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/classes/SumTable.cpp.i
+.PHONY : server/src/classes/SumTable.cpp.i
 
-tests/shared/src/SocketTest.s: tests/shared/src/SocketTest.cpp.s
-.PHONY : tests/shared/src/SocketTest.s
+server/src/classes/SumTable.s: server/src/classes/SumTable.cpp.s
+.PHONY : server/src/classes/SumTable.s
 
 # target to generate assembly for a file
-tests/shared/src/SocketTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest.dir/build.make CMakeFiles/SocketTest.dir/tests/shared/src/SocketTest.cpp.s
-.PHONY : tests/shared/src/SocketTest.cpp.s
+server/src/classes/SumTable.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/classes/SumTable.cpp.s
+.PHONY : server/src/classes/SumTable.cpp.s
 
-tests/shared/src/SocketTest2.o: tests/shared/src/SocketTest2.cpp.o
-.PHONY : tests/shared/src/SocketTest2.o
+server/src/mainServer.o: server/src/mainServer.cpp.o
+.PHONY : server/src/mainServer.o
 
 # target to build an object file
-tests/shared/src/SocketTest2.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest2.dir/build.make CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o
-.PHONY : tests/shared/src/SocketTest2.cpp.o
+server/src/mainServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/mainServer.cpp.o
+.PHONY : server/src/mainServer.cpp.o
 
-tests/shared/src/SocketTest2.i: tests/shared/src/SocketTest2.cpp.i
-.PHONY : tests/shared/src/SocketTest2.i
+server/src/mainServer.i: server/src/mainServer.cpp.i
+.PHONY : server/src/mainServer.i
 
 # target to preprocess a source file
-tests/shared/src/SocketTest2.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest2.dir/build.make CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.i
-.PHONY : tests/shared/src/SocketTest2.cpp.i
+server/src/mainServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/mainServer.cpp.i
+.PHONY : server/src/mainServer.cpp.i
 
-tests/shared/src/SocketTest2.s: tests/shared/src/SocketTest2.cpp.s
-.PHONY : tests/shared/src/SocketTest2.s
+server/src/mainServer.s: server/src/mainServer.cpp.s
+.PHONY : server/src/mainServer.s
 
 # target to generate assembly for a file
-tests/shared/src/SocketTest2.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SocketTest2.dir/build.make CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.s
-.PHONY : tests/shared/src/SocketTest2.cpp.s
+server/src/mainServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/src/mainServer.cpp.s
+.PHONY : server/src/mainServer.cpp.s
 
 # Help Target
 help:
@@ -321,26 +208,17 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... SocketTest"
-	@echo "... SocketTest2"
-	@echo "... gmock"
-	@echo "... gmock_main"
-	@echo "... gtest"
-	@echo "... gtest_main"
-	@echo "... shared/src/classes/Socket.o"
-	@echo "... shared/src/classes/Socket.i"
-	@echo "... shared/src/classes/Socket.s"
-	@echo "... tests/shared/src/SocketTest.o"
-	@echo "... tests/shared/src/SocketTest.i"
-	@echo "... tests/shared/src/SocketTest.s"
-	@echo "... tests/shared/src/SocketTest2.o"
-	@echo "... tests/shared/src/SocketTest2.i"
-	@echo "... tests/shared/src/SocketTest2.s"
+	@echo "... Tables"
+	@echo "... server/src/classes/ClientsTable.o"
+	@echo "... server/src/classes/ClientsTable.i"
+	@echo "... server/src/classes/ClientsTable.s"
+	@echo "... server/src/classes/SumTable.o"
+	@echo "... server/src/classes/SumTable.i"
+	@echo "... server/src/classes/SumTable.s"
+	@echo "... server/src/mainServer.o"
+	@echo "... server/src/mainServer.i"
+	@echo "... server/src/mainServer.s"
 .PHONY : help
 
 

@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -g CMakeFiles/Tables.dir/server/src/mainServer.cpp.o CMakeFiles/Tables.dir/server/src/classes/ClientsTable.cpp.o CMakeFiles/Tables.dir/server/src/classes/SumTable.cpp.o -o Tables 

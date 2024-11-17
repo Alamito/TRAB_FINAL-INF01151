@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151
+CMAKE_SOURCE_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build
+CMAKE_BINARY_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/SocketTest2.dir/depend.make
@@ -72,30 +72,30 @@ include CMakeFiles/SocketTest2.dir/flags.make
 CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o: CMakeFiles/SocketTest2.dir/flags.make
 CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o: ../tests/shared/src/SocketTest2.cpp
 CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o: CMakeFiles/SocketTest2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o -MF CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o.d -o CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o -c /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o -MF CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o.d -o CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o -c /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp
 
 CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp > CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp > CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.i
 
 CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp -o CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp -o CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.s
 
 CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o: CMakeFiles/SocketTest2.dir/flags.make
 CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o: ../shared/src/classes/Socket.cpp
 CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o: CMakeFiles/SocketTest2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o -MF CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o.d -o CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o -c /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/shared/src/classes/Socket.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o -MF CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o.d -o CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o -c /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/src/classes/Socket.cpp
 
 CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/shared/src/classes/Socket.cpp > CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/src/classes/Socket.cpp > CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.i
 
 CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/shared/src/classes/Socket.cpp -o CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/src/classes/Socket.cpp -o CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.s
 
 # Object files for target SocketTest2
 SocketTest2_OBJECTS = \
@@ -109,7 +109,7 @@ SocketTest2: CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o
 SocketTest2: CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o
 SocketTest2: CMakeFiles/SocketTest2.dir/build.make
 SocketTest2: CMakeFiles/SocketTest2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable SocketTest2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable SocketTest2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SocketTest2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -121,6 +121,6 @@ CMakeFiles/SocketTest2.dir/clean:
 .PHONY : CMakeFiles/SocketTest2.dir/clean
 
 CMakeFiles/SocketTest2.dir/depend:
-	cd /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151 /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151 /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/build/CMakeFiles/SocketTest2.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151 /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151 /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles/SocketTest2.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/SocketTest2.dir/depend
 

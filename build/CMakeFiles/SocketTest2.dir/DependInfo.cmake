@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/shared/src/classes/Socket.cpp" "CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o" "gcc" "CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o.d"
-  "/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp" "CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o" "gcc" "CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o.d"
+  "/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/src/classes/Socket.cpp" "CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o" "gcc" "CMakeFiles/SocketTest2.dir/shared/src/classes/Socket.cpp.o.d"
+  "/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/tests/shared/src/SocketTest2.cpp" "CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o" "gcc" "CMakeFiles/SocketTest2.dir/tests/shared/src/SocketTest2.cpp.o.d"
   )
 
 # Targets to which this target links.

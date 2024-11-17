@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/shared/include -isystem /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/tests/googletest/googletest/include -isystem /home/jpcorso/faculdade/2024-2/TRAB_FINAL-INF01151/tests/googletest/googletest
+CXX_INCLUDES = -I/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/include -I/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/src/classes/include -I/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/client/src/classes/include -I/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/src/classes/include
 
-CXX_FLAGS = -std=gnu++14
+CXX_FLAGS = -std=gnu++11
 
