@@ -7,14 +7,21 @@
 
 using namespace std;
 
+Client::Client(){
+    lastReq = 0;
+    lastSum = 0;
+    serverAdress = "255.255.255.255";
+}
+
 void Client::sendSumRequisition(Message* mensagem, int numRequisition){
-    mensagem -> setType(/*Define aqui o tipo 'sum'*/);
-    mensagem -> setNumToSum(numRequisition);
+    mensagem -> setType("sum");
+    mensagem -> setNumberToSum(numRequisition);
     mensagem -> send();
     mensagem -> waitAck();
 
     /*Atualizar os atributos do objeto aqui.
     Verificar o retorno da mensagem*/
+
 }
 
 int Client::listenTerminal(){
@@ -25,13 +32,23 @@ int Client::listenTerminal(){
 
 void Client::discoverServer(Message* mensagem){
 
-    string retorno;
-    mensagem -> setType(/*Define aqui o tipo 'discover'*/);
+    ServerResponse retorno;
+    mensagem -> setType("discover");
     mensagem -> send();
 
-    /*Conferir como funciona o retorno da mensagem para atribuir
-    corretamente aos atributos do objeto*/
-
     retorno = mensagem -> waitAck();
-    this->serverAdress = retorno;
+
+    if (retorno.serverIp == ""){
+        return;
+    }
+    else{
+        this->serverAdress = retorno.serverIp;
+        mensagem -> setRecipient(retorno.serverIp);
+    }
+}
+
+//Getters
+
+string Client::getServerAdress(){
+    return this -> serverAdress;
 }

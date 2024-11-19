@@ -56,3 +56,15 @@ ServerResponse Message::waitAck() {
     printf("Cliente: Tentativas esgotadas\n");
     return {"", 0.0};  // Retorna uma struct vazia indicando falha
 }
+
+void Message::setType(char* newType){
+    this->type = *newType;
+}
+
+void Message::setNumberToSum(int newNum){
+    this->numberToSum = newNum;
+}
+
+void Message::setRecipient(std::string newIP){
+    this->recipient = Socket(newIP, 8080);
+}

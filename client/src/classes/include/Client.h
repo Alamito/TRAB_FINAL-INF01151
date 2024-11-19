@@ -17,9 +17,12 @@ class Client{
         string serverAdress;
 
     public:
-        void sendSumRequisition(Message* mensagem);
+        Client();
+        void sendSumRequisition(Message* mensagem, int numRequisition);
         int listenTerminal();
         void discoverServer(Message* mensagem);  
+
+        string getServerAdress();
 
 };
 

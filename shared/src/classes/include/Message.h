@@ -35,6 +35,11 @@ class Message {
         int getRecipientPort() const { return recipient.getPort(); }
         std::string getRecipientIp() const { return recipient.getIp(); }
 
+        //setters
+        void setType(char* newType);
+        void setNumberToSum(int newNum);
+        void setRecipient(std::string newIP);
+
 };
 
 #endif // MESSAGE__H

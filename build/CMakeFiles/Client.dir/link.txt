@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -g CMakeFiles/Client.dir/client/src/mainClient.cpp.o CMakeFiles/Client.dir/client/src/classes/Client.cpp.o CMakeFiles/Client.dir/shared/src/classes/Socket.cpp.o CMakeFiles/Client.dir/shared/src/classes/Message.cpp.o -o Client 
