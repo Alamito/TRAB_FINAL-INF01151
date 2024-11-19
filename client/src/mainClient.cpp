@@ -10,12 +10,13 @@
 int main(){
 
     Client cliente;
-    Message mensagem(0, "255.255.255.255", 8080, "1.1.1.1", 8080);
+    Message mensagem(0, "255.255.255.255", 8080, "1.1.1.1", 4000);
     int numToSum;
 
     while(1){
         if (cliente.getServerAdress().compare("255.255.255.255") == 0){
             cliente.discoverServer(&mensagem);
+            cout << "Tá aqui" << endl;
         }
         else{
             numToSum = cliente.listenTerminal();

@@ -25,7 +25,7 @@ class Message {
     public:
         Message(int numberToSum, const std::string& recipientIp, int recipientPort, const std::string& senderIp, int senderPort);
 
-        void send();
+        void send(int isBroadcast);
         ServerResponse waitAck();  // Alteração aqui
 
         //getters

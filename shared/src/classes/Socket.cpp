@@ -2,15 +2,24 @@
 #include <stdexcept>
 #include <unistd.h>
 #include <cstring>
+#include <string>
 
 Socket::Socket(const std::string& ip, int port)
     : ip(ip), port(port), socketFd(-1) {}
 
-void Socket::create() {
+void Socket::create(int isBroadcast) {
     socketFd = socket(AF_INET, SOCK_DGRAM, 0);  // Cria um socket UDP
     if (socketFd < 0) {
         perror("Falha ao criar socket");
         throw std::runtime_error("Failed to create socket");
+    }
+
+    if (isBroadcast){
+        int broadcastEnable = 1;                                                                                //Criação de socket UDP para 
+        if (setsockopt(socketFd, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable)) < 0){     //broadcast
+            perror("Falha ao criar socket Broadcast");
+            throw std::runtime_error("Failed to create socket");
+        }
     }
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(port);

@@ -16,7 +16,7 @@ Client::Client(){
 void Client::sendSumRequisition(Message* mensagem, int numRequisition){
     mensagem -> setType("sum");
     mensagem -> setNumberToSum(numRequisition);
-    mensagem -> send();
+    mensagem -> send(0);
     mensagem -> waitAck();
 
     /*Atualizar os atributos do objeto aqui.
@@ -34,7 +34,8 @@ void Client::discoverServer(Message* mensagem){
 
     ServerResponse retorno;
     mensagem -> setType("discover");
-    mensagem -> send();
+    mensagem -> send(1);
+    cout << "Mandou a mensagem Broadcast" << endl;
 
     retorno = mensagem -> waitAck();
 
