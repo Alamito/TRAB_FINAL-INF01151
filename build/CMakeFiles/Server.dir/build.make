@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151
+CMAKE_SOURCE_DIR = /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build
+CMAKE_BINARY_DIR = /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Server.dir/depend.make
@@ -72,72 +72,72 @@ include CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/server/mainServer.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/server/mainServer.cpp.o: ../server/mainServer.cpp
 CMakeFiles/Server.dir/server/mainServer.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Server.dir/server/mainServer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/server/mainServer.cpp.o -MF CMakeFiles/Server.dir/server/mainServer.cpp.o.d -o CMakeFiles/Server.dir/server/mainServer.cpp.o -c /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/mainServer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Server.dir/server/mainServer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/server/mainServer.cpp.o -MF CMakeFiles/Server.dir/server/mainServer.cpp.o.d -o CMakeFiles/Server.dir/server/mainServer.cpp.o -c /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/mainServer.cpp
 
 CMakeFiles/Server.dir/server/mainServer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/server/mainServer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/mainServer.cpp > CMakeFiles/Server.dir/server/mainServer.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/mainServer.cpp > CMakeFiles/Server.dir/server/mainServer.cpp.i
 
 CMakeFiles/Server.dir/server/mainServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/server/mainServer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/mainServer.cpp -o CMakeFiles/Server.dir/server/mainServer.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/mainServer.cpp -o CMakeFiles/Server.dir/server/mainServer.cpp.s
 
 CMakeFiles/Server.dir/server/classes/Server.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/server/classes/Server.cpp.o: ../server/classes/Server.cpp
 CMakeFiles/Server.dir/server/classes/Server.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Server.dir/server/classes/Server.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/server/classes/Server.cpp.o -MF CMakeFiles/Server.dir/server/classes/Server.cpp.o.d -o CMakeFiles/Server.dir/server/classes/Server.cpp.o -c /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/Server.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Server.dir/server/classes/Server.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/server/classes/Server.cpp.o -MF CMakeFiles/Server.dir/server/classes/Server.cpp.o.d -o CMakeFiles/Server.dir/server/classes/Server.cpp.o -c /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/Server.cpp
 
 CMakeFiles/Server.dir/server/classes/Server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/server/classes/Server.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/Server.cpp > CMakeFiles/Server.dir/server/classes/Server.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/Server.cpp > CMakeFiles/Server.dir/server/classes/Server.cpp.i
 
 CMakeFiles/Server.dir/server/classes/Server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/server/classes/Server.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/Server.cpp -o CMakeFiles/Server.dir/server/classes/Server.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/Server.cpp -o CMakeFiles/Server.dir/server/classes/Server.cpp.s
 
 CMakeFiles/Server.dir/shared/classes/Socket.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/shared/classes/Socket.cpp.o: ../shared/classes/Socket.cpp
 CMakeFiles/Server.dir/shared/classes/Socket.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Server.dir/shared/classes/Socket.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/shared/classes/Socket.cpp.o -MF CMakeFiles/Server.dir/shared/classes/Socket.cpp.o.d -o CMakeFiles/Server.dir/shared/classes/Socket.cpp.o -c /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/classes/Socket.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Server.dir/shared/classes/Socket.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/shared/classes/Socket.cpp.o -MF CMakeFiles/Server.dir/shared/classes/Socket.cpp.o.d -o CMakeFiles/Server.dir/shared/classes/Socket.cpp.o -c /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/classes/Socket.cpp
 
 CMakeFiles/Server.dir/shared/classes/Socket.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/shared/classes/Socket.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/classes/Socket.cpp > CMakeFiles/Server.dir/shared/classes/Socket.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/classes/Socket.cpp > CMakeFiles/Server.dir/shared/classes/Socket.cpp.i
 
 CMakeFiles/Server.dir/shared/classes/Socket.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/shared/classes/Socket.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/classes/Socket.cpp -o CMakeFiles/Server.dir/shared/classes/Socket.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/classes/Socket.cpp -o CMakeFiles/Server.dir/shared/classes/Socket.cpp.s
 
 CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o: ../server/classes/ClientsTable.cpp
 CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o -MF CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o.d -o CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o -c /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o -MF CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o.d -o CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o -c /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp
 
 CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp > CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp > CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.i
 
 CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp -o CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp -o CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.s
 
 CMakeFiles/Server.dir/server/classes/SumTable.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/server/classes/SumTable.cpp.o: ../server/classes/SumTable.cpp
 CMakeFiles/Server.dir/server/classes/SumTable.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Server.dir/server/classes/SumTable.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/server/classes/SumTable.cpp.o -MF CMakeFiles/Server.dir/server/classes/SumTable.cpp.o.d -o CMakeFiles/Server.dir/server/classes/SumTable.cpp.o -c /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/SumTable.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Server.dir/server/classes/SumTable.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/server/classes/SumTable.cpp.o -MF CMakeFiles/Server.dir/server/classes/SumTable.cpp.o.d -o CMakeFiles/Server.dir/server/classes/SumTable.cpp.o -c /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/SumTable.cpp
 
 CMakeFiles/Server.dir/server/classes/SumTable.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/server/classes/SumTable.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/SumTable.cpp > CMakeFiles/Server.dir/server/classes/SumTable.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/SumTable.cpp > CMakeFiles/Server.dir/server/classes/SumTable.cpp.i
 
 CMakeFiles/Server.dir/server/classes/SumTable.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/server/classes/SumTable.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/SumTable.cpp -o CMakeFiles/Server.dir/server/classes/SumTable.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/SumTable.cpp -o CMakeFiles/Server.dir/server/classes/SumTable.cpp.s
 
 # Object files for target Server
 Server_OBJECTS = \
@@ -157,7 +157,7 @@ Server: CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o
 Server: CMakeFiles/Server.dir/server/classes/SumTable.cpp.o
 Server: CMakeFiles/Server.dir/build.make
 Server: CMakeFiles/Server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -169,6 +169,6 @@ CMakeFiles/Server.dir/clean:
 .PHONY : CMakeFiles/Server.dir/clean
 
 CMakeFiles/Server.dir/depend:
-	cd /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151 /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151 /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles/Server.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151 /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151 /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles/Server.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Server.dir/depend
 

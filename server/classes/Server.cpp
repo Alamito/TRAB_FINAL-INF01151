@@ -5,7 +5,7 @@
 //criar o server passando IP e porta
 
 std::string myIP = "127.0.0.1"; // Como std::string, não como #define
-const int myPORT = 4000;
+const int myPORT = 4002;
 
 using namespace std; 
 
@@ -44,7 +44,7 @@ void Server::sumRequisitionResponse(int value, int seqn, string clientIp){
         //cout << "requisicao repitida" << endl; 
 
         /*limpar tela*/
-        system("clear");  // Limpa a tela no terminal
+        //system("clear");  // Limpa a tela no terminal
         this->clientsTable.printTable();
         this->sumTable.printTable();
         cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
@@ -63,7 +63,7 @@ void Server::sumRequisitionResponse(int value, int seqn, string clientIp){
     this->clientsTable.updateClient(clientIp, seqn, value, this->sumTable.getSum()); 
     
     /*limpar tela*/
-    system("clear");  // Limpa a tela no terminal
+    //system("clear");  // Limpa a tela no terminal
     this->clientsTable.printTable();
     this->sumTable.printTable();
     cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
@@ -78,7 +78,7 @@ void Server::discoverRequisitionResponse(const std::string& clientIp){
     this->sendDiscoverAck(clientIp);
     this->clientsTable.addClient(client);
 
-    system("clear");  // Limpa a tela no terminal
+    //system("clear");  // Limpa a tela no terminal
     this->clientsTable.printTable();
 }
 
@@ -89,13 +89,24 @@ void Server::sendMessageAck(clientData client) {
     //cout << "Requisition Number: " << client.lastReq << endl;
     //cout << "Ultimo valor pedido: " << client.lastSum << endl; 
     //cout << "Soma total: " << client.totalSum << endl << endl;
+    packet ackPacket;
+    ackPacket.type = REQ_ACK;
+    ackPacket.ack.total_sum = client.totalSum;
+    ackPacket.ack.seqn = client.lastReq;
+    ackPacket.ack.num_reqs = this -> sumTable.getRequests();
 
+    this -> socketHandler.send(&ackPacket, sizeof(packet), client.IP, 4002);
 }
     //nao precisa criar mais threads, a de soma do servidor ja eh uma thread
+
+
 void Server::sendDiscoverAck(const std::string& clientIp) {
-    //cout << "mandando mensagem de Discover de requisicao" << endl; 
+    cout << "mandando mensagem de Discover de requisicao" << endl; 
+    packet ackPacket;
+    ackPacket.type = DESC_ACK;
+
+    this -> socketHandler.send(&ackPacket, sizeof(packet), clientIp, 4002);
 
 }
-
 
 

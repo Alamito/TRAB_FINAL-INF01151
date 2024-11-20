@@ -1,3 +1,3 @@
-/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles/Server.dir
-/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles/edit_cache.dir
-/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles/Server.dir
+/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles/rebuild_cache.dir

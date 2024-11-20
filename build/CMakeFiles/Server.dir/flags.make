@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/include -I/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/classes/include -I/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/client/classes/include -I/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/include
+CXX_INCLUDES = -I/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/include -I/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/classes/include -I/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/client/classes/include -I/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/include
 
 CXX_FLAGS = -g -g -std=gnu++11
 

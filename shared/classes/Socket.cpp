@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <cstring>
 #include <string>
+#include <iostream>
 
 Socket::Socket(const std::string& ip, int port)
     : ip(ip), port(port), socketFd(-1) {}
@@ -39,6 +40,8 @@ void Socket::bind() {
 }
 
 ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, int destPort) const {
+    std::cout << "chamei o send";
+    
     if (socketFd < 0) {
         throw std::runtime_error("Socket não inicializado corretamente");
     }

@@ -1,8 +1,8 @@
 CMakeFiles/Server.dir/server/classes/Server.cpp.o: \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/Server.cpp \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/Server.cpp \
  /usr/include/stdc-predef.h \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/include/Server.h \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/classes/include/Socket.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/include/Server.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/classes/include/Socket.h \
  /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -147,8 +147,8 @@ CMakeFiles/Server.dir/server/classes/Server.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
  /usr/include/arpa/inet.h \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/shared/include/packets.h \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/include/SumTable.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/include/packets.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/include/SumTable.h \
  /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
  /usr/include/c++/11/ios /usr/include/c++/11/exception \
  /usr/include/c++/11/bits/exception_ptr.h \
@@ -182,7 +182,7 @@ CMakeFiles/Server.dir/server/classes/Server.cpp.o: \
  /usr/include/c++/11/bits/std_thread.h /usr/include/c++/11/bits/refwrap.h \
  /usr/include/c++/11/bits/unique_ptr.h \
  /usr/include/c++/11/bits/this_thread_sleep.h \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/include/ClientsTable.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/include/ClientsTable.h \
  /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
  /usr/include/c++/11/bits/allocated_ptr.h \
  /usr/include/c++/11/ext/aligned_buffer.h \
