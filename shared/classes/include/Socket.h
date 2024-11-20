@@ -15,7 +15,11 @@ class Socket {
         struct sockaddr_in serverAddr;
 
     public:
+<<<<<<< HEAD
+        Socket(const std::string& ip = "127.0.0.1", int port = 8080);
+=======
         Socket(const std::string& ip, int port);
+>>>>>>> main
         void create();
         void bind();  // Agora simplificado para apenas UDP
         ssize_t send(const void* data, size_t size, const std::string& destIp, int destPort) const;

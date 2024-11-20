@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "Message.h"
+#include "Socket.h"
 
 using namespace std;
 
@@ -16,11 +17,16 @@ class Client{
         int lastSum;
         string serverAdress;
 
+        Socket sockHandler;
+
     public:
         Client();
-        void sendSumRequisition(Message* mensagem, int numRequisition);
+        void sendSumRequisition(int numToSum);
         int listenTerminal();
-        void discoverServer(Message* mensagem);  
+        void discoverServer();
+        // void sendSumRequisition(Message* mensagem, int numRequisition);
+        // int listenTerminal();
+        // void discoverServer(Message* mensagem);  
 
         string getServerAdress();
 

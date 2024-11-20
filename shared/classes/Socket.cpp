@@ -8,7 +8,6 @@
 Socket::Socket(const std::string& ip, int port)
     : ip(ip), port(port), socketFd(-1) {}
 
-
 void Socket::create() {
     socketFd = socket(AF_INET, SOCK_DGRAM, 0);  // Cria um socket UDP
 
@@ -27,11 +26,13 @@ void Socket::create() {
         perror("Falha ao criar socket Broadcast");
         throw std::runtime_error("Failed to create socket");
     }
+
     
-    
-    //if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0) {
-    //    throw std::runtime_error("Endereço IP inválido para o socket");
-    //}
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(port);
+    if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0) {
+        throw std::runtime_error("Endereço IP inválido para o socket");
+    }
 }
 
 void Socket::bind() {
@@ -55,11 +56,13 @@ ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, i
         throw std::runtime_error("Endereço IP de destino inválido");
     }
 
-    printf("Tentando enviar dados:\n");
-    printf("  - socketFd: %d\n", socketFd);
-    printf("  - destIp: %s\n", destIp.c_str());
-    printf("  - destPort: %d\n", destPort);
-    printf("  - data size: %zu\n", size);
+    // printf("Tentando enviar dados:\n");
+    // printf("  - socketFd: %d\n", socketFd);
+    // printf("  - destIp: %s\n", destIp.c_str());
+    // printf("  - destPort: %d\n", destPort);
+    // printf("  - data size: %zu\n", size);
+
+    //printf("\nMensagem enviada para %s na porta %d", destIp.c_str(), destPort);
 
     ssize_t bytesSent = sendto(socketFd, data, size, 0, (struct sockaddr*)&destAddr, sizeof(destAddr));
     if (bytesSent == -1) {
@@ -74,7 +77,7 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
     socklen_t addrLen = sizeof(srcAddr);
 
     struct timeval timeout;
-    timeout.tv_sec = 1;
+    timeout.tv_sec = 5;
     timeout.tv_usec = 0;
     fd_set readfds;
     FD_ZERO(&readfds);
@@ -96,13 +99,12 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
     inet_ntop(AF_INET, &(srcAddr.sin_addr), ip_temp, INET_ADDRSTRLEN);
     senderIp = ip_temp;
 
-
     if (bytesReceived < 0) {
         perror("Erro ao receber a mensagem");
     } else if (bytesReceived == 0) {
         printf("Conexão fechada ao receber a mensagem.\n");
     } else {
-        //printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
+        printf("\n");//printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
     }
 
     return bytesReceived;

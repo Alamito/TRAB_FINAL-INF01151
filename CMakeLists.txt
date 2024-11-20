@@ -48,7 +48,12 @@ add_executable(Server
     shared/classes/Socket.cpp
     server/classes/ClientsTable.cpp
     server/classes/SumTable.cpp
+)
 
+add_executable(Client
+    client/mainClient.cpp
+    client/classes/Client.cpp
+    shared/classes/Socket.cpp
 )
 
 #Linkar com o Google Test
