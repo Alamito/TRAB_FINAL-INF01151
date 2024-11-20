@@ -35,6 +35,13 @@ add_executable(Tables
     server/classes/SumTable.cpp
 )
 
+add_executable(Client
+    client/mainClient.cpp
+    client/classes/Client.cpp
+    shared/classes/Socket.cpp
+    shared/classes/Message.cpp
+)
+
 
 #Linkar com o Google Test
 #target_link_libraries(SocketTest gtest gtest_main pthread)

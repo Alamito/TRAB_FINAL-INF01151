@@ -11,8 +11,8 @@ Message::Message(int numberToSum, const std::string& recipientIp, int recipientP
     sender = Socket(senderIp, senderPort);         
 }
 
-void Message::send() {
-    sender.create();
+void Message::send(int isBroadcast) {
+    sender.create(isBroadcast);
     printf("Cliente: Socket criado e vinculado à porta %d\n", sender.getPort());
 
     int netOrderNumber = htonl(numberToSum);  // Converte para Big-endian
@@ -26,6 +26,10 @@ void Message::send() {
         printf("Cliente: Erro ao enviar: %s\n", e.what());
         throw;
     }
+
+    //APENAS TEMPORARIO
+    sender.close();
+    recipient.close();
 }
 
 ServerResponse Message::waitAck() {
@@ -55,4 +59,20 @@ ServerResponse Message::waitAck() {
 
     printf("Cliente: Tentativas esgotadas\n");
     return {"", 0.0};  // Retorna uma struct vazia indicando falha
+}
+
+void Message::readServerAdress(){
+    return;
+}
+
+void Message::setType(char* newType){
+    this->type = *newType;
+}
+
+void Message::setNumberToSum(int newNum){
+    this->numberToSum = newNum;
+}
+
+void Message::setRecipient(std::string newIP){
+    this->recipient = Socket(newIP, 8080);
 }
