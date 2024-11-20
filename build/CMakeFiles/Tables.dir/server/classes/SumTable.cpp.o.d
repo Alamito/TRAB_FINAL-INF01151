@@ -1,7 +1,7 @@
 CMakeFiles/Tables.dir/server/classes/SumTable.cpp.o: \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/SumTable.cpp \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/SumTable.cpp \
  /usr/include/stdc-predef.h \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/include/SumTable.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/include/SumTable.h \
  /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

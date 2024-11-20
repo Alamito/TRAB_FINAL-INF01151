@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151
+# Install script for directory: /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

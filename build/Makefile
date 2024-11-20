@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151
+CMAKE_SOURCE_DIR = /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build
+CMAKE_BINARY_DIR = /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,67 @@ Tables: cmake_check_build_system
 Tables/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/build
 .PHONY : Tables/fast
+
+#=============================================================================
+# Target rules for targets named Client
+
+# Build rule for target.
+Client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Client
+.PHONY : Client
+
+# fast build rule for target.
+Client/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
+.PHONY : Client/fast
+
+client/classes/Client.o: client/classes/Client.cpp.o
+.PHONY : client/classes/Client.o
+
+# target to build an object file
+client/classes/Client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/classes/Client.cpp.o
+.PHONY : client/classes/Client.cpp.o
+
+client/classes/Client.i: client/classes/Client.cpp.i
+.PHONY : client/classes/Client.i
+
+# target to preprocess a source file
+client/classes/Client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/classes/Client.cpp.i
+.PHONY : client/classes/Client.cpp.i
+
+client/classes/Client.s: client/classes/Client.cpp.s
+.PHONY : client/classes/Client.s
+
+# target to generate assembly for a file
+client/classes/Client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/classes/Client.cpp.s
+.PHONY : client/classes/Client.cpp.s
+
+client/mainClient.o: client/mainClient.cpp.o
+.PHONY : client/mainClient.o
+
+# target to build an object file
+client/mainClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/mainClient.cpp.o
+.PHONY : client/mainClient.cpp.o
+
+client/mainClient.i: client/mainClient.cpp.i
+.PHONY : client/mainClient.i
+
+# target to preprocess a source file
+client/mainClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/mainClient.cpp.i
+.PHONY : client/mainClient.cpp.i
+
+client/mainClient.s: client/mainClient.cpp.s
+.PHONY : client/mainClient.s
+
+# target to generate assembly for a file
+client/mainClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/mainClient.cpp.s
+.PHONY : client/mainClient.cpp.s
 
 server/classes/ClientsTable.o: server/classes/ClientsTable.cpp.o
 .PHONY : server/classes/ClientsTable.o
@@ -201,6 +262,30 @@ server/mainServer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/mainServer.cpp.s
 .PHONY : server/mainServer.cpp.s
 
+shared/classes/Socket.o: shared/classes/Socket.cpp.o
+.PHONY : shared/classes/Socket.o
+
+# target to build an object file
+shared/classes/Socket.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/shared/classes/Socket.cpp.o
+.PHONY : shared/classes/Socket.cpp.o
+
+shared/classes/Socket.i: shared/classes/Socket.cpp.i
+.PHONY : shared/classes/Socket.i
+
+# target to preprocess a source file
+shared/classes/Socket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/shared/classes/Socket.cpp.i
+.PHONY : shared/classes/Socket.cpp.i
+
+shared/classes/Socket.s: shared/classes/Socket.cpp.s
+.PHONY : shared/classes/Socket.s
+
+# target to generate assembly for a file
+shared/classes/Socket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/shared/classes/Socket.cpp.s
+.PHONY : shared/classes/Socket.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -209,7 +294,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... Client"
 	@echo "... Tables"
+	@echo "... client/classes/Client.o"
+	@echo "... client/classes/Client.i"
+	@echo "... client/classes/Client.s"
+	@echo "... client/mainClient.o"
+	@echo "... client/mainClient.i"
+	@echo "... client/mainClient.s"
 	@echo "... server/classes/ClientsTable.o"
 	@echo "... server/classes/ClientsTable.i"
 	@echo "... server/classes/ClientsTable.s"
@@ -219,6 +311,9 @@ help:
 	@echo "... server/mainServer.o"
 	@echo "... server/mainServer.i"
 	@echo "... server/mainServer.s"
+	@echo "... shared/classes/Socket.o"
+	@echo "... shared/classes/Socket.i"
+	@echo "... shared/classes/Socket.s"
 .PHONY : help
 
 

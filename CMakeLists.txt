@@ -39,7 +39,6 @@ add_executable(Client
     client/mainClient.cpp
     client/classes/Client.cpp
     shared/classes/Socket.cpp
-    shared/classes/Message.cpp
 )
 
 

@@ -1,8 +1,6 @@
-CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.o: \
- /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp \
- /usr/include/stdc-predef.h \
- /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/include/ClientsTable.h \
- /usr/include/c++/11/iostream \
+CMakeFiles/Client.dir/client/mainClient.cpp.o: \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/client/mainClient.cpp \
+ /usr/include/stdc-predef.h /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -145,19 +143,40 @@ CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.o: \
  /usr/include/c++/11/bits/locale_facets.tcc \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
- /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/list \
- /usr/include/c++/11/bits/stl_list.h \
- /usr/include/c++/11/bits/allocated_ptr.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/mutex \
+ /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/chrono \
+ /usr/include/c++/11/ratio /usr/include/c++/11/limits \
+ /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
  /usr/include/c++/11/tuple /usr/include/c++/11/utility \
  /usr/include/c++/11/bits/stl_relops.h /usr/include/c++/11/array \
  /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h /usr/include/c++/11/chrono \
- /usr/include/c++/11/ratio /usr/include/c++/11/limits \
- /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
- /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/thread \
- /usr/include/c++/11/bits/std_thread.h /usr/include/c++/11/bits/refwrap.h \
+ /usr/include/c++/11/bits/invoke.h /usr/include/c++/11/bits/refwrap.h \
  /usr/include/c++/11/bits/unique_ptr.h \
- /usr/include/c++/11/bits/this_thread_sleep.h
+ /usr/include/c++/11/bits/this_thread_sleep.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/client/classes/include/Client.h \
+ /usr/include/string.h /usr/include/strings.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/classes/include/Message.h \
+ /usr/include/c++/11/map /usr/include/c++/11/bits/stl_tree.h \
+ /usr/include/c++/11/ext/aligned_buffer.h \
+ /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/bits/stl_multimap.h \
+ /usr/include/c++/11/bits/erase_if.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/shared/classes/include/Socket.h \
+ /usr/include/x86_64-linux-gnu/sys/socket.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
+ /usr/include/x86_64-linux-gnu/bits/socket.h \
+ /usr/include/x86_64-linux-gnu/bits/socket_type.h \
+ /usr/include/x86_64-linux-gnu/bits/sockaddr.h \
+ /usr/include/x86_64-linux-gnu/asm/socket.h \
+ /usr/include/asm-generic/socket.h /usr/include/linux/posix_types.h \
+ /usr/include/linux/stddef.h \
+ /usr/include/x86_64-linux-gnu/asm/posix_types.h \
+ /usr/include/x86_64-linux-gnu/asm/posix_types_64.h \
+ /usr/include/asm-generic/posix_types.h \
+ /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
+ /usr/include/asm-generic/bitsperlong.h \
+ /usr/include/x86_64-linux-gnu/asm/sockios.h \
+ /usr/include/asm-generic/sockios.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
+ /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
+ /usr/include/arpa/inet.h

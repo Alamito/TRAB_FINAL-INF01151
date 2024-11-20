@@ -1,5 +1,5 @@
 CMakeFiles/Tables.dir/server/mainServer.cpp.o: \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/mainServer.cpp \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/mainServer.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/thread \
  /usr/include/c++/11/bits/std_thread.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
@@ -101,7 +101,7 @@ CMakeFiles/Tables.dir/server/mainServer.cpp.o: \
  /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/include/ClientsTable.h \
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/include/ClientsTable.h \
  /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
  /usr/include/c++/11/ios /usr/include/c++/11/bits/char_traits.h \
  /usr/include/c++/11/bits/localefwd.h \
@@ -161,4 +161,4 @@ CMakeFiles/Tables.dir/server/mainServer.cpp.o: \
  /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/mutex \
  /usr/include/c++/11/bits/std_mutex.h \
  /usr/include/c++/11/bits/unique_lock.h \
- /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/include/SumTable.h
+ /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/include/SumTable.h

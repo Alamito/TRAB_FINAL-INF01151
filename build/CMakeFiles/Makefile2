@@ -54,16 +54,17 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151
+CMAKE_SOURCE_DIR = /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build
+CMAKE_BINARY_DIR = /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
 all: CMakeFiles/Tables.dir/all
+all: CMakeFiles/Client.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +73,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/Tables.dir/clean
+clean: CMakeFiles/Client.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -81,14 +83,14 @@ clean: CMakeFiles/Tables.dir/clean
 CMakeFiles/Tables.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=1,2,3,4 "Built target Tables"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=5,6,7,8 "Built target Tables"
 .PHONY : CMakeFiles/Tables.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Tables.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Tables.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles 0
 .PHONY : CMakeFiles/Tables.dir/rule
 
 # Convenience name for target.
@@ -99,6 +101,32 @@ Tables: CMakeFiles/Tables.dir/rule
 CMakeFiles/Tables.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/clean
 .PHONY : CMakeFiles/Tables.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/Client.dir
+
+# All Build rule for target.
+CMakeFiles/Client.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=1,2,3,4 "Built target Client"
+.PHONY : CMakeFiles/Client.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/Client.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Client.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/build/CMakeFiles 0
+.PHONY : CMakeFiles/Client.dir/rule
+
+# Convenience name for target.
+Client: CMakeFiles/Client.dir/rule
+.PHONY : Client
+
+# clean rule for target.
+CMakeFiles/Client.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/clean
+.PHONY : CMakeFiles/Client.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

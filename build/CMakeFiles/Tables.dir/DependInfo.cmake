@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp" "CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.o" "gcc" "CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.o.d"
-  "/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/classes/SumTable.cpp" "CMakeFiles/Tables.dir/server/classes/SumTable.cpp.o" "gcc" "CMakeFiles/Tables.dir/server/classes/SumTable.cpp.o.d"
-  "/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/server/mainServer.cpp" "CMakeFiles/Tables.dir/server/mainServer.cpp.o" "gcc" "CMakeFiles/Tables.dir/server/mainServer.cpp.o.d"
+  "/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/ClientsTable.cpp" "CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.o" "gcc" "CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.o.d"
+  "/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/classes/SumTable.cpp" "CMakeFiles/Tables.dir/server/classes/SumTable.cpp.o" "gcc" "CMakeFiles/Tables.dir/server/classes/SumTable.cpp.o.d"
+  "/mnt/c/Users/caues/Documents/Cadeiras_UFRGS/Sistemas_Operacionais_2/TRAB_FINAL-INF01151/server/mainServer.cpp" "CMakeFiles/Tables.dir/server/mainServer.cpp.o" "gcc" "CMakeFiles/Tables.dir/server/mainServer.cpp.o.d"
   )
 
 # Targets to which this target links.
