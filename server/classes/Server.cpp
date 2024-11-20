@@ -5,7 +5,7 @@
 //criar o server passando IP e porta
 
 std::string myIP = "127.0.0.1"; // Como std::string, não como #define
-const int myPORT = 4002;
+const int myPORT = 4000;
 
 using namespace std; 
 
@@ -95,7 +95,7 @@ void Server::sendMessageAck(clientData client) {
     ackPacket.ack.seqn = client.lastReq;
     ackPacket.ack.num_reqs = this -> sumTable.getRequests();
 
-    this -> socketHandler.send(&ackPacket, sizeof(packet), client.IP, 4002);
+    this -> socketHandler.send(&ackPacket, sizeof(packet), client.IP, 4000);
 }
     //nao precisa criar mais threads, a de soma do servidor ja eh uma thread
 
@@ -105,7 +105,7 @@ void Server::sendDiscoverAck(const std::string& clientIp) {
     packet ackPacket;
     ackPacket.type = DESC_ACK;
 
-    this -> socketHandler.send(&ackPacket, sizeof(packet), clientIp, 4002);
+    this -> socketHandler.send(&ackPacket, sizeof(packet), clientIp, 4000);
 
 }
 

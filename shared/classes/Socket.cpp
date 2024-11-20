@@ -41,7 +41,7 @@ void Socket::bind() {
 }
 
 ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, int destPort) const {
-    std::cout << "chamei o send";
+    //std::cout << "chamei o send";
     
     if (socketFd < 0) {
         throw std::runtime_error("Socket não inicializado corretamente");
@@ -88,7 +88,7 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
         perror("Erro ao usar select");
         return -1;
     } else if (selectResult == 0) {
-        //printf("Timeout ao esperar pela mensagem.\n");
+        printf("Timeout ao esperar pela mensagem.\n");
         return 0;
     }
 
