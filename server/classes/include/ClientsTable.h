@@ -18,6 +18,7 @@ updateClient()
 struct clientData {
     int lastReq;
     int lastSum;
+    int totalSum; 
     std::string IP;
 };
 
@@ -37,7 +38,9 @@ class ClientsTable
         
         int addClient(clientData client);
         int deleteClient(std::string ip); //talvez nao precise
-        int updateClient(std::string ip, int req, int sum); //talvez nao precise
+        int updateClient(std::string ip, int req, int value, int sum); //talvez nao precise
+        clientData getClient(std::string ip); 
+
 
         void printTable();
 };

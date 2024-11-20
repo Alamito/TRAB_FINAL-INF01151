@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <cstring>
 #include <string>
+#include <iostream>
 
 Socket::Socket(const std::string& ip, int port)
     : ip(ip), port(port), socketFd(-1) {}
@@ -27,9 +28,11 @@ void Socket::create() {
     }
 
     
-    //if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0) {
-    //    throw std::runtime_error("Endereço IP inválido para o socket");
-    //}
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(port);
+    if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0) {
+        throw std::runtime_error("Endereço IP inválido para o socket");
+    }
 }
 
 void Socket::bind() {
@@ -38,6 +41,8 @@ void Socket::bind() {
 }
 
 ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, int destPort) const {
+    std::cout << "chamei o send";
+    
     if (socketFd < 0) {
         throw std::runtime_error("Socket não inicializado corretamente");
     }
@@ -83,7 +88,7 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
         perror("Erro ao usar select");
         return -1;
     } else if (selectResult == 0) {
-        printf("Timeout ao esperar pela mensagem.\n");
+        //printf("Timeout ao esperar pela mensagem.\n");
         return 0;
     }
 
@@ -103,13 +108,11 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
     }
 
     return bytesReceived;
+
 }
 
-    //void buf[sizeBuffer]; 
-    //receive(buf, sizeBuffer); 
-    //packet packetReceived; 
-    //memcpy(&packetReceived, buf, sizeof(packet));
-    //printf("tipo = %i", packetReceived.type); 
+
+
 
 void Socket::close() {
     if (socketFd >= 0) {

@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "packets.h"
 
 class Socket {
     private:
@@ -14,7 +15,11 @@ class Socket {
         struct sockaddr_in serverAddr;
 
     public:
+<<<<<<< HEAD
         Socket(const std::string& ip = "127.0.0.1", int port = 8080);
+=======
+        Socket(const std::string& ip, int port);
+>>>>>>> main
         void create();
         void bind();  // Agora simplificado para apenas UDP
         ssize_t send(const void* data, size_t size, const std::string& destIp, int destPort) const;
@@ -22,7 +27,7 @@ class Socket {
         void close();
         ~Socket();
 
-        std::string getIp() const { return ip; }
+        void getLocalIp(char *buffer, size_t buffer_len); 
         int getPort() const { return port; }
         int getSocketFd() const { return socketFd; }
 };
