@@ -46,10 +46,8 @@ int main(int argc, char *argv[])
 					
 	char buffer[256];
 	packet pacote;
-	pacote.type = 2;
-	pacote.req.value = 20;
-	pacote.seqn = 4;
-	printf("%d", pacote.req.value);
+	pacote.type = 1;
+	
 	if (argc < 2) {
 		fprintf(stderr, "usage %s hostname\n", argv[0]);
 		exit(0);

@@ -1,5 +1,6 @@
 #include <thread>
 #include "Server.h"
+#include <cstring>
 
 using namespace std;
 
@@ -10,17 +11,27 @@ int main(){
     packet receivedPacket; 
     string clientIp;
 
-    while(1){
-        clientIp = server.receiveMessage(&receivedPacket);
 
-        if(packetReceived.type == DESC){
-            thread(&Server::discoverRequisitionResponse, ref(server),clientIp);
+    while(1){
+
+        memset(&receivedPacket, 0, sizeof(packet));
+        clientIp = server.receiveMessage(&receivedPacket);
+        if(receivedPacket.type == DESC){
+            thread d(&Server::discoverRequisitionResponse, ref(server),clientIp);
+            d.detach();
         }
-        else if(packetReceived.type == REQ){
-            //cria a thread que vai lidar com essa requisicao
-            thread(&Server::sumRequisitionResponse, ref(server), packetReceived.req.value, packetReceived.seqn, clientIp);        
+        
+        
+        else if(receivedPacket.type == REQ){
+        //    //cria a thread que vai lidar com essa requisicao
+
+            std::thread t(&Server::sumRequisitionResponse, std::ref(server), receivedPacket.req.value, receivedPacket.seqn, clientIp);
+            t.detach(); // Ou t.join();
+            
+        
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        
     }
 
     /*criacao do socket UDP*/

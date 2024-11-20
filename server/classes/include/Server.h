@@ -19,11 +19,13 @@ class Server
     public:
         /*constructor*/
         Server(); 
-        int receiveMessage(); 
+        std::string receiveMessage(packet * packetReceived_pt);
+        void sumRequisitionResponse(int value, int numReq, string clientIp);
+        void discoverRequisitionResponse(const std::string& clientIp);
+        void sendMessageAck(clientData client);
+        void sendDiscoverAck(const std::string& clientIp);
+
 };
-
-
-
 
 
 #endif

@@ -857,7 +857,10 @@ CMakeFiles/Server.dir/server/mainServer.cpp.o: ../server/mainServer.cpp \
   /usr/include/c++/11/bits/stl_list.h \
   /usr/include/c++/11/bits/allocated_ptr.h \
   /usr/include/c++/11/ext/aligned_buffer.h \
-  /usr/include/c++/11/bits/list.tcc
+  /usr/include/c++/11/bits/list.tcc \
+  /usr/include/c++/11/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h
 
 CMakeFiles/Server.dir/shared/classes/Socket.cpp.o: ../shared/classes/Socket.cpp \
   /usr/include/stdc-predef.h \

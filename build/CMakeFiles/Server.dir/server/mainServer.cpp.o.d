@@ -182,4 +182,5 @@ CMakeFiles/Server.dir/server/mainServer.cpp.o: \
  /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
  /usr/include/c++/11/bits/allocated_ptr.h \
  /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/list.tcc
+ /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/cstring \
+ /usr/include/string.h /usr/include/strings.h

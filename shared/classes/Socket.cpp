@@ -82,7 +82,7 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
         perror("Erro ao usar select");
         return -1;
     } else if (selectResult == 0) {
-        printf("Timeout ao esperar pela mensagem.\n");
+        //printf("Timeout ao esperar pela mensagem.\n");
         return 0;
     }
 
@@ -93,15 +93,17 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
     inet_ntop(AF_INET, &(srcAddr.sin_addr), ip_temp, INET_ADDRSTRLEN);
     senderIp = ip_temp;
 
+
     if (bytesReceived < 0) {
         perror("Erro ao receber a mensagem");
     } else if (bytesReceived == 0) {
         printf("Conexão fechada ao receber a mensagem.\n");
     } else {
-        printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
+        //printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
     }
 
     return bytesReceived;
+
 }
 
 
