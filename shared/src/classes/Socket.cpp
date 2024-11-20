@@ -21,6 +21,7 @@ void Socket::create(int isBroadcast) {
             throw std::runtime_error("Failed to create socket");
         }
     }
+    
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(port);
     if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0) {

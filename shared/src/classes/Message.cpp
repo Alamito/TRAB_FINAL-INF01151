@@ -61,6 +61,10 @@ ServerResponse Message::waitAck() {
     return {"", 0.0};  // Retorna uma struct vazia indicando falha
 }
 
+void Message::readServerAdress(){
+    return;
+}
+
 void Message::setType(char* newType){
     this->type = *newType;
 }

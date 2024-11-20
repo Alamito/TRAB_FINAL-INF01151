@@ -10,7 +10,7 @@
 int main(){
 
     Client cliente;
-    Message mensagem(0, "255.255.255.255", 8080, "1.1.1.1", 4000);
+    Message mensagem(0, "255.255.255.255", 4000, "1.1.1.1", 4000);
     int numToSum;
 
     while(1){

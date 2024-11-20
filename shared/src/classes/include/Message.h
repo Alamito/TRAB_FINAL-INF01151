@@ -6,7 +6,7 @@
 #include <array>
 #include <Socket.h>
 
-constexpr std::array<const char*, 3> possibleTypes = {"sum", "ack", "discover"};
+//constexpr std::array<const char*, 3> possibleTypes = {"sum", "ack", "discover"};
 
 struct ServerResponse {
     char serverIp[INET_ADDRSTRLEN];
@@ -27,6 +27,7 @@ class Message {
 
         void send(int isBroadcast);
         ServerResponse waitAck();  // Alteração aqui
+        void readServerAdress();
 
         //getters
         int getNumberToSum() const { return numberToSum; }
