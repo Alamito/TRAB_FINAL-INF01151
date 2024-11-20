@@ -1,98 +1,112 @@
-#include <iostream>
+#include "Server.h"
 #include <cstring>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <netdb.h>
+#include <cstdlib>  // Para system()
 
-struct Data {
-    int id;
-    int value;
-};
+//criar o server passando IP e porta
 
-class Server {
-private:
-    int sockfd;
-    struct sockaddr_in servaddr, cliaddr;
-    const int PORT = 4000;
-    const int BUFFER_SIZE = 1024;
+std::string myIP = "127.0.0.1"; // Como std::string, não como #define
+const int myPORT = 4002;
 
-public:
-    Server() {
-        if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-            perror("Erro ao criar o socket");
-            exit(EXIT_FAILURE);
-        }
+using namespace std; 
 
-        memset(&servaddr, 0, sizeof(servaddr));
-        memset(&cliaddr, 0, sizeof(cliaddr));
-
-        servaddr.sin_family = AF_INET;
-        servaddr.sin_addr.s_addr = INADDR_ANY;
-        servaddr.sin_port = htons(PORT);
-
-        if (bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
-            perror("Erro ao fazer o bind");
-            close(sockfd);
-            exit(EXIT_FAILURE);
-        }
-
-        std::cout << "Servidor aguardando mensagens..." << std::endl;
-    }
-
-    ~Server() {
-        close(sockfd);
-    }
-
-    void run() {
-        char buffer[BUFFER_SIZE];
-        socklen_t len = sizeof(cliaddr);
-        Data data;
-        while (true) {
-            int n = recvfrom(sockfd, &data, sizeof(data), 0, (struct sockaddr *) &cliaddr, &len);
-
-            char client_ip[INET_ADDRSTRLEN];
-            inet_ntop(AF_INET, &(cliaddr.sin_addr), client_ip, INET_ADDRSTRLEN);
-
-            std::cout << "Mensagem recebida pelo servidor de " << client_ip << ": id = " << data.id << ", value = " << data.value << std::endl;
-
-            if (data.id == -1) {
-                // A mensagem que o cliente enviou é um broadcast
-                char local_ip[BUFFER_SIZE];
-                getLocalIp(local_ip, sizeof(local_ip));
-
-                snprintf(buffer, BUFFER_SIZE, "%s", local_ip);
-                sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr *) &cliaddr, len);
-
-                std::cout << "Broadcast! Resposta enviada ao cliente: " << buffer << std::endl;
-            } else {
-                // A mensagem que o cliente enviou é um dado
-                std::cout << "Dado recebido do cliente: id = " << data.id << ", value = " << data.value << std::endl;
-            }
-
-        }
-    }
-
-private:
-    void getLocalIp(char *buffer, size_t buffer_len) {
-        char hostname[1024];
-        struct hostent *host_entry;
-
-        if (gethostname(hostname, sizeof(hostname)) == -1) {
-            perror("Erro ao obter o nome do host");
-            exit(EXIT_FAILURE);
-        }
-
-        if ((host_entry = gethostbyname(hostname)) == NULL) {
-            perror("Erro ao obter informações do host");
-            exit(EXIT_FAILURE);
-        }
-
-        strncpy(buffer, inet_ntoa(*((struct in_addr*) host_entry->h_addr_list[0])), buffer_len);
-    }
-};
-
-int main() {
-    Server server;
-    server.run();
-    return 0;
+Server::Server()
+    : socketHandler(myIP, myPORT),
+      sumTable(),
+      clientsTable()
+{
+    this->socketHandler.create(); 
+    this->socketHandler.bind(); 
 }
+
+std::string Server::receiveMessage(packet * packetReceived_pt) {
+
+    char buf[SIZE_BUFFER]; 
+    string clientIp; 
+
+    buf[0] = '\0';
+
+    while(1){
+        this->socketHandler.receive(buf, SIZE_BUFFER, clientIp);
+        memcpy(packetReceived_pt, buf, sizeof(packet));
+
+        if(buf[0] != '\0'){
+         
+            return clientIp; //retorna de quem recebeu a mensagem
+        }
+    }          
+}    
+
+void Server::sumRequisitionResponse(int value, int seqn, string clientIp){
+    
+    clientData auxClient = clientsTable.getClient(clientIp);
+        
+    if(auxClient.lastReq == seqn){
+        //cout << "requisicao repitida" << endl; 
+
+        /*limpar tela*/
+        //system("clear");  // Limpa a tela no terminal
+        this->clientsTable.printTable();
+        this->sumTable.printTable();
+        cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
+
+
+        this->sendMessageAck(auxClient);
+        return; 
+    }
+
+    auxClient.lastReq = seqn;
+    auxClient.lastSum = value;
+    auxClient.totalSum = this->sumTable.updateTable(value);
+    
+    this->sendMessageAck(auxClient);
+    
+    this->clientsTable.updateClient(clientIp, seqn, value, this->sumTable.getSum()); 
+    
+    /*limpar tela*/
+    //system("clear");  // Limpa a tela no terminal
+    this->clientsTable.printTable();
+    this->sumTable.printTable();
+    cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
+    //uint16_t seqn;      //Número de sequência que está sendo feito o ack
+    //uint16_t num_reqs;  // Quantidade de requisições
+    //uint16_t total_sum; 
+}
+
+void Server::discoverRequisitionResponse(const std::string& clientIp){
+    clientData client = {0,0,0,clientIp};
+    /*manda o ack independentemente*/
+    this->sendDiscoverAck(clientIp);
+    this->clientsTable.addClient(client);
+
+    //system("clear");  // Limpa a tela no terminal
+    this->clientsTable.printTable();
+}
+
+
+void Server::sendMessageAck(clientData client) {
+
+    //cout << endl << "Ip pra mandar: " << client.IP << endl;
+    //cout << "Requisition Number: " << client.lastReq << endl;
+    //cout << "Ultimo valor pedido: " << client.lastSum << endl; 
+    //cout << "Soma total: " << client.totalSum << endl << endl;
+    packet ackPacket;
+    ackPacket.type = REQ_ACK;
+    ackPacket.ack.total_sum = client.totalSum;
+    ackPacket.ack.seqn = client.lastReq;
+    ackPacket.ack.num_reqs = this -> sumTable.getRequests();
+
+    this -> socketHandler.send(&ackPacket, sizeof(packet), client.IP, 4002);
+}
+    //nao precisa criar mais threads, a de soma do servidor ja eh uma thread
+
+
+void Server::sendDiscoverAck(const std::string& clientIp) {
+    cout << "mandando mensagem de Discover de requisicao" << endl; 
+    packet ackPacket;
+    ackPacket.type = DESC_ACK;
+
+    this -> socketHandler.send(&ackPacket, sizeof(packet), clientIp, 4002);
+
+}
+
+

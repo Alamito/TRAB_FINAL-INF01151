@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -g CMakeFiles/Server.dir/server/mainServer.cpp.o CMakeFiles/Server.dir/server/classes/Server.cpp.o CMakeFiles/Server.dir/shared/classes/Socket.cpp.o CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o CMakeFiles/Server.dir/server/classes/SumTable.cpp.o -o Server 
