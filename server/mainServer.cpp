@@ -1,11 +1,32 @@
 #include <thread>
-
 #include "ClientsTable.h"
 #include "SumTable.h"
+#include "packets.h"
 
 using namespace std;
 
 int main(){
+
+
+    /*criacao do socket UDP*/
+
+
+
+    /*criacao de socket UDP*/
+
+    /*listen() esperando requisicao*/
+
+
+    /*leitura requisicao*/
+
+
+
+
+
+
+
+
+
 
     /*uso do new so quando quer a tabela usada em outros escopos*/
     /*vai pra pilha da main*/

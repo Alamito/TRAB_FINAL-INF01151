@@ -91,9 +91,15 @@ ssize_t Socket::receive(void* buffer, size_t size) const {
     } else {
         printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
     }
-
     return bytesReceived;
 }
+    //void buf[sizeBuffer]; 
+    //receive(buf, sizeBuffer); 
+    //packet packetReceived; 
+    //memcpy(&packetReceived, buf, sizeof(packet));
+    //printf("tipo = %i", packetReceived.type); 
+
+
 
 void Socket::close() {
     if (socketFd >= 0) {
