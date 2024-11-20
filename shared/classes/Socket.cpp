@@ -51,11 +51,13 @@ ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, i
         throw std::runtime_error("Endereço IP de destino inválido");
     }
 
-    printf("Tentando enviar dados:\n");
-    printf("  - socketFd: %d\n", socketFd);
-    printf("  - destIp: %s\n", destIp.c_str());
-    printf("  - destPort: %d\n", destPort);
-    printf("  - data size: %zu\n", size);
+    // printf("Tentando enviar dados:\n");
+    // printf("  - socketFd: %d\n", socketFd);
+    // printf("  - destIp: %s\n", destIp.c_str());
+    // printf("  - destPort: %d\n", destPort);
+    // printf("  - data size: %zu\n", size);
+
+    //printf("\nMensagem enviada para %s na porta %d", destIp.c_str(), destPort);
 
     ssize_t bytesSent = sendto(socketFd, data, size, 0, (struct sockaddr*)&destAddr, sizeof(destAddr));
     if (bytesSent == -1) {
@@ -70,7 +72,7 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
     socklen_t addrLen = sizeof(srcAddr);
 
     struct timeval timeout;
-    timeout.tv_sec = 1;
+    timeout.tv_sec = 5;
     timeout.tv_usec = 0;
     fd_set readfds;
     FD_ZERO(&readfds);
@@ -97,7 +99,7 @@ ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const 
     } else if (bytesReceived == 0) {
         printf("Conexão fechada ao receber a mensagem.\n");
     } else {
-        printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
+        printf("\n");//printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
     }
 
     return bytesReceived;

@@ -14,7 +14,6 @@ int main(){
     while(1){
         if (cliente.getServerAdress().compare("255.255.255.255") == 0){
             cliente.discoverServer();
-            cout << "Tá aqui" << endl;
         }
         else{
             numToSum = cliente.listenTerminal();
