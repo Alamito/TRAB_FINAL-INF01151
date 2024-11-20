@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Tables
+# Target rules for targets named Server
 
 # Build rule for target.
-Tables: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Tables
-.PHONY : Tables
+Server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Server
+.PHONY : Server
 
 # fast build rule for target.
-Tables/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/build
-.PHONY : Tables/fast
+Server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
+.PHONY : Server/fast
 
 server/classes/ClientsTable.o: server/classes/ClientsTable.cpp.o
 .PHONY : server/classes/ClientsTable.o
 
 # target to build an object file
 server/classes/ClientsTable.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.o
 .PHONY : server/classes/ClientsTable.cpp.o
 
 server/classes/ClientsTable.i: server/classes/ClientsTable.cpp.i
@@ -142,7 +142,7 @@ server/classes/ClientsTable.i: server/classes/ClientsTable.cpp.i
 
 # target to preprocess a source file
 server/classes/ClientsTable.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.i
 .PHONY : server/classes/ClientsTable.cpp.i
 
 server/classes/ClientsTable.s: server/classes/ClientsTable.cpp.s
@@ -150,15 +150,39 @@ server/classes/ClientsTable.s: server/classes/ClientsTable.cpp.s
 
 # target to generate assembly for a file
 server/classes/ClientsTable.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/classes/ClientsTable.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/ClientsTable.cpp.s
 .PHONY : server/classes/ClientsTable.cpp.s
+
+server/classes/Server.o: server/classes/Server.cpp.o
+.PHONY : server/classes/Server.o
+
+# target to build an object file
+server/classes/Server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/Server.cpp.o
+.PHONY : server/classes/Server.cpp.o
+
+server/classes/Server.i: server/classes/Server.cpp.i
+.PHONY : server/classes/Server.i
+
+# target to preprocess a source file
+server/classes/Server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/Server.cpp.i
+.PHONY : server/classes/Server.cpp.i
+
+server/classes/Server.s: server/classes/Server.cpp.s
+.PHONY : server/classes/Server.s
+
+# target to generate assembly for a file
+server/classes/Server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/Server.cpp.s
+.PHONY : server/classes/Server.cpp.s
 
 server/classes/SumTable.o: server/classes/SumTable.cpp.o
 .PHONY : server/classes/SumTable.o
 
 # target to build an object file
 server/classes/SumTable.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/classes/SumTable.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/SumTable.cpp.o
 .PHONY : server/classes/SumTable.cpp.o
 
 server/classes/SumTable.i: server/classes/SumTable.cpp.i
@@ -166,7 +190,7 @@ server/classes/SumTable.i: server/classes/SumTable.cpp.i
 
 # target to preprocess a source file
 server/classes/SumTable.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/classes/SumTable.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/SumTable.cpp.i
 .PHONY : server/classes/SumTable.cpp.i
 
 server/classes/SumTable.s: server/classes/SumTable.cpp.s
@@ -174,7 +198,7 @@ server/classes/SumTable.s: server/classes/SumTable.cpp.s
 
 # target to generate assembly for a file
 server/classes/SumTable.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/classes/SumTable.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/classes/SumTable.cpp.s
 .PHONY : server/classes/SumTable.cpp.s
 
 server/mainServer.o: server/mainServer.cpp.o
@@ -182,7 +206,7 @@ server/mainServer.o: server/mainServer.cpp.o
 
 # target to build an object file
 server/mainServer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/mainServer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/mainServer.cpp.o
 .PHONY : server/mainServer.cpp.o
 
 server/mainServer.i: server/mainServer.cpp.i
@@ -190,7 +214,7 @@ server/mainServer.i: server/mainServer.cpp.i
 
 # target to preprocess a source file
 server/mainServer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/mainServer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/mainServer.cpp.i
 .PHONY : server/mainServer.cpp.i
 
 server/mainServer.s: server/mainServer.cpp.s
@@ -198,8 +222,32 @@ server/mainServer.s: server/mainServer.cpp.s
 
 # target to generate assembly for a file
 server/mainServer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/server/mainServer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/mainServer.cpp.s
 .PHONY : server/mainServer.cpp.s
+
+shared/classes/Socket.o: shared/classes/Socket.cpp.o
+.PHONY : shared/classes/Socket.o
+
+# target to build an object file
+shared/classes/Socket.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/shared/classes/Socket.cpp.o
+.PHONY : shared/classes/Socket.cpp.o
+
+shared/classes/Socket.i: shared/classes/Socket.cpp.i
+.PHONY : shared/classes/Socket.i
+
+# target to preprocess a source file
+shared/classes/Socket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/shared/classes/Socket.cpp.i
+.PHONY : shared/classes/Socket.cpp.i
+
+shared/classes/Socket.s: shared/classes/Socket.cpp.s
+.PHONY : shared/classes/Socket.s
+
+# target to generate assembly for a file
+shared/classes/Socket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/shared/classes/Socket.cpp.s
+.PHONY : shared/classes/Socket.cpp.s
 
 # Help Target
 help:
@@ -209,16 +257,22 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Tables"
+	@echo "... Server"
 	@echo "... server/classes/ClientsTable.o"
 	@echo "... server/classes/ClientsTable.i"
 	@echo "... server/classes/ClientsTable.s"
+	@echo "... server/classes/Server.o"
+	@echo "... server/classes/Server.i"
+	@echo "... server/classes/Server.s"
 	@echo "... server/classes/SumTable.o"
 	@echo "... server/classes/SumTable.i"
 	@echo "... server/classes/SumTable.s"
 	@echo "... server/mainServer.o"
 	@echo "... server/mainServer.i"
 	@echo "... server/mainServer.s"
+	@echo "... shared/classes/Socket.o"
+	@echo "... shared/classes/Socket.i"
+	@echo "... shared/classes/Socket.s"
 .PHONY : help
 
 

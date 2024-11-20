@@ -2,7 +2,12 @@
 #define __PACKET_H__
 
 #define SIZE_BUFFER 1024
+#define IP_SIZE 16
 
+#define DESC 1
+#define REQ 2
+#define DESC_ACK 3
+#define REQ_ACK 4
 
 struct requisicao {
     uint16_t value; // Valor da requsição
@@ -21,7 +26,7 @@ typedef struct __packet {
     union {
         struct requisicao req;
         struct requisicao_ack ack;
-    }
+    };
 } packet;
 
 

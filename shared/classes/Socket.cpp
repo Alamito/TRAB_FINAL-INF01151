@@ -7,26 +7,30 @@
 Socket::Socket(const std::string& ip, int port)
     : ip(ip), port(port), socketFd(-1) {}
 
-void Socket::create(int isBroadcast) {
+
+void Socket::create() {
     socketFd = socket(AF_INET, SOCK_DGRAM, 0);  // Cria um socket UDP
-    if (socketFd < 0) {
+
+    if ((socketFd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
         perror("Falha ao criar socket");
         throw std::runtime_error("Failed to create socket");
     }
 
-    if (isBroadcast){
-        int broadcastEnable = 1;                                                                                //Criação de socket UDP para 
-        if (setsockopt(socketFd, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable)) < 0){     //broadcast
-            perror("Falha ao criar socket Broadcast");
-            throw std::runtime_error("Failed to create socket");
-        }
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_port = htons(port);
+	serverAddr.sin_addr.s_addr = INADDR_ANY;
+	bzero(&(serverAddr.sin_zero), 8);    
+    
+    int broadcastEnable = 1;                                                                                //Criação de socket UDP para 
+    if (setsockopt(socketFd, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable)) < 0){     //broadcast
+        perror("Falha ao criar socket Broadcast");
+        throw std::runtime_error("Failed to create socket");
     }
     
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(port);
-    if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0) {
-        throw std::runtime_error("Endereço IP inválido para o socket");
-    }
+    
+    //if (inet_pton(AF_INET, ip.c_str(), &serverAddr.sin_addr) <= 0) {
+    //    throw std::runtime_error("Endereço IP inválido para o socket");
+    //}
 }
 
 void Socket::bind() {
@@ -62,7 +66,7 @@ ssize_t Socket::send(const void* data, size_t size, const std::string& destIp, i
     return bytesSent;
 }
 
-ssize_t Socket::receive(void* buffer, size_t size) const {
+ssize_t Socket::receive(void* buffer, size_t size, std::string& senderIp) const {
     struct sockaddr_in srcAddr;
     socklen_t addrLen = sizeof(srcAddr);
 
@@ -84,6 +88,11 @@ ssize_t Socket::receive(void* buffer, size_t size) const {
 
     ssize_t bytesReceived = recvfrom(socketFd, buffer, size, 0, (struct sockaddr*)&srcAddr, &addrLen);  //listen
 
+    //Obtem o ip de quem enviou a mensagem
+    char ip_temp[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &(srcAddr.sin_addr), ip_temp, INET_ADDRSTRLEN);
+    senderIp = ip_temp;
+
     if (bytesReceived < 0) {
         perror("Erro ao receber a mensagem");
     } else if (bytesReceived == 0) {
@@ -91,13 +100,10 @@ ssize_t Socket::receive(void* buffer, size_t size) const {
     } else {
         printf("Mensagem recebida com sucesso (%ld bytes).\n", bytesReceived);
     }
+
     return bytesReceived;
 }
-    //void buf[sizeBuffer]; 
-    //receive(buf, sizeBuffer); 
-    //packet packetReceived; 
-    //memcpy(&packetReceived, buf, sizeof(packet));
-    //printf("tipo = %i", packetReceived.type); 
+
 
 
 

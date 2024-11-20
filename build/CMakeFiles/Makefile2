@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Tables.dir/all
+all: CMakeFiles/Server.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Tables.dir/clean
+clean: CMakeFiles/Server.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Tables.dir
+# Target rules for target CMakeFiles/Server.dir
 
 # All Build rule for target.
-CMakeFiles/Tables.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=1,2,3,4 "Built target Tables"
-.PHONY : CMakeFiles/Tables.dir/all
+CMakeFiles/Server.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target Server"
+.PHONY : CMakeFiles/Server.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Tables.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Tables.dir/all
+CMakeFiles/Server.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/LinFiles/Documents/GitHub/TRAB_FINAL-INF01151/build/CMakeFiles 0
-.PHONY : CMakeFiles/Tables.dir/rule
+.PHONY : CMakeFiles/Server.dir/rule
 
 # Convenience name for target.
-Tables: CMakeFiles/Tables.dir/rule
-.PHONY : Tables
+Server: CMakeFiles/Server.dir/rule
+.PHONY : Server
 
 # clean rule for target.
-CMakeFiles/Tables.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tables.dir/build.make CMakeFiles/Tables.dir/clean
-.PHONY : CMakeFiles/Tables.dir/clean
+CMakeFiles/Server.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/clean
+.PHONY : CMakeFiles/Server.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
