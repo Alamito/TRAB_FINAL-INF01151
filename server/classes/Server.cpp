@@ -30,7 +30,6 @@ std::string Server::receiveMessage(packet * packetReceived_pt) {
         memcpy(packetReceived_pt, buf, sizeof(packet));
 
         if(buf[0] != '\0'){
-         
             return clientIp; //retorna de quem recebeu a mensagem
         }
     }          
