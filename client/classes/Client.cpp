@@ -10,11 +10,12 @@ using namespace std;
 Client::Client(){
     lastReq = 0;
     lastSum = 0;
-    serverAdress = "255.255.255.255";     //CONSTRUTOR PADRÃO
+    serverAdress = "255.255.255.255" ;     //CONSTRUTOR PADRÃO
     //serverAdress = "143.54.68.153";       //ENDEREÇO JULIANA
     //serverAdress = "127.0.0.1";             //ENDEREÇO LOCAL
+    //docker = ""172.17.0.2""
 
-    sockHandler = Socket("127.0.0.1", 4000);
+    sockHandler = Socket("127.0.0.1", 4000, 1);
     sockHandler.create();
 
     cout << " ----------------------------------------------" << endl;
@@ -40,7 +41,9 @@ void Client::sendSumRequisition(int numToSum){
         //printf("3\n");
         do{
             //printf("4\n");
+            sockHandler.setBroadcastEnable(0);
             sockHandler.send(&sumPacket, sizeof(sumPacket), serverAdress, 4000);
+
             ackReceived = sockHandler.receive(buf, SIZE_BUFFER, ipServer);
             
         }while (ackReceived <= 0);
@@ -86,6 +89,7 @@ void Client::discoverServer(){
 
     cout << "Tentando encontrar o servidor..." << endl;
     do{
+        sockHandler.setBroadcastEnable(1);
         sockHandler.send(&discoverPacket, sizeof(discoverPacket), serverAdress, 4000);
         ackReceived = sockHandler.receive(buf, SIZE_BUFFER, serverAdress);
     }while (ackReceived <= 0);

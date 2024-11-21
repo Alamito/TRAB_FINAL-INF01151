@@ -4,7 +4,7 @@
 
 //criar o server passando IP e porta
 
-std::string myIP = "127.0.0.1"; // Como std::string, não como #define
+std::string myIP = "172.17.0.1"; // Como std::string, não como #define
 const int myPORT = 4000;
 
 using namespace std; 
@@ -14,7 +14,8 @@ Server::Server()
       sumTable(),
       clientsTable()
 {
-    this->socketHandler.create(); 
+    this->socketHandler.create();
+    this->socketHandler.setBroadcastEnable(0);
     this->socketHandler.bind(); 
 }
 
@@ -38,6 +39,7 @@ std::string Server::receiveMessage(packet * packetReceived_pt) {
 void Server::sumRequisitionResponse(int value, int seqn, string clientIp){
     
     clientData auxClient = clientsTable.getClient(clientIp);
+    auxClient.IP = clientIp;
         
     if(auxClient.lastReq == seqn){
         //cout << "requisicao repitida" << endl; 
@@ -88,13 +90,14 @@ void Server::sendMessageAck(clientData client) {
     //cout << "Requisition Number: " << client.lastReq << endl;
     //cout << "Ultimo valor pedido: " << client.lastSum << endl; 
     //cout << "Soma total: " << client.totalSum << endl << endl;
-    packet ackPacket;
+    packet ackPacket = {0}; // Inicializa todos os campos com zero
     ackPacket.type = REQ_ACK;
     ackPacket.ack.total_sum = client.totalSum;
     ackPacket.ack.seqn = client.lastReq;
-    ackPacket.ack.num_reqs = this -> sumTable.getRequests();
+    ackPacket.ack.num_reqs = this->sumTable.getRequests();
 
     this -> socketHandler.send(&ackPacket, sizeof(packet), client.IP, 4000);
+
 }
     //nao precisa criar mais threads, a de soma do servidor ja eh uma thread
 
