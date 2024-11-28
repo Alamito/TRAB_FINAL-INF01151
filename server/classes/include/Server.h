@@ -15,7 +15,9 @@ class Server
     private:
         Socket socketHandler; 
         SumTable sumTable; 
-        ClientsTable clientsTable; 
+        ClientsTable clientsTable;
+        const int BUFFER_SIZE = 1024;
+        string clientIp;
         
     public:
         /*constructor*/
@@ -25,6 +27,7 @@ class Server
         void discoverRequisitionResponse(const std::string& clientIp);
         void sendMessageAck(clientData client);
         void sendDiscoverAck(const std::string& clientIp);
+        void run();
 
 };
 

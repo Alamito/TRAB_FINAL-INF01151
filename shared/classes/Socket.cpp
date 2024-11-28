@@ -11,6 +11,7 @@ Socket::Socket(const std::string& ip, int port, int broadcastEnable)
     }
 
 void Socket::create() {
+    printf("SSSSSSSSS");
     if ((socketFd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
         perror("Falha ao criar socket");
         throw std::runtime_error("Failed to create socket");
@@ -20,6 +21,28 @@ void Socket::create() {
 	serverAddr.sin_port = htons(port);
 	serverAddr.sin_addr.s_addr = INADDR_ANY;
 	bzero(&(serverAddr.sin_zero), 8);     
+}
+
+void Socket::createSocketToServer() {
+    if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+        perror("Erro ao criar o socket");
+        exit(EXIT_FAILURE);
+    }
+
+    memset(&servaddr, 0, sizeof(servaddr));
+    memset(&cliaddr, 0, sizeof(cliaddr));
+
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_port = htons(4000);
+
+    if (::bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
+        perror("Erro ao fazer o bind");
+        ::close(sockfd);
+        exit(EXIT_FAILURE);
+    }
+
+    std::cout << "Servidor aguardando mensagens..." << std::endl;
 }
 
 void Socket::setBroadcastEnable(int broadcastEnable){
@@ -87,19 +110,26 @@ int Socket::send(const void* data, size_t size, const std::string& destIp, int d
 
 
 int Socket::receive(void* buffer, size_t size, std::string& senderIp) const {
- 
     struct sockaddr_in srcAddr;
     socklen_t addrLen = sizeof(srcAddr);
 
     struct timeval timeout;
     timeout.tv_sec = 5;
     timeout.tv_usec = 0;
-    fd_set readfds;
-    FD_ZERO(&readfds);
-    FD_SET(socketFd, &readfds);
+    // fd_set readfds;
+    // FD_ZERO(&readfds);
+    // FD_SET(socketFd, &readfds);
     srcAddr.sin_port = htons(this->port);
 
     printf("entrando no select dentro do receive\n");
+
+    //print srcAddr
+    char ip[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &(srcAddr.sin_addr), ip, INET_ADDRSTRLEN);
+    printf("\n\n\nIP: %s\n\n\n", ip);
+
+    //print socketFd
+    printf("socketFd: %d\n", socketFd);
 
     // int selectResult = select(socketFd + 1, &readfds, nullptr, nullptr, &timeout);
     // printf("passou do select dentro do receive\n");

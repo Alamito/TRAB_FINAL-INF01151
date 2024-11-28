@@ -14,13 +14,52 @@ Server::Server()
       sumTable(),
       clientsTable()
 {
-    this->socketHandler.create();
-    this->socketHandler.setBroadcastEnable(0);
-    this->socketHandler.bind(); 
+    this->socketHandler.createSocketToServer();
+    // this->socketHandler.setBroadcastEnable(0);
+    // this->socketHandler.bind(); 
+}
+
+void Server::run() {
+    char buffer[BUFFER_SIZE];
+    socklen_t len = sizeof(this->socketHandler.cliaddr);
+
+    packet packetReceived;
+    while (true) {
+        
+        int n = recvfrom(this->socketHandler.sockfd, &packetReceived, sizeof(packetReceived), 0, (struct sockaddr *) &this->socketHandler.cliaddr, &len);
+
+        char client_ip[INET_ADDRSTRLEN];
+        inet_ntop(AF_INET, &(this->socketHandler.cliaddr.sin_addr), client_ip, INET_ADDRSTRLEN);
+
+        std::cout << "Mensagem recebida pelo servidor de " << client_ip << ": id = " << packetReceived.type << std::endl;
+
+        if (packetReceived.type == DESC) {
+            // A mensagem que o cliente enviou é um broadcast
+            char local_ip[BUFFER_SIZE];
+            // getLocalIp(local_ip, sizeof(local_ip));
+            cout << "mandando mensagem de Discover de requisicao" << endl; 
+            packet ackPacket;
+            ackPacket.type = DESC_ACK;
+
+            // snprintf(buffer, BUFFER_SIZE, "%s", "Broadcast\0");
+            sendto(this->socketHandler.sockfd, &ackPacket, sizeof(packet), 0, (struct sockaddr *) &this->socketHandler.cliaddr, len);
+
+            std::cout << "Broadcast! Resposta enviada ao cliente: " << buffer << std::endl;
+        } else {
+            //A mensagem que o cliente enviou é um dado
+            std::cout << "Dado recebido do cliente: " << packetReceived.req.value << std::endl;
+            // snprintf(buffer, BUFFER_SIZE, "%s", "Broadcast\0");
+            packet ackPacket = {0}; // Inicializa todos os campos com zero
+            ackPacket.type = REQ_ACK;
+
+            sendto(this->socketHandler.sockfd, &ackPacket, sizeof(packet), 0, (struct sockaddr *) &this->socketHandler.cliaddr, len);
+            std::cout << "enviado" << std::endl;
+        }
+
+    }
 }
 
 std::string Server::receiveMessage(packet * packetReceived_pt) {
-
     char buf[SIZE_BUFFER]; 
     string clientIp; 
 
@@ -28,7 +67,7 @@ std::string Server::receiveMessage(packet * packetReceived_pt) {
 
     while(1){
         this->socketHandler.receive(buf, SIZE_BUFFER, clientIp);
-        memcpy(packetReceived_pt, buf, sizeof(packet));
+        // memcpy(packetReceived_pt, buf, sizeof(packet));
 
         if(buf[0] != '\0'){
             return clientIp; //retorna de quem recebeu a mensagem
