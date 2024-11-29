@@ -4,7 +4,6 @@
 
 #include <string.h>
 
-#include "Message.h"
 #include "Socket.h"
 
 using namespace std;
@@ -17,7 +16,7 @@ class Client{
         int lastSum;
         string serverAdress;
 
-        Socket sockHandler;
+        SocketClient sockHandler;
 
     public:
         Client();

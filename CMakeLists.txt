@@ -44,16 +44,16 @@ include_directories(
 
 add_executable(Server
     server/mainServer.cpp
-    server/classes/Server.cpp
-    shared/classes/Socket.cpp
-    server/classes/ClientsTable.cpp
-    server/classes/SumTable.cpp
+#    server/classes/Server.cpp
+    shared/classes/SocketServer.cpp
+#    server/classes/ClientsTable.cpp
+#    server/classes/SumTable.cpp
 )
 
 add_executable(Client
     client/mainClient.cpp
-    client/classes/Client.cpp
-    shared/classes/Socket.cpp
+#    client/classes/Client.cpp
+    shared/classes/SocketClient.cpp
 )
 
 #Linkar com o Google Test

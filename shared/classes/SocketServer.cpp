@@ -11,6 +11,7 @@ SocketServer::SocketServer(int myPort)
 
 
 void SocketServer::create() {
+	printf("Entrou no create");
 
     /*como eh a criacao do socker para o servidor, no exemplo*/		
     if ((this->socketFd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) 
@@ -24,12 +25,13 @@ void SocketServer::create() {
 	if (bind(this->socketFd , (struct sockaddr *) &(this->serv_addr), sizeof(struct sockaddr)) < 0) 
 		printf("ERROR on binding");
 	
-	this->clilen = sizeof(struct sockaddr_in);
-
+	//this->clilen = sizeof(struct sockaddr_in);
+	printf("Saiu do create");
 }
 
 
-void SocketServer::send(sockaddr_in* destinationAddr, void* packetToSend){
+void SocketServer::send(void* packetToSend, size_t size, sockaddr_in* destinationAddr){
+	printf("Entrou no send");
 	/* send to socket */
 	//n = sendto(sockfd, "Got your message\n", 17, 0,(struct sockaddr *) &cli_addr, sizeof(struct sockaddr));
 	//if (n  < 0) 
@@ -46,26 +48,29 @@ void SocketServer::send(sockaddr_in* destinationAddr, void* packetToSend){
 		printf("Endereço IP de destino inválido\n");
 		return;
 	}*/
-	n = sendto(this->sockfd, packetToSend, sizeof(packetToSend), 0, (struct sockaddr *) destinationAddr, sizeof(struct sockaddr)); 
+	n = sendto(this->socketFd, packetToSend, size, 0, (struct sockaddr *) destinationAddr, sizeof(struct sockaddr)); 
 	if (n < 0)
 		printf("Nenhum dado enviado");
 
-
+	printf("Saiu do send");
 }
 
 
-void socketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
+void SocketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
+	printf("Entrou no receive");
     int n = 0;
-    char buf[sizeof(packet)];
+    //char buf[sizeof(packet)];
     //struct sockaddr_in srcAddr;
 
+	unsigned int lengthSockaddr;
+	lengthSockaddr = sizeof(struct sockaddr_in);
     /* receive from socket */
-	n = recvfrom(sockfd, buf, size, 0, (struct sockaddr *) srcAddr, sizeof(struct sockaddr_in));
+	n = recvfrom(this->socketFd, buf, size, 0, (struct sockaddr *) srcAddr, &lengthSockaddr);
 	if (n < 0) 
 		printf("ERROR on recvfrom");
 
     char ip_temp[INET_ADDRSTRLEN];    
-    inet_ntop(AF_INET, &(srcAddr.sin_addr), ip_temp, INET_ADDRSTRLEN);
+    inet_ntop(AF_INET, &(srcAddr->sin_addr), ip_temp, INET_ADDRSTRLEN);
     //senderIp = ip_temp;
-	printf("Received a datagram: %s, from: %s\n", buf, ip_temp);
+	printf("Received a datagram from: %s\n", ip_temp);
 }

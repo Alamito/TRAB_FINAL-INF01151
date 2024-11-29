@@ -1,6 +1,7 @@
 #ifndef SOCKET_H
 #define SOCKET_H
 
+#include <sys/types.h>
 #include <string>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -14,16 +15,16 @@
 
 class SocketClient {
     private: 
-        int socketFd;
-        int portToSend; 
-    	struct hostent *serverHost;
-        struct sockaddr_in serv_addr;
+        int socketFd;       //Armazena os id do socket criado
+        int portToSend;     //Porta que estara rodando o servidor
+    	struct hostent *serverHost;     //Atraves da funçao getHostByName(std::string IPDestino), armazena o IP de envio de mensagem
+        struct sockaddr_in serv_addr;   //Struct que contem todas as informaçoes do destinatario ()
 
     public: 
         SocketClient(int portToSend); 
         void create(); 
-        void send();
-        void receive();
+        void send(void* packetToSend, size_t size);
+        void receive(void* buf, size_t size, sockaddr_in* destinationAddr);
 
         void setServ_addr();    //IMPLEMENTAR
 }; 
@@ -38,8 +39,8 @@ class SocketServer {
     public:
         SocketServer(int myPort);
         void create(); 
-        void send(std::string& destinationIp, int destinationPort, packet packetToSend);
-        void receive(oid* buf, size_t size, std::string& senderIp);
+        void send(void* packetToSend, size_t size, sockaddr_in* destinationAddr);
+        void receive(void* buf, size_t size, sockaddr_in* srcAddr);
 };
 
 
@@ -78,7 +79,7 @@ class Socket {
         ~Socket();
 
         void getLocalIp(char *buffer, size_t buffer_len); 
-        int getPort() const { return port; }
+        //int getPort() const { return port; }
         int getSocketFd() const { return socketFd; }
 };
 
