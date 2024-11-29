@@ -7,19 +7,17 @@
 
 using namespace std;
 
-Client::Client(){
+Client::Client()
+    : sockHandler("127.0.0.1", 8080, 1) // Inicializa o sockHandler
+{
     lastReq = 0;
     lastSum = 0;
-    serverAdress = "255.255.255.255" ;     //CONSTRUTOR PADRÃO
-    //serverAdress = "143.54.68.153";       //ENDEREÇO JULIANA
-    //serverAdress = "127.0.0.1";             //ENDEREÇO LOCAL
-    //docker = ""172.17.0.2""
+    serverAdress = "255.255.255.255";
 
-    sockHandler = Socket("127.0.0.1", 4000, 1);
     sockHandler.create();
 
     cout << " ----------------------------------------------" << endl;
-    cout << "|      Cliente iniciado na porta 4000          |"  << endl;
+    cout << "|      Cliente iniciado na porta " << sockHandler.getPort() << "          |" << endl;
     cout << " ----------------------------------------------" << endl;
 }
 
@@ -42,8 +40,7 @@ void Client::sendSumRequisition(int numToSum){
         do{
             //printf("4\n");
             sockHandler.setBroadcastEnable(0);
-            sockHandler.send(&sumPacket, sizeof(sumPacket), serverAdress, 4000);
-
+            sockHandler.send(&sumPacket, sizeof(sumPacket), serverAdress, 8080);
             ackReceived = sockHandler.receive(buf, SIZE_BUFFER, ipServer);
             
         }while (ackReceived <= 0);
@@ -90,7 +87,7 @@ void Client::discoverServer(){
     cout << "Tentando encontrar o servidor..." << endl;
     do{
         sockHandler.setBroadcastEnable(1);
-        sockHandler.send(&discoverPacket, sizeof(discoverPacket), serverAdress, 4000);
+        sockHandler.send(&discoverPacket, sizeof(discoverPacket), serverAdress, 8080);
         ackReceived = sockHandler.receive(buf, SIZE_BUFFER, serverAdress);
     }while (ackReceived <= 0);
 
