@@ -19,8 +19,5 @@ COPY server/classes/SumTable.cpp ./
 # Compilando o código do servidor
 RUN g++ -o mainServer mainServer.cpp Server.cpp Socket.cpp ClientsTable.cpp SumTable.cpp -lpthread
 
-# Expondo a porta 8080/udp
-EXPOSE 8080/udp
-
 # Comando para rodar o servidor
 CMD ["./mainServer"]

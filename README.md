@@ -1,7 +1,7 @@
 # COMANDOS DOCKER:
     Antes devemos entrar na pasta do Dockerfile
     - docker build -t servidor-udp .
-    - docker run -d -p 8080:8080/udp servidor-udp
+    - docker run --rm -it servidor-udp
 
 # DESCOBRIR IP DO DOCKER:
     - docker ps
