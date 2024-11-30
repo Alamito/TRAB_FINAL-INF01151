@@ -19,7 +19,10 @@ include_directories(
 # Adicionar executável para o servidor
 add_executable(Server
     server/mainServer.cpp
-    shared/classes/SocketServer.cpp
+    server/classes/Server.cpp
+    shared/classes/SocketServer.cpp  # Corrigir o caminho aqui
+    server/classes/ClientsTable.cpp
+    server/classes/SumTable.cpp
 )
 
 # Adicionar executável para o cliente

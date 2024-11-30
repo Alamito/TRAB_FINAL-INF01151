@@ -5,34 +5,81 @@
 using namespace std;
 
 
-int main(){
+int main() {
+    SocketServer socketServer(8080);
+    socketServer.create();
+    Server server;
 
-    /*Server server;
-    packet receivedPacket; 
-    string clientIp;
+    while(1) {
 
+        char buf[SIZE_BUFFER];
+        struct sockaddr_in clientAddr;
+        int ackReceived = -1;
+        do {
+            socketServer.receive(buf, SIZE_BUFFER, &clientAddr);
+            ackReceived = buf[0] != '\0'; // Verifica se algo foi recebido
+        } while (ackReceived <= 0);;
 
-    while(1){
+        packet received, data;
+        memcpy(&received, buf, sizeof(packet));
+        cout << "Tipo do pacote recebido: " << received.type << endl;
 
-        memset(&receivedPacket, 0, sizeof(packet));
-        clientIp = server.receiveMessage(&receivedPacket);
-        if(receivedPacket.type == DESC){
-            thread d(&Server::discoverRequisitionResponse, ref(server),clientIp);
+        data.type = REQ_ACK;
+        socketServer.send(&data, sizeof(data), &clientAddr);
+
+    
+        socketServer.receive(buf, SIZE_BUFFER, &clientAddr);
+
+        memcpy(&received, buf, sizeof(packet));
+        cout << "Tipo do pacote recebido: " << received.type << endl;
+
+        if (received.type == REQ) {
+            cout << "Requisição recebida" << endl;
+            std::thread t(&Server::sumRequisitionResponse, std::ref(server), received.req.value, received.seqn, "172.17.0.1");
+            t.detach(); // Ou t.join();
+        } else if (received.type == DESC) {
+            cout << "Descoberta recebida" << endl;
+            char clientIp[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &(clientAddr.sin_addr), clientIp, INET_ADDRSTRLEN);
+            std::thread d(&Server::discoverRequisitionResponse, std::ref(server), clientIp);
             d.detach();
         }
-        
-        
-        else if(receivedPacket.type == REQ){
-        //    //cria a thread que vai lidar com essa requisicao
 
-            std::thread t(&Server::sumRequisitionResponse, std::ref(server), receivedPacket.req.value, receivedPacket.seqn, clientIp);
-            t.detach(); // Ou t.join();
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+
+    return 0; 
+}
+
+// int main(){
+
+//     Server server;
+//     packet receivedPacket; 
+//     string clientIp;
+
+
+//     while(1){
+
+//         memset(&receivedPacket, 0, sizeof(packet));
+//         clientIp = server.receiveMessage(&receivedPacket);
+//         if(receivedPacket.type == DESC){
+//             thread d(&Server::discoverRequisitionResponse, ref(server),clientIp);
+//             d.detach();
+//         }
+        
+        
+//         else if(receivedPacket.type == REQ){
+//         //    //cria a thread que vai lidar com essa requisicao
+            
+//             std::thread t(&Server::sumRequisitionResponse, std::ref(server), receivedPacket.req.value, receivedPacket.seqn, clientIp);
+//             t.detach(); // Ou t.join();
             
         
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+//         }
+//         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         
-    }*/
+//     }
+// }
 
     /*criacao do socket UDP*/
 
@@ -153,19 +200,3 @@ int main(){
 //    */
 //    /* =============================== */
 
-    SocketServer server(8080);
-    server.create();
-
-    char buf[SIZE_BUFFER];
-    struct sockaddr_in clientAddr;
-    server.receive(buf, SIZE_BUFFER, &clientAddr);
-
-    packet received, data;
-    memcpy(&received, buf, sizeof(packet));
-    cout << "Tipo do pacote recebido: " << received.type << endl;
-
-    data.type = REQ_ACK;
-    server.send(&data, sizeof(data), &clientAddr);
-
-    return 0; 
-}

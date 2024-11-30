@@ -6,10 +6,9 @@
 using namespace std;
 
 Client::Client()
-    : sockHandler(8080, "255.255.255.255") { // Inicialização de sockHandler
+    : serverAdress("255.255.255.255"), sockHandler(8080, serverAdress) { // Inicialização de sockHandler
     lastReq = 0;
     lastSum = 0;
-    serverAdress = "255.255.255.255"; // CONSTRUTOR PADRÃO
 
     sockHandler.create();
 
@@ -72,8 +71,8 @@ void Client::discoverServer() {
     cout << "Tentando encontrar o servidor..." << endl;
     do {
         sockHandler.send(&discoverPacket, sizeof(discoverPacket));
-        sockHandler.receive(buf, SIZE_BUFFER, &serverAddr);
-    } while (true);
+        ackReceived = sockHandler.receive(buf, SIZE_BUFFER, &serverAddr);
+    } while (ackReceived <= 0);
 
     char ip[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &(serverAddr.sin_addr), ip, INET_ADDRSTRLEN);

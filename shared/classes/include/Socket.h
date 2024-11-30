@@ -25,7 +25,7 @@ class SocketClient {
         SocketClient(int portToSend, std::string destinationIp); 
         void create(); 
         void send(void* packetToSend, size_t size);
-        void receive(void* buf, size_t size, sockaddr_in* destinationAddr);
+        int receive(void* buf, size_t size, sockaddr_in* destinationAddr);
 
         void setServ_addr();    //IMPLEMENTAR
 }; 
@@ -41,7 +41,7 @@ class SocketServer {
         SocketServer(int myPort);
         void create(); 
         void send(void* packetToSend, size_t size, sockaddr_in* destinationAddr);
-        void receive(void* buf, size_t size, sockaddr_in* srcAddr);
+        int receive(void* buf, size_t size, sockaddr_in* srcAddr);
 };
 
 

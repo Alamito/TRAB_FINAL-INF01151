@@ -14,6 +14,7 @@ int main(){
     int numToSum;
 
     while(1){
+        printf("cliente.getServerAdress(): %s\n", cliente.getServerAdress().c_str());
         if (cliente.getServerAdress().compare("255.255.255.255") == 0){
             cliente.discoverServer();
         }
@@ -22,6 +23,7 @@ int main(){
             cliente.sendSumRequisition(numToSum);
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    }
 }
 
     // SocketClient client(8080, "127.0.0.1");
@@ -41,4 +43,3 @@ int main(){
 
 
     // return 0;
-}

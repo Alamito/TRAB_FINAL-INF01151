@@ -28,6 +28,7 @@ class Client{
         // void discoverServer(Message* mensagem);  
 
         string getServerAdress();
+        void setServerAdress(string serverAdress);
 
 };
 

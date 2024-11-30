@@ -39,7 +39,7 @@ void SocketClient::send(void* packetToSend, size_t size){
 
 /*Recebe um pacote.
 Armazena os dados recebidos em buf e o endereço do remetente em destinationAddr*/
-void SocketClient::receive(void* buf, size_t size, sockaddr_in* destinationAddr){
+int SocketClient::receive(void* buf, size_t size, sockaddr_in* destinationAddr){
 
     int n = 0;
     //char buf[sizeof(packet)];   //buf já é passado com parâmetro
@@ -55,6 +55,8 @@ void SocketClient::receive(void* buf, size_t size, sockaddr_in* destinationAddr)
     inet_ntop(AF_INET, &(destinationAddr->sin_addr), ip_temp, INET_ADDRSTRLEN);
     //senderIp = ip_temp;
 	printf("Recebido um pacote de %s\n", ip_temp);
+
+    return n;
 
 }
 
