@@ -15,11 +15,11 @@ Client::Client(){
     //serverAdress = "127.0.0.1";             //ENDEREÇO LOCAL
     //docker = ""172.17.0.2""
 
-    sockHandler = Socket("127.0.0.1", 4000, 1);
+    sockHandler = SocketClient(8080);
     sockHandler.create();
 
     cout << " ----------------------------------------------" << endl;
-    cout << "|      Cliente iniciado na porta 4000          |"  << endl;
+    cout << "|      Cliente iniciado na porta 8080          |"  << endl;
     cout << " ----------------------------------------------" << endl;
 }
 
