@@ -19,8 +19,11 @@ void SocketClient::create() {
 	this->serv_addr.sin_port = htons(this->portToSend);    
    
     //this->serverHost = gethostbyname(this->ipToSend); 
-    if (inet_pton(AF_INET, "143.54.55.46", &serv_addr.sin_addr) <= 0)
+    if (inet_pton(AF_INET, "127.1.1.1", &serv_addr.sin_addr) <= 0)
         printf("Endereço de IP invalido");
+
+    int broadcastEnable = 1; 
+    setsockopt(socketFd, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable));
 	//this->serv_addr.sin_addr = *((struct in_addr *)this->serverHost->h_addr);
 	
     bzero(&(this->serv_addr.sin_zero), 8);  
