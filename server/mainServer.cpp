@@ -7,7 +7,7 @@ using namespace std;
 
 int main(){
 
-    Server server;
+    /*Server server;
     packet receivedPacket; 
     string clientIp;
 
@@ -32,7 +32,7 @@ int main(){
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         
-    }
+    }*/
 
     /*criacao do socket UDP*/
 
@@ -152,6 +152,20 @@ int main(){
 //    t4.join();
 //    */
 //    /* =============================== */
+
+    SocketServer server(8080);
+    server.create();
+
+    char buf[SIZE_BUFFER];
+    struct sockaddr_in clientAddr;
+    server.receive(buf, SIZE_BUFFER, &clientAddr);
+
+    packet received, data;
+    memcpy(&received, buf, sizeof(packet));
+    cout << "Tipo do pacote recebido: " << received.type << endl;
+
+    data.type = REQ_ACK;
+    server.send(&data, sizeof(data), &clientAddr);
 
     return 0; 
 }

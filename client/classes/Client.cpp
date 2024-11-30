@@ -14,9 +14,11 @@ Client::Client()
     lastSum = 0;
     serverAdress = "255.255.255.255";
 
+    sockHandler = SocketClient(8080);
     sockHandler.create();
 
     cout << " ----------------------------------------------" << endl;
+    cout << "|      Cliente iniciado na porta 8080          |"  << endl;
     cout << "|      Cliente iniciado na porta " << sockHandler.getPort() << "          |" << endl;
     cout << " ----------------------------------------------" << endl;
 }
