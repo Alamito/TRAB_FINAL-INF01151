@@ -16,7 +16,7 @@ class Socket {
         struct sockaddr_in serverAddr;
 
     public:
-        Socket(const std::string& ip, int port, int broadcastEnable);
+        Socket(const std::string& ip = "127.0.0.1", int port = 4000, int broadcastEnable = 1);
         void create();
         void setBroadcastEnable(int broadcastEnable); // Adicione esta linha
         void bind();  // Agora simplificado para apenas UDP

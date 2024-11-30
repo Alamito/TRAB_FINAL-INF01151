@@ -101,15 +101,15 @@ int Socket::receive(void* buffer, size_t size, std::string& senderIp) const {
 
     printf("entrando no select dentro do receive\n");
 
-    int selectResult = select(socketFd + 1, &readfds, nullptr, nullptr, &timeout);
-    printf("passou do select dentro do receive\n");
-    if (selectResult == -1) {
-        perror("Erro ao usar select");
-        return -1;
-    } else if (selectResult == 0) {
-        printf("Timeout ao esperar pela mensagem no socket %d.\n", socketFd);
-        return 0;
-    }
+    // int selectResult = select(socketFd + 1, &readfds, nullptr, nullptr, &timeout);
+    // printf("passou do select dentro do receive\n");
+    // if (selectResult == -1) {
+    //     perror("Erro ao usar select");
+    //     return -1;
+    // } else if (selectResult == 0) {
+    //     printf("Timeout ao esperar pela mensagem no socket %d.\n", socketFd);
+    //     return 0;
+    // }
     
     int bytesReceived = recvfrom(socketFd, buffer, size, 0, (struct sockaddr*)&srcAddr, &addrLen);  //listen
     printf("mensagem recebida da porta: %d\n", ntohs(srcAddr.sin_port));
