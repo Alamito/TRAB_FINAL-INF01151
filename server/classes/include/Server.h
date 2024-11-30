@@ -13,7 +13,7 @@ using namespace std;
 class Server 
 {
     private:
-        SocketServer socketHandler; 
+        Socket socketHandler; 
         SumTable sumTable; 
         ClientsTable clientsTable; 
         

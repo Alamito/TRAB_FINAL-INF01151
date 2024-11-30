@@ -5,6 +5,43 @@
 #include <string>
 #include <iostream>
 
+Socket::Socket(const std::string& ip, int port, int broadcastEnable)
+    : ip(ip), port(port), socketFd(-1), broadcastEnable(broadcastEnable) {
+    printf("Inicializando Socket com IP: %s, Porta: %d\n", ip.c_str(), port);
+    }
+
+void Socket::create() {
+    if ((socketFd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
+        perror("Falha ao criar socket");
+        throw std::runtime_error("Failed to create socket");
+    }
+
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_port = htons(port);
+	serverAddr.sin_addr.s_addr = INADDR_ANY;
+	bzero(&(serverAddr.sin_zero), 8);     
+}
+
+void Socket::setBroadcastEnable(int broadcastEnable){
+    this -> broadcastEnable = broadcastEnable;
+    if (broadcastEnable == 1){
+        serverAddr.sin_addr.s_addr = inet_addr("255.255.255.255");
+        }
+    else{
+        serverAddr.sin_addr.s_addr = INADDR_ANY;
+    }
+    if (setsockopt(socketFd, SOL_SOCKET, SO_BROADCAST, &this->broadcastEnable, sizeof(this->broadcastEnable)) < 0){     //broadcast
+        perror("Falha ao criar socket Broadcast");
+        throw std::runtime_error("Failed to create socket");
+    }
+
+    printf("Broadcast ativado: %d\n", broadcastEnable);
+}
+
+void Socket::bind() {
+    if (::bind(socketFd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0)
+        throw std::runtime_error("Failed to bind socket to port");
+}
 
 int Socket::send(const void* data, size_t size, const std::string& destIp, int destPort) const {
     if (socketFd < 0) {
