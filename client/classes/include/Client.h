@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#define BROADCAST_IP "255.255.255.255"
+
 class Client{
 
     private:

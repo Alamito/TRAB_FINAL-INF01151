@@ -6,7 +6,7 @@
 using namespace std;
 
 Client::Client()
-    : serverAdress("255.255.255.255"), sockHandler(8080, serverAdress) { // Inicialização de sockHandler
+    : serverAdress(BROADCAST_IP), sockHandler(8080, serverAdress) { // Inicialização de sockHandler
     lastReq = 0;
     lastSum = 0;
 

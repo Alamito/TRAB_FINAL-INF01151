@@ -15,7 +15,7 @@ int main(){
 
     while(1){
         printf("cliente.getServerAdress(): %s\n", cliente.getServerAdress().c_str());
-        if (cliente.getServerAdress().compare("255.255.255.255") == 0){
+        if (cliente.getServerAdress().compare(BROADCAST_IP) == 0){
             cliente.discoverServer();
         }
         else{
