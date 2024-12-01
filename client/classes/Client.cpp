@@ -21,8 +21,9 @@ void Client::sendSumRequisition(int numToSum) {
     packet sumPacket, packetReceived;
     sumPacket.req.value = numToSum;
     sumPacket.type = REQ;
-    sumPacket.seqn = lastReq;
+    sumPacket.seqn = lastReq + 1;
     sockaddr_in ipServerAddr;
+    int ackReceived = -1;
 
     char buf[SIZE_BUFFER];
     int waitedSeq = 0, waitedType = 0;
@@ -30,19 +31,19 @@ void Client::sendSumRequisition(int numToSum) {
     while (!waitedSeq || !waitedType) {
         do {
             sockHandler.send(&sumPacket, sizeof(sumPacket));
-            sockHandler.receive(buf, SIZE_BUFFER, &ipServerAddr);
-        } while (true);
+            ackReceived = sockHandler.receive(buf, SIZE_BUFFER, &ipServerAddr);
+        } while (ackReceived <= 0);
 
         memcpy(&packetReceived, buf, sizeof(packet));
-        if (packetReceived.ack.seqn == lastReq) {
-            waitedType = 1;
+        if (packetReceived.ack.seqn == lastReq + 1) {
+            waitedSeq = 1;
         }
         if (packetReceived.type == REQ_ACK) {
-            waitedSeq = 1;
+            waitedType = 1;
         }
     }
 
-    lastReq = packetReceived.ack.seqn + 1;
+    lastReq = packetReceived.ack.seqn;
     lastSum = packetReceived.ack.total_sum;
 
     printf("Requisicao enviada ao servidor!\n");

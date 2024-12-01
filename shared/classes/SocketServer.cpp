@@ -6,16 +6,16 @@
 
 SocketServer::SocketServer(int myPort)
     : myPort(myPort), socketFd(-1) {
-    printf("Inicializando Socket para ouvir na porta: %d\n", myPort);
+    printf("Inicializando SocketServer para ouvir na porta: %d\n", myPort);
     }
 
 
 void SocketServer::create() {
-	printf("Entrou no create");
+	//printf("Entrou no create\n");
 
     /*como eh a criacao do socker para o servidor, no exemplo*/		
     if ((this->socketFd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) 
-		printf("ERROR opening Server socket");
+		printf("ERROR opening Server socket\n");
 
 	this->serv_addr.sin_family = AF_INET;
 	this->serv_addr.sin_port = htons(this->myPort);
@@ -23,10 +23,10 @@ void SocketServer::create() {
 	bzero(&(this->serv_addr.sin_zero), 8);    
 	 
 	if (bind(this->socketFd , (struct sockaddr *) &(this->serv_addr), sizeof(struct sockaddr)) < 0) 
-		printf("ERROR on binding");
+		printf("ERROR on binding\n");
 	
 	//this->clilen = sizeof(struct sockaddr_in);
-	printf("Saiu do create");
+	//printf("Saiu do create\n");
 }
 
 
@@ -57,7 +57,7 @@ void SocketServer::send(void* packetToSend, size_t size, sockaddr_in* destinatio
 
 
 int SocketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
-	printf("Entrou no receive");
+	//printf("Entrou no receive");
     int n = 0;
     //char buf[sizeof(packet)];
     //struct sockaddr_in srcAddr;
@@ -72,7 +72,7 @@ int SocketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
     char ip_temp[INET_ADDRSTRLEN];    
     inet_ntop(AF_INET, &(srcAddr->sin_addr), ip_temp, INET_ADDRSTRLEN);
     //senderIp = ip_temp;
-	printf("Received a datagram from: %s\n", ip_temp);
+	//printf("Received a datagram from: %s\n", ip_temp);
 
 	return n;	
 }

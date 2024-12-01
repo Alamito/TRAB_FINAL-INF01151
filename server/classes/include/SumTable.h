@@ -11,8 +11,8 @@
 class SumTable 
 {
     private:
-        double numReq;
-        double totalSum;
+        uint64_t numReq;
+        uint64_t totalSum;
         std::mutex mutex_lock; 
     
     public:

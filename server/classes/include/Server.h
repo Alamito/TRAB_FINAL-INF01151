@@ -20,11 +20,11 @@ class Server
     public:
         /*constructor*/
         Server(); 
-        std::string receiveMessage(packet * packetReceived_pt);
-        void sumRequisitionResponse(int value, int numReq, string clientIp);
-        void discoverRequisitionResponse(const std::string& clientIp);
-        void sendMessageAck(clientData client);
-        void sendDiscoverAck(const std::string& clientIp);
+        sockaddr_in receiveMessage(packet * packetReceived_pt);
+        void sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClient);
+        void discoverRequisitionResponse(sockaddr_in * sockClient);
+        void sendMessageAck(clientData client, sockaddr_in * sockClient);
+        void sendDiscoverAck(sockaddr_in * sockClient);
 
 };
 
