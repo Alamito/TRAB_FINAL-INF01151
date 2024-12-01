@@ -14,8 +14,8 @@ class Client{
 
     private:
         string ipAdress; //Próprio ip do cliente
-        int lastReq;
-        int lastSum;
+        uint64_t lastReq;
+        uint64_t lastSum;
         string serverAdress;
 
         SocketClient sockHandler;
