@@ -3,12 +3,10 @@
 
 /*Construtor recebe apenas a porta onde estara rodando o servidor, sendo que o IP
 inicial e "255.255.255.255", que e o IP de broadcast*/
-SocketClient::SocketClient(int portToSend)
-    : portToSend(portToSend), socketFd(-1){//, serverHost(gethostbyname("255.255.255.255")) {
-    printf("Criando Socket para enviar para %d",portToSend);
+SocketClient::SocketClient(int portToSend, std::string destinationIp)
+    : portToSend(portToSend), destinationIp(destinationIp), socketFd(-1){//, serverHost(gethostbyname("255.255.255.255")) {
+    printf("Criando Socket para enviar para porta: %d, ip: %s\n",portToSend, destinationIp.c_str());
     }
-
-
 /*Metodo que inicializa o socket e define todas as informacoes do destinatario na
 struct serv_addr*/
 void SocketClient::create() {
@@ -19,7 +17,7 @@ void SocketClient::create() {
 	this->serv_addr.sin_port = htons(this->portToSend);    
    
     //this->serverHost = gethostbyname(this->ipToSend); 
-    if (inet_pton(AF_INET, "127.1.1.1", &serv_addr.sin_addr) <= 0)
+    if (inet_pton(AF_INET, this->destinationIp.c_str(), &serv_addr.sin_addr) <= 0)
         printf("Endereço de IP invalido");
 
     int broadcastEnable = 1; 
@@ -41,7 +39,7 @@ void SocketClient::send(void* packetToSend, size_t size){
 
 /*Recebe um pacote.
 Armazena os dados recebidos em buf e o endereço do remetente em destinationAddr*/
-void SocketClient::receive(void* buf, size_t size, sockaddr_in* destinationAddr){
+int SocketClient::receive(void* buf, size_t size, sockaddr_in* destinationAddr){
 
     int n = 0;
     //char buf[sizeof(packet)];   //buf já é passado com parâmetro
@@ -57,6 +55,8 @@ void SocketClient::receive(void* buf, size_t size, sockaddr_in* destinationAddr)
     inet_ntop(AF_INET, &(destinationAddr->sin_addr), ip_temp, INET_ADDRSTRLEN);
     //senderIp = ip_temp;
 	printf("Recebido um pacote de %s\n", ip_temp);
+
+    return n;
 
 }
 

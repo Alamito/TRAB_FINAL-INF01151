@@ -19,12 +19,13 @@ class SocketClient {
         int portToSend;     //Porta que estara rodando o servidor
     	struct hostent *serverHost;     //Atraves da funçao getHostByName(std::string IPDestino), armazena o IP de envio de mensagem
         struct sockaddr_in serv_addr;   //Struct que contem todas as informaçoes do destinatario ()
+        std::string destinationIp;     //IP de destino
 
     public: 
-        SocketClient(int portToSend); 
+        SocketClient(int portToSend, std::string destinationIp); 
         void create(); 
         void send(void* packetToSend, size_t size);
-        void receive(void* buf, size_t size, sockaddr_in* destinationAddr);
+        int receive(void* buf, size_t size, sockaddr_in* destinationAddr);
 
         void setServ_addr();    //IMPLEMENTAR
 }; 
@@ -40,7 +41,7 @@ class SocketServer {
         SocketServer(int myPort);
         void create(); 
         void send(void* packetToSend, size_t size, sockaddr_in* destinationAddr);
-        void receive(void* buf, size_t size, sockaddr_in* srcAddr);
+        int receive(void* buf, size_t size, sockaddr_in* srcAddr);
 };
 
 
@@ -69,7 +70,7 @@ class Socket {
 
 
     public:
-        Socket(int port = 4000, int broadcastEnable = 1);
+        Socket(int port =  4000, int broadcastEnable = 1);
         void create();
         void setBroadcastEnable(int broadcastEnable); // Adicione esta linha
         void bind();  // Agora simplificado para apenas UDP

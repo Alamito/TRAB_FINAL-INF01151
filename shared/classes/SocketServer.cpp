@@ -31,7 +31,7 @@ void SocketServer::create() {
 
 
 void SocketServer::send(void* packetToSend, size_t size, sockaddr_in* destinationAddr){
-	printf("Entrou no send");
+	printf("Entrou no send\n");
 	/* send to socket */
 	//n = sendto(sockfd, "Got your message\n", 17, 0,(struct sockaddr *) &cli_addr, sizeof(struct sockaddr));
 	//if (n  < 0) 
@@ -50,13 +50,13 @@ void SocketServer::send(void* packetToSend, size_t size, sockaddr_in* destinatio
 	}*/
 	n = sendto(this->socketFd, packetToSend, size, 0, (struct sockaddr *) destinationAddr, sizeof(struct sockaddr)); 
 	if (n < 0)
-		printf("Nenhum dado enviado");
+		printf("Nenhum dado enviado\n");
 
-	printf("Saiu do send");
+	printf("bytes enviados para o cliente: %d\n", n);		
 }
 
 
-void SocketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
+int SocketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
 	printf("Entrou no receive");
     int n = 0;
     //char buf[sizeof(packet)];
@@ -73,4 +73,6 @@ void SocketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
     inet_ntop(AF_INET, &(srcAddr->sin_addr), ip_temp, INET_ADDRSTRLEN);
     //senderIp = ip_temp;
 	printf("Received a datagram from: %s\n", ip_temp);
+
+	return n;	
 }

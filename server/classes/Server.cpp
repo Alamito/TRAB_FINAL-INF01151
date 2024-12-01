@@ -4,37 +4,37 @@
 
 //criar o server passando IP e porta
 
-std::string myIP = "172.17.0.1"; // Como std::string, não como #define
-const int myPORT = 4000;
+//std::string myIP = "172.17.0.1"; // Como std::string, não como #define
+const int myPORT = 8080;
 
 using namespace std; 
 
 Server::Server()
-    : socketHandler(myIP, myPORT),
+    : socketHandler(myPORT),
       sumTable(),
       clientsTable()
 {
     this->socketHandler.create();
-    this->socketHandler.setBroadcastEnable(0);
-    this->socketHandler.bind(); 
+    //this->socketHandler.setBroadcastEnable(0);
+    //this->socketHandler.bind(); 
 }
 
 std::string Server::receiveMessage(packet * packetReceived_pt) {
-
     char buf[SIZE_BUFFER]; 
-    string clientIp; 
-
+    sockaddr_in clientAddr;
     buf[0] = '\0';
 
     while(1){
-        this->socketHandler.receive(buf, SIZE_BUFFER, clientIp);
+        this->socketHandler.receive(buf, SIZE_BUFFER, &clientAddr);
         memcpy(packetReceived_pt, buf, sizeof(packet));
 
         if(buf[0] != '\0'){
-            return clientIp; //retorna de quem recebeu a mensagem
+            char clientIp[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &(clientAddr.sin_addr), clientIp, INET_ADDRSTRLEN);
+            return std::string(clientIp); // retorna de quem recebeu a mensagem
         }
     }          
-}    
+} 
 
 void Server::sumRequisitionResponse(int value, int seqn, string clientIp){
     
@@ -51,7 +51,7 @@ void Server::sumRequisitionResponse(int value, int seqn, string clientIp){
         cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
 
 
-        this->sendMessageAck(auxClient);
+        //this->sendMessageAck(auxClient);
         return; 
     }
 
@@ -59,7 +59,7 @@ void Server::sumRequisitionResponse(int value, int seqn, string clientIp){
     auxClient.lastSum = value;
     auxClient.totalSum = this->sumTable.updateTable(value);
     
-    this->sendMessageAck(auxClient);
+    //this->sendMessageAck(auxClient);
     
     this->clientsTable.updateClient(clientIp, seqn, value, this->sumTable.getSum()); 
     
@@ -76,7 +76,7 @@ void Server::sumRequisitionResponse(int value, int seqn, string clientIp){
 void Server::discoverRequisitionResponse(const std::string& clientIp){
     clientData client = {0,0,0,clientIp};
     /*manda o ack independentemente*/
-    this->sendDiscoverAck(clientIp);
+    //this->sendDiscoverAck(clientIp);
     this->clientsTable.addClient(client);
 
     //system("clear");  // Limpa a tela no terminal
@@ -96,7 +96,17 @@ void Server::sendMessageAck(clientData client) {
     ackPacket.ack.seqn = client.lastReq;
     ackPacket.ack.num_reqs = this->sumTable.getRequests();
 
-    this -> socketHandler.send(&ackPacket, sizeof(packet), client.IP, 4000);
+    sockaddr_in clientAddr;
+    inet_pton(AF_INET, client.IP.c_str(), &clientAddr.sin_addr);
+    clientAddr.sin_family = AF_INET;
+    clientAddr.sin_port = htons(myPORT);
+
+    std::cout << "Enviando ACK para IP: " << client.IP
+          << ", Seqn: " << ackPacket.ack.seqn
+          << ", Total Sum: " << ackPacket.ack.total_sum << std::endl;
+
+
+    this->socketHandler.send(&ackPacket, sizeof(packet), &clientAddr);
 
 }
     //nao precisa criar mais threads, a de soma do servidor ja eh uma thread
@@ -107,8 +117,16 @@ void Server::sendDiscoverAck(const std::string& clientIp) {
     packet ackPacket;
     ackPacket.type = DESC_ACK;
 
-    this -> socketHandler.send(&ackPacket, sizeof(packet), clientIp, 4000);
+    sockaddr_in clientAddr;
+    inet_pton(AF_INET, clientIp.c_str(), &clientAddr.sin_addr);
+    clientAddr.sin_family = AF_INET;
+    clientAddr.sin_port = htons(myPORT);
 
+    std::cout << "Enviando ACK para IP: " << clientIp
+        << ", Seqn: " << ackPacket.ack.seqn
+        << ", Total Sum: " << ackPacket.ack.total_sum << std::endl;
+
+    this->socketHandler.send(&ackPacket, sizeof(packet), &clientAddr);
 }
 
 
