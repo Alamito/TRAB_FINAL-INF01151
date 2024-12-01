@@ -46,11 +46,11 @@ void Client::sendSumRequisition(int numToSum) {
     lastReq = packetReceived.ack.seqn;
     lastSum = packetReceived.ack.total_sum;
 
-    printf("Requisicao enviada ao servidor!\n");
+    //printf("Requisicao enviada ao servidor!\n");
     printf("Somatorio atual: %d \n", lastSum);
-    printf("Total de requisicoes enviadas ao servidor: %d\n\n", packetReceived.ack.num_reqs);
+    //printf("Total de requisicoes enviadas ao servidor: %d\n\n", packetReceived.ack.num_reqs);
 
-    cout << " ----------------------------------------------" << endl << endl;
+    //cout << " ----------------------------------------------" << endl << endl;
 }
 
 int Client::listenTerminal(){
