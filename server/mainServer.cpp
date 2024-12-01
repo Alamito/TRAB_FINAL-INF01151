@@ -14,7 +14,7 @@ int main() {
 
         switch(packetReceived.type){
             case DESC: {
-                cout << "pacote de descoberta" << endl; 
+                //cout << "pacote de descoberta" << endl; 
                 std::thread d(&Server::discoverRequisitionResponse, ref(server),&srcAddr);
                 d.detach();
                 //server.discoverRequisitionResponse(&srcAddr);
@@ -22,7 +22,7 @@ int main() {
                 break;
             }
             case REQ: {
-                cout << "pacote de requisicao" << endl; 
+                //cout << "pacote de requisicao" << endl; 
                 std::thread t(&Server::sumRequisitionResponse, std::ref(server), packetReceived.req.value, packetReceived.seqn, &srcAddr);
                 t.detach();
                 //server.sumRequisitionResponse(packetReceived.req.value, packetReceived.seqn, &srcAddr); 

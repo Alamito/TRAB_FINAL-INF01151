@@ -16,9 +16,7 @@ Server::Server()
       sumTable(),
       clientsTable()
 {
-    
-    this->socketHandler.create();
-    
+    this->socketHandler.create();   
 }
 
 sockaddr_in Server::receiveMessage(packet * packetReceived_pt) {
@@ -31,8 +29,6 @@ sockaddr_in Server::receiveMessage(packet * packetReceived_pt) {
         memcpy(packetReceived_pt, buf, sizeof(packet));
 
         if(buf[0] != '\0'){
-            //char clientIp[INET_ADDRSTRLEN];
-            //inet_ntop(AF_INET, &(clientAddr.sin_addr), clientIp, INET_ADDRSTRLEN);
             return clientAddr; // retorna as infos do client
         }
     }          
@@ -49,16 +45,16 @@ void Server::sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClien
         
     /*caso a requiquisao esteja repetida*/
     if(auxClient.lastReq >= seqn){
-        cout << "requisicao repitida" << endl; 
+        //cout << "requisicao repitida" << endl; 
 
         /*printa as tabelas*/
-        this->clientsTable.printTable();
-        this->sumTable.printTable();
+        //this->clientsTable.printTable();
+        //this->sumTable.printTable();
 
         auxClient.lastReq = seqn;
         cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
 
-    //    /*envia Ack com campos antigos*/
+        /*envia Ack com campos antigos*/
         this->sendMessageAck(auxClient, sockClient);
         return; 
     }
@@ -73,13 +69,12 @@ void Server::sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClien
 
     /*printa as tabelas*/
     this->clientsTable.updateClient(clientIp, seqn, value, this->sumTable.getSum()); 
-    this->clientsTable.printTable();
-    this->sumTable.printTable();
+    //this->clientsTable.printTable();
+    //this->sumTable.printTable();
     cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
 }
 
 void Server::discoverRequisitionResponse(sockaddr_in * sockClient){
-    
     char clientIp[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &(sockClient->sin_addr), clientIp, INET_ADDRSTRLEN);
 
@@ -114,8 +109,6 @@ void Server::sendMessageAck(clientData client, sockaddr_in * sockClient) {
 
     this->socketHandler.send(&ackPacket, sizeof(packet), sockClient);
 }
-    //nao precisa criar mais threads, a de soma do servidor ja eh uma thread
-
 
 void Server::sendDiscoverAck(sockaddr_in * sockClient) {
     cout << "mandando mensagem de Discover de requisicao" << endl; 
