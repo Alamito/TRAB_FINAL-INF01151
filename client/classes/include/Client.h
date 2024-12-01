@@ -21,7 +21,7 @@ class Client{
         SocketClient sockHandler;
 
     public:
-        Client();
+        Client(int port);
         void sendSumRequisition(int numToSum);
         int listenTerminal();
         void discoverServer();

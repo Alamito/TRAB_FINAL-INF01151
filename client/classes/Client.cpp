@@ -5,15 +5,15 @@
 
 using namespace std;
 
-Client::Client()
-    : serverAdress(BROADCAST_IP), sockHandler(8080, serverAdress) { // Inicialização de sockHandler
+Client::Client(int port)
+    : serverAdress(BROADCAST_IP), sockHandler(port, serverAdress) { // Inicialização de sockHandler
     lastReq = 0;
     lastSum = 0;
 
     sockHandler.create();
 
     cout << " ----------------------------------------------" << endl;
-    cout << "|      Cliente iniciado na porta 8080          |"  << endl;
+    cout << "|      Cliente iniciado na porta " << port << "         |" << endl;
     cout << " ----------------------------------------------" << endl;
 }
 

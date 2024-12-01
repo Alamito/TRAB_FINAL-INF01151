@@ -8,9 +8,10 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char* argv[]){
+    int port = argv[1] ? stoi(argv[1]) : 8080;
 
-    Client cliente;
+    Client cliente(port);
     int numToSum;
 
     while(1){
