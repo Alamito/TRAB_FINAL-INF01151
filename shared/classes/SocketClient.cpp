@@ -1,5 +1,6 @@
 #include "Socket.h"
 #include <chrono>
+#include <sys/time.h>
 
 /*Construtor recebe apenas a porta onde estara rodando o servidor, sendo que o IP
 inicial e "255.255.255.255", que e o IP de broadcast*/
@@ -7,6 +8,7 @@ SocketClient::SocketClient(int portToSend, std::string destinationIp)
     : portToSend(portToSend), destinationIp(destinationIp), socketFd(-1){//, serverHost(gethostbyname("255.255.255.255")) {
     printf("Criando Socket para enviar para porta: %d, ip: %s\n",portToSend, destinationIp.c_str());
     }
+
 /*Metodo que inicializa o socket e define todas as informacoes do destinatario na
 struct serv_addr*/
 void SocketClient::create() {
@@ -25,6 +27,14 @@ void SocketClient::create() {
 	//this->serv_addr.sin_addr = *((struct in_addr *)this->serverHost->h_addr);
 	
     bzero(&(this->serv_addr.sin_zero), 8);  
+
+    struct timeval timeout;
+    timeout.tv_sec = 1;
+    timeout.tv_usec = 0;
+    if (setsockopt(this->socketFd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0)
+        std::cout << "Deu Ruim" << std::endl; 
+
+
 }
 
 /*Metodo de envio de pacote. Recebe um pacote a ser enviado (tipo packet) e o envia 

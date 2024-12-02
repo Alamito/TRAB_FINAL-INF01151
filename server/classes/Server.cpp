@@ -70,7 +70,7 @@ void Server::sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClien
     /*printa as tabelas*/
     this->clientsTable.updateClient(clientIp, seqn, value, this->sumTable.getSum()); 
     //this->clientsTable.printTable();
-    //this->sumTable.printTable();
+    this->sumTable.printTable();
     cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
 }
 

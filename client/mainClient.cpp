@@ -23,7 +23,6 @@ int main(){
         else{
             //numToSum = cliente.listenTerminal();
             while (scanf("%d", &numToSum) == 1){
-                cout << "||||||" << numToSum << "||||||" << endl;
                 cliente.sendSumRequisition(numToSum);
             }
         }

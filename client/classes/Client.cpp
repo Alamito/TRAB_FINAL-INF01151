@@ -29,6 +29,8 @@ void Client::sendSumRequisition(int numToSum) {
     int waitedSeq = 0, waitedType = 0;
 
     while (!waitedSeq || !waitedType) {
+        waitedSeq = 0;
+        waitedType = 0;
         do {
             sockHandler.send(&sumPacket, sizeof(sumPacket));
             ackReceived = sockHandler.receive(buf, SIZE_BUFFER, &ipServerAddr);
@@ -47,8 +49,10 @@ void Client::sendSumRequisition(int numToSum) {
     lastSum = packetReceived.ack.total_sum;
 
     //printf("Requisicao enviada ao servidor!\n");
-    printf("Somatorio atual: %d \n", lastSum);
+    //printf("Somatorio atual: %d \n", lastSum);
     //printf("Total de requisicoes enviadas ao servidor: %d\n\n", packetReceived.ack.num_reqs);
+
+    cout << "Sum_server " << lastSum << " seqn " << lastReq << endl;
 
     //cout << " ----------------------------------------------" << endl << endl;
 }
@@ -69,12 +73,13 @@ void Client::discoverServer() {
     packet discoverPacket;
     discoverPacket.type = DESC;
 
-    sockHandler.setReceiveTimeout(&discoverPacket, sizeof(discoverPacket));
+    //sockHandler.setReceiveTimeout(&discoverPacket, sizeof(discoverPacket));
 
     cout << "Tentando encontrar o servidor..." << endl;
     do {
         sockHandler.send(&discoverPacket, sizeof(discoverPacket));
         ackReceived = sockHandler.receive(buf, SIZE_BUFFER, &serverAddr);
+        cout << "Reenviando descoberta..." << endl;
     } while (ackReceived <= 0);
 
     char ip[INET_ADDRSTRLEN];
