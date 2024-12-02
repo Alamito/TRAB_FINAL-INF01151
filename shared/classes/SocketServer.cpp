@@ -31,28 +31,14 @@ void SocketServer::create() {
 
 
 void SocketServer::send(void* packetToSend, size_t size, sockaddr_in* destinationAddr){
-	printf("Entrou no send\n");
+	//printf("Entrou no send\n");
 	/* send to socket */
-	//n = sendto(sockfd, "Got your message\n", 17, 0,(struct sockaddr *) &cli_addr, sizeof(struct sockaddr));
-	//if (n  < 0) 
-	//	printf("ERROR on sendto");
-
 	int n;
-
-	//Cria uma struct com os dados do destinatário
-	/*struct sockaddr_in destinationAddr;
-	memset(&destinationAddr, 0, sizeof(destinationAddr));
-	destAddr.sin_family = AF_INET;
-	destAddr.sin_port = htons(destinationPort);
-	if (inet_pton(AF_INET, destinationIp.c_str(), &destinationAddr.sin_addr) <= 0){
-		printf("Endereço IP de destino inválido\n");
-		return;
-	}*/
 	n = sendto(this->socketFd, packetToSend, size, 0, (struct sockaddr *) destinationAddr, sizeof(struct sockaddr)); 
 	if (n < 0)
 		printf("Nenhum dado enviado\n");
 
-	printf("bytes enviados para o cliente: %d\n", n);		
+	//printf("bytes enviados para o cliente: %d\n", n);		
 }
 
 

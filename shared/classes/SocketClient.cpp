@@ -42,7 +42,6 @@ Armazena os dados recebidos em buf e o endereço do remetente em destinationAddr
 int SocketClient::receive(void* buf, size_t size, sockaddr_in* destinationAddr){
 
     int n = 0;
-    //char buf[sizeof(packet)];   //buf já é passado com parâmetro
     unsigned int lengthDestinationAddr;
 	lengthDestinationAddr = sizeof(struct sockaddr_in);
 
@@ -53,8 +52,7 @@ int SocketClient::receive(void* buf, size_t size, sockaddr_in* destinationAddr){
 
     char ip_temp[INET_ADDRSTRLEN];    
     inet_ntop(AF_INET, &(destinationAddr->sin_addr), ip_temp, INET_ADDRSTRLEN);
-    //senderIp = ip_temp;
-	printf("Recebido um pacote de %s\n", ip_temp);
+	//printf("Recebido um pacote de %s\n", ip_temp);
 
     return n;
 

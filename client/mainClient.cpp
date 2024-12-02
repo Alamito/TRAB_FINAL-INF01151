@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stdio.h>
 
 #include <chrono>
 #include <thread>
@@ -12,17 +13,21 @@ int main(){
 
     Client cliente;
     int numToSum;
+    char numToSumChar[20];
 
     while(1){
-        printf("cliente.getServerAdress(): %s\n", cliente.getServerAdress().c_str());
+        //printf("cliente.getServerAdress(): %s\n", cliente.getServerAdress().c_str());
         if (cliente.getServerAdress().compare("255.255.255.255") == 0){
             cliente.discoverServer();
         }
         else{
-            numToSum = cliente.listenTerminal();
-            cliente.sendSumRequisition(numToSum);
+            //numToSum = cliente.listenTerminal();
+            while (scanf("%d", &numToSum) == 1){
+                cout << "||||||" << numToSum << "||||||" << endl;
+                cliente.sendSumRequisition(numToSum);
+            }
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     }
 }
 
