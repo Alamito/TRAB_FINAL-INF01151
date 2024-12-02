@@ -69,6 +69,8 @@ void Client::discoverServer() {
     packet discoverPacket;
     discoverPacket.type = DESC;
 
+    sockHandler.setReceiveTimeout(&discoverPacket, sizeof(discoverPacket));
+
     cout << "Tentando encontrar o servidor..." << endl;
     do {
         sockHandler.send(&discoverPacket, sizeof(discoverPacket));

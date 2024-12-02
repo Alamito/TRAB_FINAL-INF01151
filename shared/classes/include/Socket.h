@@ -24,6 +24,7 @@ class SocketClient {
     public: 
         SocketClient(int portToSend, std::string destinationIp); 
         void create(); 
+        void setReceiveTimeout(const void* testPacket, size_t packetSize);
         void send(void* packetToSend, size_t size);
         int receive(void* buf, size_t size, sockaddr_in* destinationAddr);
 
@@ -77,6 +78,7 @@ class Socket {
         int send(const void* data, size_t size, const std::string& destIp, int destPort) const;
         int receive(void* buffer, size_t size, std::string& senderIp) const;
         void close();
+        void setReceiveTimeout(const void* testPacket, size_t packetSize, sockaddr_in* serverAddr);
         ~Socket();
 
         void getLocalIp(char *buffer, size_t buffer_len); 

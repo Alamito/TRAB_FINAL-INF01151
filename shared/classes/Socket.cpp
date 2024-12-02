@@ -5,7 +5,6 @@
 #include <string>
 #include <iostream>
 
-
 int Socket::send(const void* data, size_t size, const std::string& destIp, int destPort) const {
     if (socketFd < 0) {
         throw std::runtime_error("Socket não inicializado corretamente");
