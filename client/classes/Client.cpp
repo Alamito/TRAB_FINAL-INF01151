@@ -28,8 +28,8 @@ void Client::sendSumRequisition(int numToSum) {
     char buf[SIZE_BUFFER];
     int waitedSeq = 0, waitedType = 0;
 
-    while (!waitedSeq || !waitedType) {
-        waitedSeq = 0;
+    while (!waitedType){//(!waitedSeq || !waitedType) {
+        //waitedSeq = 0;
         waitedType = 0;
         do {
             sockHandler.send(&sumPacket, sizeof(sumPacket));
@@ -37,16 +37,17 @@ void Client::sendSumRequisition(int numToSum) {
         } while (ackReceived <= 0);
 
         memcpy(&packetReceived, buf, sizeof(packet));
-        if (packetReceived.ack.seqn == lastReq + 1) {
-            waitedSeq = 1;
-        }
+        // if (packetReceived.ack.seqn == lastReq + 1) {
+        //     waitedSeq = 1;
+        // }
         if (packetReceived.type == REQ_ACK) {
             waitedType = 1;
         }
+        std::cout << "seqn " << packetReceived.ack.seqn << std::endl;
     }
 
-    lastReq = packetReceived.ack.seqn;
-    lastSum = packetReceived.ack.total_sum;
+    this->lastReq = packetReceived.ack.seqn;
+    this->lastSum = packetReceived.ack.total_sum;
 
     //printf("Requisicao enviada ao servidor!\n");
     //printf("Somatorio atual: %d \n", lastSum);

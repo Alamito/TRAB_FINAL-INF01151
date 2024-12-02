@@ -22,16 +22,22 @@ Server::Server()
 sockaddr_in Server::receiveMessage(packet * packetReceived_pt) {
     char buf[SIZE_BUFFER]; 
     sockaddr_in clientAddr;
-    buf[0] = '\0';
+    int received = -1;
+    //buf[0] = '\0';
 
-    while(1){
-        this->socketHandler.receive(buf, SIZE_BUFFER, &clientAddr);
-        memcpy(packetReceived_pt, buf, sizeof(packet));
+    // while(1){
+    //     this->socketHandler.receive(buf, SIZE_BUFFER, &clientAddr);
+    //     memcpy(packetReceived_pt, buf, sizeof(packet));
 
-        if(buf[0] != '\0'){
-            return clientAddr; // retorna as infos do client
-        }
-    }          
+    //     if(buf[0] != '\0'){
+    //         return clientAddr; // retorna as infos do client
+    //     }
+    // }          
+    do{
+        received = socketHandler.receive(buf, SIZE_BUFFER, &clientAddr);
+    }while (received <= 0);
+    memcpy(packetReceived_pt, buf, sizeof(packet));
+    return clientAddr;
 } 
 
 void Server::sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClient){
@@ -40,38 +46,53 @@ void Server::sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClien
     char clientIp[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &(sockClient->sin_addr), clientIp, INET_ADDRSTRLEN);
 
-    /*busca cliente na tabela de clients*/
-    clientData auxClient = clientsTable.getClient(clientIp);
-        
-    /*caso a requiquisao esteja repetida*/
-    if(auxClient.lastReq >= seqn){
-        //cout << "requisicao repitida" << endl; 
+    clientData client = clientsTable.getClient(clientIp);
+    int seqEsperado = client.lastReq + 1;
+    packet ack;
+    ack.type = REQ_ACK;
 
-        /*printa as tabelas*/
-        //this->clientsTable.printTable();
-        //this->sumTable.printTable();
-
-        auxClient.lastReq = seqn;
-        cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
-
-        /*envia Ack com campos antigos*/
-        this->sendMessageAck(auxClient, sockClient);
-        return; 
+    if (seqn == seqEsperado){
+        ack.ack.total_sum = this->sumTable.updateTable(value);
+        this->clientsTable.updateClient(clientIp, seqn, value, this->sumTable.getSum());
     }
+    else{
+        ack.ack.total_sum = client.totalSum;
+    }
+    
+    ack.ack.seqn = seqn;
+    ack.ack.num_reqs = this->sumTable.getRequests();
+
+    socketHandler.send(&ack, sizeof(packet), sockClient);
+
+    // /*busca cliente na tabela de clients*/
+    // clientData auxClient = clientsTable.getClient(clientIp);
+        
+    // /*caso a requiquisao esteja repetida*/
+    // if(auxClient.lastReq >= seqn){
+    //     //cout << "requisicao repetida" <<
+    //     /*printa as tabelas*/
+    //     //this->clientsTable.printTable();
+    //     //this->sumTable.printT
+    //     auxClient.lastReq = seqn;
+    //     cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum <
+    //     /*envia Ack com campos antigos*/
+    //     this->sendMessageAck(auxClient, sockClient);
+    //     return; 
+    // }
 
 
-    /*envia Ack com novos campos*/
-    auxClient.lastReq = seqn;
-    auxClient.lastSum = value;
-    auxClient.totalSum = this->sumTable.updateTable(value);
-    this->sendMessageAck(auxClient, sockClient);
+    // /*envia Ack com novos campos*/
+    // auxClient.lastReq = seqn;
+    // auxClient.lastSum = value;
+    // auxClient.totalSum = this->sumTable.updateTable(value);
+    // this->clientsTable.updateClient(clientIp, seqn, value, this->sumTable.getSum()); 
+    // this->sendMessageAck(auxClient, sockClient);
     
 
-    /*printa as tabelas*/
-    this->clientsTable.updateClient(clientIp, seqn, value, this->sumTable.getSum()); 
-    //this->clientsTable.printTable();
-    this->sumTable.printTable();
-    cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << auxClient.totalSum << endl;
+    // /*printa as tabelas*/
+    // //this->clientsTable.printTable();
+    // this->sumTable.printTable();
+    cout << endl << "client " << clientIp << " id_req " << seqn << " value " << value << " total sum " << ack.ack.total_sum << endl;
 }
 
 void Server::discoverRequisitionResponse(sockaddr_in * sockClient){
