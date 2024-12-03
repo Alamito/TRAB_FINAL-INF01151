@@ -1,9 +1,5 @@
 #include "Socket.h"
 
-
-
-
-
 SocketServer::SocketServer(int myPort)
     : myPort(myPort), socketFd(-1) {
     printf("Inicializando SocketServer para ouvir na porta: %d\n", myPort);

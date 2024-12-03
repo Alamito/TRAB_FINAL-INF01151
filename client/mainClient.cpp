@@ -9,15 +9,16 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char* argv[]){
+    int port = argv[1] ? stoi(argv[1]) : 8080;
 
-    Client cliente;
+    Client cliente(port);
     int numToSum;
     char numToSumChar[20];
 
     while(1){
-        //printf("cliente.getServerAdress(): %s\n", cliente.getServerAdress().c_str());
-        if (cliente.getServerAdress().compare("255.255.255.255") == 0){
+        printf("cliente.getServerAdress(): %s\n", cliente.getServerAdress().c_str());
+        if (cliente.getServerAdress().compare(BROADCAST_IP) == 0){
             cliente.discoverServer();
         }
         else{

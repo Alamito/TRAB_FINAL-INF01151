@@ -7,12 +7,10 @@
   essa porta precisa ser passada como argumento na chamada 
   do terminal!!  
 */
-const int myPORT = 8080;
-
 using namespace std; 
 
-Server::Server()
-    : socketHandler(myPORT),
+Server::Server(int port)
+    : socketHandler(port),
       sumTable(),
       clientsTable()
 {

@@ -4,10 +4,13 @@
 
 using namespace std;
 
-int main() {
-    Server server;
+int main(int argc, char* argv[]) {
+    int port = argv[1] ? stoi(argv[1]) : 8080;
+    Server server(port);
     packet packetReceived; 
     sockaddr_in srcAddr; /*estrutura que recebe os dados do client*/
+
+
     while(1){
         srcAddr = server.receiveMessage(&packetReceived);
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
