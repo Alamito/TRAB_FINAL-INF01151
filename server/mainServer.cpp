@@ -4,8 +4,8 @@
 
 using namespace std;
 
-int main() {
-    Server server;
+int main(int argc, char* argv[]) {
+    Server server(atoi(argv[1]));
     packet packetReceived; 
     sockaddr_in srcAddr; /*estrutura que recebe os dados do client*/
     while(1){

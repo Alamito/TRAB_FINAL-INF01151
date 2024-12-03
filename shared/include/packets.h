@@ -16,7 +16,7 @@ struct requisicao {
 struct requisicao_ack {
     uint16_t seqn;      //Número de sequência que está sendo feito o ack
     uint16_t num_reqs;  // Quantidade de requisições
-    uint16_t total_sum; // Valor da soma agregada até o momento
+    uint64_t total_sum; // Valor da soma agregada até o momento
 };
 
 typedef struct __packet {

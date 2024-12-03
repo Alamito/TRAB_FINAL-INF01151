@@ -17,8 +17,8 @@ updateClient()
 
 struct clientData {
     uint16_t lastReq;
-    uint16_t lastSum;
-    uint16_t totalSum; 
+    uint64_t lastSum;
+    uint64_t totalSum; 
     std::string IP;
 };
 

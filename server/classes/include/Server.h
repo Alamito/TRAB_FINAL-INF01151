@@ -19,7 +19,7 @@ class Server
         
     public:
         /*constructor*/
-        Server(); 
+        Server(int port); 
         sockaddr_in receiveMessage(packet * packetReceived_pt);
         void sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClient);
         void discoverRequisitionResponse(sockaddr_in * sockClient);

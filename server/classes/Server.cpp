@@ -1,22 +1,24 @@
 #include "Server.h"
 #include <cstring>
 #include <cstdlib>  // Para system()
+#include <time.h>
 
 
 /*
   essa porta precisa ser passada como argumento na chamada 
   do terminal!!  
 */
-const int myPORT = 8080;
+//const int myPORT = 8080;
 
 using namespace std; 
 
-Server::Server()
-    : socketHandler(myPORT),
+Server::Server(int port)
+    : socketHandler(port),
       sumTable(),
       clientsTable()
 {
     this->socketHandler.create();   
+    cout << __DATE__ << " " << __TIME__ << "num_reqs 0 total_sum 0" << endl;
 }
 
 sockaddr_in Server::receiveMessage(packet * packetReceived_pt) {
@@ -96,21 +98,22 @@ void Server::sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClien
     //this->sumTable.printTable();
     delete clientAddr;
 
-    cout << "client " << clientIp << " id_req " << seqnCopy << " value " << valueCopy << " total sum " <<  auxClient.totalSum << endl << endl;
+    //cout << "client " << clientIp << " id_req " << seqnCopy << " value " << valueCopy << " total sum " <<  auxClient.totalSum << endl << endl;
+    cout << __DATE__ << __TIME__ << " client " << clientIp << " id_req " << seqnCopy << " total sum " <<  auxClient.totalSum << endl;
 }
 
 void Server::discoverRequisitionResponse(sockaddr_in * sockClient){
     char clientIp[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &(sockClient->sin_addr), clientIp, INET_ADDRSTRLEN);
 
-    cout << "discoverRequisitionResponse to: " << clientIp << endl;
+    //cout << "discoverRequisitionResponse to: " << clientIp << endl;
     clientData client = {0,0,0,clientIp};
 
 
     /*manda o ack independentemente*/
     this->sendDiscoverAck(sockClient);
     this->clientsTable.addClient(client);
-    this->clientsTable.printTable();
+    //this->clientsTable.printTable();
 
     //system("clear");  // Limpa a tela no terminal
 }
@@ -136,7 +139,7 @@ void Server::sendMessageAck(clientData client, sockaddr_in * sockClient) {
 }
 
 void Server::sendDiscoverAck(sockaddr_in * sockClient) {
-    cout << "mandando mensagem de Discover de requisicao" << endl; 
+    //cout << "mandando mensagem de Discover de requisicao" << endl; 
     packet ackPacket;
     ackPacket.type = DESC_ACK;
 

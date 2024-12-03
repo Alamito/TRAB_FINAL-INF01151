@@ -13,15 +13,14 @@ class Client{
     private:
         string ipAdress; //Próprio ip do cliente
         int lastReq;
-        int lastSum;
+        uint64_t lastSum;
         string serverAdress;
 
         SocketClient sockHandler;
 
     public:
-        Client();
+        Client(int port);
         void sendSumRequisition(int numToSum);
-        int listenTerminal();
         void discoverServer();
         //void sendSumRequisition(Message* mensagem, int numRequisition);
         // int listenTerminal();

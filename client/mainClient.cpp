@@ -9,9 +9,9 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char* argv[]){
 
-    Client cliente;
+    Client cliente(atoi(argv[1]));
     int numToSum;
     char numToSumChar[20];
 
