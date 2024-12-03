@@ -41,9 +41,10 @@ void Client::sendSumRequisition(int numToSum) {
         //     waitedSeq = 1;
         // }
         if (packetReceived.type == REQ_ACK) {
-            waitedType = 1;
+            if(packetReceived.ack.seqn == this->lastReq+1)
+                waitedType = 1;
         }
-        std::cout << "seqn " << packetReceived.ack.seqn << std::endl;
+        //std::cout << "seqn " << packetReceived.ack.seqn << std::endl;
     }
 
     this->lastReq = packetReceived.ack.seqn;

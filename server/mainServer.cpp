@@ -33,7 +33,7 @@ int main() {
                 //cout << "pacote de requisicao" << endl; 
 
             
-                cout << "recebido pacote com value: " << packetReceived.req.value << " e seqn: " << packetReceived.seqn << endl;
+                //cout << "recebido pacote com value: " << packetReceived.req.value << " e seqn: " << packetReceived.seqn << endl;
                 std::thread t(&Server::sumRequisitionResponse, std::ref(server), packetReceived.req.value, packetReceived.seqn, &srcAddr);
                 t.detach();
                 //server.sumRequisitionResponse(packetReceived.req.value, packetReceived.seqn, &srcAddr); 

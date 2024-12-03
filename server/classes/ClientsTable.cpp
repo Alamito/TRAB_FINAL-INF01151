@@ -63,7 +63,7 @@ int ClientsTable::updateClient(std::string ip, int req, int value, int sum) {
                     client.lastReq = req;
                     client.lastSum = value;
                     client.totalSum = sum; 
-                    cout << "  ...Client with IP " << ip << " updated: lastReq = " << req << ", lastSum = " << sum << "..." << endl << endl;
+                    //cout << "  ...Client with IP " << ip << " updated: lastReq = " << req << ", lastSum = " << sum << "..." << endl << endl;
                 }
             }
             this->mutex_lock_clients.unlock();

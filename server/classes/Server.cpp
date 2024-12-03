@@ -75,9 +75,9 @@ void Server::sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClien
         //this->clientsTable.printTable();
         //this->sumTable.printT
         //auxClient.lastReq = seqnCopy;
-        cout << "repetido: client " << clientIp << " id_req " << seqnCopy << " value " << value << " total sum " << auxClient.totalSum << endl << endl;
+        //cout << "repetido: client " << clientIp << " id_req " << seqnCopy << " value " << value << " total sum " << auxClient.totalSum << endl << endl;
         /*envia Ack com campos antigos*/
-        //this->sendMessageAck(auxClient, clientAddr);
+        this->sendMessageAck(auxClient, clientAddr);
         delete clientAddr;
         return; 
     }
@@ -96,7 +96,7 @@ void Server::sumRequisitionResponse(int value, int seqn, sockaddr_in * sockClien
     //this->sumTable.printTable();
     delete clientAddr;
 
-//    cout << "client " << clientIp << " id_req " << seqnCopy << " value " << valueCopy << " total sum " <<  auxClient.totalSum << endl << endl;
+    cout << "client " << clientIp << " id_req " << seqnCopy << " value " << valueCopy << " total sum " <<  auxClient.totalSum << endl << endl;
 }
 
 void Server::discoverRequisitionResponse(sockaddr_in * sockClient){
