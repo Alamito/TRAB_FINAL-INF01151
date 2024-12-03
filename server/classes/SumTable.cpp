@@ -12,7 +12,7 @@ int SumTable::updateTable(int numberToSum) {
             this->mutex_lock.unlock();
             return this->totalSum;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));  
     }
 }
 
@@ -27,6 +27,6 @@ int SumTable::printTable() {
             this->mutex_lock.unlock();
             return true;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));  
     }
 }

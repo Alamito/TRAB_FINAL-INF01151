@@ -16,7 +16,7 @@ clientData ClientsTable::getClient(std::string ip){
             this->mutex_lock_clients.unlock();
             return {};
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));  
     }
 }
 
@@ -36,7 +36,7 @@ int ClientsTable::addClient(clientData client) {
             this->mutex_lock_clients.unlock();
             return true;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));  
     }
 }
 
@@ -50,7 +50,7 @@ int ClientsTable::deleteClient(std::string ip) {
             this->mutex_lock_clients.unlock();
             return true; 
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));  
     }
 }
 
@@ -69,7 +69,7 @@ int ClientsTable::updateClient(std::string ip, int req, int value, int sum) {
             this->mutex_lock_clients.unlock();
             return true; 
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));  
 
     }
 }
@@ -93,7 +93,7 @@ void ClientsTable::printTable() {
             this->mutex_lock_clients.unlock();
             return; 
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));  
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));  
 
     }
 }
