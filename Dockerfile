@@ -12,12 +12,14 @@ COPY server/classes/include/ClientsTable.h ./
 COPY server/classes/include/Server.h ./
 COPY shared/classes/include/Socket.h ./
 COPY shared/include/packets.h ./
-COPY shared/classes/Socket.cpp ./
+COPY shared/classes/SocketClient.cpp ./
+COPY shared/classes/SocketServer.cpp ./
 COPY server/classes/ClientsTable.cpp ./
 COPY server/classes/SumTable.cpp ./
 
 # Compilando o código do servidor
-RUN g++ -o mainServer mainServer.cpp Server.cpp Socket.cpp ClientsTable.cpp SumTable.cpp -lpthread
+RUN g++ -o mainServer mainServer.cpp Server.cpp ClientsTable.cpp SumTable.cpp SocketServer.cpp SocketClient.cpp -lpthread
+
 
 # Comando para rodar o servidor
 CMD ["./mainServer"]
