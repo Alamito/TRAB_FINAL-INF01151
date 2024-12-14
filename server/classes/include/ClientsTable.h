@@ -8,15 +8,9 @@
 #include <chrono>
 #include <thread>
 
-/*
-list clientData clients
-addClient ()
-updateClient()
-*/
-
 
 struct clientData {
-    uint64_t lastReq;
+    uint16_t lastReq;
     uint64_t lastSum;
     uint64_t totalSum; 
     std::string IP;
@@ -37,8 +31,8 @@ class ClientsTable
         /**/
         
         int addClient(clientData client);
-        int deleteClient(std::string ip); //talvez nao precise
-        int updateClient(std::string ip, int req, int value, int sum); //talvez nao precise
+        int deleteClient(std::string ip);
+        int updateClient(std::string ip, int req, int value, int sum); 
         clientData getClient(std::string ip); 
 
 

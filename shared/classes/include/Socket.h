@@ -24,11 +24,8 @@ class SocketClient {
     public: 
         SocketClient(int portToSend, std::string destinationIp); 
         void create(); 
-        void setReceiveTimeout(const void* testPacket, size_t packetSize);
         void send(void* packetToSend, size_t size);
         int receive(void* buf, size_t size, sockaddr_in* destinationAddr);
-
-        void setServ_addr();    //IMPLEMENTAR
 }; 
 
 
@@ -43,47 +40,6 @@ class SocketServer {
         void create(); 
         void send(void* packetToSend, size_t size, sockaddr_in* destinationAddr);
         int receive(void* buf, size_t size, sockaddr_in* srcAddr);
-};
-
-
-class Socket {
-    private:
-
-
-        /*ambos*/
-        int socketFd;
-
- 
-        //  int port;
-
-        /*server*/
-        struct sockaddr_in cli_addr;
-        int myPort;
-        //int recipientIp;
-
-
-
-        int myIp; 
-        socklen_t cliLen; 
-        
-        
-        //struct sockaddr_in serverAddr;
-
-
-    public:
-        Socket(int port =  4000, int broadcastEnable = 1);
-        void create();
-        void setBroadcastEnable(int broadcastEnable); // Adicione esta linha
-        void bind();  // Agora simplificado para apenas UDP
-        int send(const void* data, size_t size, const std::string& destIp, int destPort) const;
-        int receive(void* buffer, size_t size, std::string& senderIp) const;
-        void close();
-        void setReceiveTimeout(const void* testPacket, size_t packetSize, sockaddr_in* serverAddr);
-        ~Socket();
-
-        void getLocalIp(char *buffer, size_t buffer_len); 
-        //int getPort() const { return port; }
-        int getSocketFd() const { return socketFd; }
 };
 
 #endif // SOCKET_H

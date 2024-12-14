@@ -9,9 +9,9 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char* argv[]){
 
-    Client cliente;
+    Client cliente(atoi(argv[1]));
     int numToSum;
     char numToSumChar[20];
 
@@ -23,7 +23,6 @@ int main(){
         else{
             //numToSum = cliente.listenTerminal();
             while (scanf("%d", &numToSum) == 1){
-                cout << "||||||" << numToSum << "||||||" << endl;
                 cliente.sendSumRequisition(numToSum);
             }
         }

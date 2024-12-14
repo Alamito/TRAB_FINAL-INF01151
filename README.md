@@ -1,23 +1,22 @@
-# COMANDOS DOCKER:
-    Antes devemos entrar na pasta do Dockerfile
-    - docker build -t servidor-udp .
-    - docker run --rm -it servidor-udp
+## Compilando o programa
 
-# DESCOBRIR IP DO DOCKER:
-    - docker ps
-        - pegar CONTAINER ID (como b260c9bf3467)
-    - docker exec -it b260c9bf3467 hostname -I
+    Primeiramente, crie uma pasta build no diretorio root:
+        - mkdir build
 
-# Testar envio de mensagens?
-    Exemplo em MessageTest.cpp
+        OBS: Caso ja exista uma pasta build, apague-a e crie uma nova
 
-# Fazer o CMAKE funcionar
-    - adicionar os caminhos no arquivo CMakeLists.txt
-    - criar pasta build, caso ela não exista
-        -- dentro de build: `cmake ..`
+    Acesse a pasta build e rode os seguintes comandos:
+        - cmake ..
+        - make
 
-## Para rodar o programa com Cmake
-    - dentro de build: `make`
-    - dentro de build: `./"nome do executavel que esta no CMakeLists.txt"`
+## Rodando o programa
 
-    
+    Dentro da pasta build, execute os seguintes comandos para executar
+    o servidor e o cliente respectivamente:
+        - ./Server <port>
+        - ./Client <port>
+
+    No diretorio root existe um arquivo txt com 10000 numeros aleatorios
+    que somam 255539. É possível utiliza-lo como teste, passando-o como
+    parâmetro:
+        - ./Client <port> ./../10000-num.txt
