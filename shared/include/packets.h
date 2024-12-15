@@ -8,6 +8,8 @@
 #define REQ 2
 #define DESC_ACK 3
 #define REQ_ACK 4
+#define DISC_LEADER 5
+#define COORDINATOR 6
 
 struct requisicao {
     uint16_t value; // Valor da requsição
@@ -22,6 +24,7 @@ struct requisicao_ack {
 typedef struct __packet {
     uint16_t type;      // Tipo do pacote (DESC | REQ | DESC_ACK | REQ_ACK )
     uint16_t seqn;      //Número de sequência de uma requisição
+    uint16_t senderPID;  // ID do emissor
     
     union {
         struct requisicao req;

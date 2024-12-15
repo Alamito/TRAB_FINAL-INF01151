@@ -16,6 +16,8 @@ class Server
         SocketServer socketHandler; 
         SumTable sumTable; 
         ClientsTable clientsTable; 
+        bool isLeader;  
+        int coordinatorPID; 
         
     public:
         /*constructor*/
@@ -25,6 +27,13 @@ class Server
         void discoverRequisitionResponse(sockaddr_in * sockClient);
         void sendMessageAck(clientData client, sockaddr_in * sockClient);
         void sendDiscoverAck(sockaddr_in * sockClient);
+        void findCoordinatorMessage();
+        void sendCoordinatorMessage(sockaddr_in * sockClient);
+        bool getIsLeader();
+        bool leaderTimeout();      
+        void setIsLeader(bool isLeader); 
+        void setCoordinatorPID(int coordinatorPID);
+
 
 };
 

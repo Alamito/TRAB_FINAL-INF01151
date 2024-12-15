@@ -27,6 +27,29 @@ void SocketServer::send(void* packetToSend, size_t size, sockaddr_in* destinatio
 		printf("Nenhum dado enviado\n");
 }
 
+void SocketServer::sendBroadcast(void* packetToSend, size_t size) {
+    sockaddr_in broadcastAddr;
+    broadcastAddr.sin_family = AF_INET;
+    broadcastAddr.sin_port = htons(this->myPort);  // Porta de destino
+    broadcastAddr.sin_addr.s_addr = INADDR_BROADCAST;  // Endereço de broadcast
+
+    // Garante que o socket está habilitado para broadcast
+    int broadcastEnable = 1;
+    if (setsockopt(socketFd, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable)) < 0) {
+        perror("Erro ao habilitar SO_BROADCAST");
+        return;
+    }
+
+    // Envia o pacote via broadcast
+    int n = sendto(this->socketFd, packetToSend, size, 0, 
+                   (struct sockaddr*)&broadcastAddr, sizeof(broadcastAddr));
+    if (n < 0) {
+        perror("Erro ao enviar pacote via broadcast");
+    } else {
+        printf("Broadcast enviado com sucesso (%d bytes)\n", n);
+    }
+}
+
 
 int SocketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
     int n = 0;
@@ -41,4 +64,16 @@ int SocketServer::receive(void* buf, size_t size, sockaddr_in* srcAddr){
     inet_ntop(AF_INET, &(srcAddr->sin_addr), ip_temp, INET_ADDRSTRLEN);
 
 	return n;	
+}
+
+int SocketServer::getSocketFd() {
+	return this->socketFd;
+}
+
+int SocketServer::getPort() {
+	return this->myPort;
+}
+
+struct sockaddr_in SocketServer::getServAddr() {
+	return this->serv_addr;
 }

@@ -107,4 +107,65 @@ void Server::sendDiscoverAck(sockaddr_in * sockClient) {
     this->socketHandler.send(&ackPacket, sizeof(packet), sockClient);
 }
 
+void Server::findCoordinatorMessage() {
+    packet electionPacket;
+    electionPacket.type = DISC_LEADER;
+    electionPacket.senderPID = getpid();
+    char buf[SIZE_BUFFER];
 
+    // envia broadcast para achar coordenador
+    this->socketHandler.sendBroadcast(&electionPacket, sizeof(packet));
+
+    // Configura um timeout para aguardar resposta
+    struct timeval timeout;
+    timeout.tv_sec = 2; // Tempo de espera em segundos
+    timeout.tv_usec = 0;
+
+    sockaddr_in responseAddr;
+
+    fd_set readfds;
+    FD_ZERO(&readfds);
+    FD_SET(this->socketHandler.getSocketFd(), &readfds);
+
+    int coordinatorResponse = this->socketHandler.receive(buf, sizeof(packet), &responseAddr); 
+    packet * receivedPacket = (packet *) buf;
+    if (coordinatorResponse > 0 && receivedPacket->senderPID != getpid()) {
+        if (receivedPacket->type == COORDINATOR) {
+            printf("Coordenador encontrado\n");
+            printf("PID do coordenador: %d\n", receivedPacket->senderPID);
+            this->setIsLeader(false);
+            this->setCoordinatorPID(receivedPacket->senderPID);
+        }
+    } else {
+        printf("Coordenador não encontrado, estou me proclamando Líder!\n");
+        this->setIsLeader(true);
+    }
+}
+
+void Server::sendCoordinatorMessage(sockaddr_in * sockClient) {
+    packet coordinatorPacket;
+    coordinatorPacket.type = COORDINATOR;
+    coordinatorPacket.senderPID = getpid();
+
+    printf("Enviando mensagem de coordenador\n");
+
+    // Envia mensagem de coordenador
+    this->socketHandler.send(&coordinatorPacket, sizeof(packet), sockClient);
+}
+
+bool Server::leaderTimeout(){
+    return false;
+}
+
+// Definições das funções
+void Server::setIsLeader(bool isLeader) {
+    this->isLeader = isLeader;
+}
+
+bool Server::getIsLeader() {
+    return this->isLeader;
+}
+
+void Server::setCoordinatorPID(int coordinatorPID) {
+    this->coordinatorPID = coordinatorPID;
+}

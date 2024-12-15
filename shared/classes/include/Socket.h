@@ -39,7 +39,11 @@ class SocketServer {
         SocketServer(int myPort);
         void create(); 
         void send(void* packetToSend, size_t size, sockaddr_in* destinationAddr);
+        void sendBroadcast(void* packetToSend, size_t size);
         int receive(void* buf, size_t size, sockaddr_in* srcAddr);
+        int getSocketFd();
+        int getPort();
+        struct sockaddr_in getServAddr();
 };
 
 #endif // SOCKET_H
