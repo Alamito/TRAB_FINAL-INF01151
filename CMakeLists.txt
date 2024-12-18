@@ -32,5 +32,4 @@ add_executable(Client
     shared/classes/SocketClient.cpp
 )
 
-#Linkar com o Google Test
-#target_link_libraries(SocketTest gtest gtest_main pthread)
+target_link_libraries(Server pthread)

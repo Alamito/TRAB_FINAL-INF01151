@@ -125,21 +125,28 @@ void Server::findCoordinatorMessage() {
     sockaddr_in responseAddr;
 
     fd_set readfds;
-    FD_ZERO(&readfds);
+    FD_ZERO(&readfds);  
     FD_SET(this->socketHandler.getSocketFd(), &readfds);
 
-    int coordinatorResponse = this->socketHandler.receive(buf, sizeof(packet), &responseAddr); 
-    packet * receivedPacket = (packet *) buf;
+    int activity = select(this->socketHandler.getSocketFd() + 1, &readfds, NULL, NULL, &timeout);
 
-    if (coordinatorResponse > 0 && receivedPacket->senderPID != this->PID) {       
-        if (receivedPacket->type == COORDINATOR) {
-            printf("Coordenador encontrado: PID %d, IP %s\n", receivedPacket->senderPID, inet_ntoa(responseAddr.sin_addr));
-            this->setIsLeader(false);
-            this->setCoordinatorIP(inet_ntoa(responseAddr.sin_addr));
-            this->setCoordinatorPID(receivedPacket->senderPID);
+    printf("activity: %d\n", activity);
+    if (activity > 0) {
+        int coordinatorResponse = this->socketHandler.receive(buf, sizeof(packet), &responseAddr);
+        packet *receivedPacket = (packet *)buf;
+
+        
+        //verifica se recebeu algo e se ips sao diferentes (colocar o receivedPacket->receiverPID != this->PID para testar  local)
+        if (coordinatorResponse > 0 && strcmp(inet_ntoa(responseAddr.sin_addr), inet_ntoa(this->socketHandler.getMyAddr().sin_addr)) != 0) {
+            if (receivedPacket->type == COORDINATOR) {
+                printf("Coordenador encontrado: PID %d, IP %s\n", receivedPacket->senderPID, inet_ntoa(responseAddr.sin_addr));
+                this->setIsLeader(false);
+                this->setCoordinatorIP(inet_ntoa(responseAddr.sin_addr));
+                this->setCoordinatorPID(receivedPacket->senderPID);   
+            }
+            return;
         }
-    } else {
-        printf("Coordenador não encontrado, estou me proclamando Líder! PID %d, IP %s\n", this->PID, inet_ntoa(responseAddr.sin_addr));
+        printf("Coordenador não encontrado, estou me proclamando Líder! PID %d, IP LOCAL\n", this->PID);
         this->setIsLeader(true);
     }
 }

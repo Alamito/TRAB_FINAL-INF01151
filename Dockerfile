@@ -1,24 +1,26 @@
-# Usando uma imagem base do gcc
+# Usando uma imagem base do GCC
 FROM gcc:12.2.0
+
+# Instalando CMake
+RUN apt-get update && apt-get install -y cmake
 
 # Definindo o diretório de trabalho
 WORKDIR /app
 
-# Copiando o código do servidor para o container
-COPY server/classes/Server.cpp ./
-COPY server/mainServer.cpp ./
-COPY server/classes/include/SumTable.h ./
-COPY server/classes/include/ClientsTable.h ./
-COPY server/classes/include/Server.h ./
-COPY shared/classes/include/Socket.h ./
-COPY shared/include/packets.h ./
-COPY shared/classes/SocketClient.cpp ./
-COPY shared/classes/SocketServer.cpp ./
-COPY server/classes/ClientsTable.cpp ./
-COPY server/classes/SumTable.cpp ./
+# Copiando todo o código-fonte e o CMakeLists.txt para o container
+COPY . .
 
-# Compilando o código do servidor
-RUN g++ -o mainServer mainServer.cpp Server.cpp SocketClient.cpp SocketServer.cpp ClientsTable.cpp SumTable.cpp -lpthread
+# Garantindo que o diretório de build existe e está limpo
+RUN rm -rf build && mkdir build
+
+# Mudando para o diretório de build
+WORKDIR /app/build
+
+# Configurando o projeto com CMake (referenciando o diretório pai, onde está o CMakeLists.txt)
+RUN cmake ..
+
+# Compilando o projeto
+RUN make
 
 # Comando para rodar o servidor
-CMD ["./mainServer"]
+CMD ["./Server", "8080"]
