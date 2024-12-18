@@ -17,7 +17,9 @@ class Server
         SumTable sumTable; 
         ClientsTable clientsTable; 
         bool isLeader;  
-        int coordinatorPID; 
+        pid_t coordinatorPID; 
+        string coordinatorIP;   
+        pid_t PID;
         
     public:
         /*constructor*/
@@ -33,6 +35,8 @@ class Server
         bool leaderTimeout();      
         void setIsLeader(bool isLeader); 
         void setCoordinatorPID(int coordinatorPID);
+        void setCoordinatorIP(string coordinatorIP);    
+        void sendBackup(sockaddr_in * sockClient);
 
 
 };

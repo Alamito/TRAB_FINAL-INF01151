@@ -3,7 +3,6 @@
 #include <cstdlib>  
 #include <time.h>
 
-
 using namespace std; 
 
 Server::Server(int port)
@@ -11,7 +10,8 @@ Server::Server(int port)
       sumTable(),
       clientsTable()
 {
-    this->socketHandler.create();   
+    this->socketHandler.create();  
+    this->PID = getpid(); 
     cout << __DATE__ << " " << __TIME__ << "num_reqs 0 total_sum 0" << endl;
 }
 
@@ -110,7 +110,8 @@ void Server::sendDiscoverAck(sockaddr_in * sockClient) {
 void Server::findCoordinatorMessage() {
     packet electionPacket;
     electionPacket.type = DISC_LEADER;
-    electionPacket.senderPID = getpid();
+    electionPacket.senderPID = this->PID;
+
     char buf[SIZE_BUFFER];
 
     // envia broadcast para achar coordenador
@@ -129,15 +130,16 @@ void Server::findCoordinatorMessage() {
 
     int coordinatorResponse = this->socketHandler.receive(buf, sizeof(packet), &responseAddr); 
     packet * receivedPacket = (packet *) buf;
-    if (coordinatorResponse > 0 && receivedPacket->senderPID != getpid()) {
+
+    if (coordinatorResponse > 0 && receivedPacket->senderPID != this->PID) {       
         if (receivedPacket->type == COORDINATOR) {
-            printf("Coordenador encontrado\n");
-            printf("PID do coordenador: %d\n", receivedPacket->senderPID);
+            printf("Coordenador encontrado: PID %d, IP %s\n", receivedPacket->senderPID, inet_ntoa(responseAddr.sin_addr));
             this->setIsLeader(false);
+            this->setCoordinatorIP(inet_ntoa(responseAddr.sin_addr));
             this->setCoordinatorPID(receivedPacket->senderPID);
         }
     } else {
-        printf("Coordenador não encontrado, estou me proclamando Líder!\n");
+        printf("Coordenador não encontrado, estou me proclamando Líder! PID %d, IP %s\n", this->PID, inet_ntoa(responseAddr.sin_addr));
         this->setIsLeader(true);
     }
 }
@@ -145,12 +147,25 @@ void Server::findCoordinatorMessage() {
 void Server::sendCoordinatorMessage(sockaddr_in * sockClient) {
     packet coordinatorPacket;
     coordinatorPacket.type = COORDINATOR;
-    coordinatorPacket.senderPID = getpid();
-
+    coordinatorPacket.senderPID = this->PID;
+    
     printf("Enviando mensagem de coordenador\n");
 
     // Envia mensagem de coordenador
     this->socketHandler.send(&coordinatorPacket, sizeof(packet), sockClient);
+}
+
+void Server::sendBackup(sockaddr_in * sockClient) {
+    packet backupPacket;
+    backupPacket.type = BACKUP;
+    //backupPacket.senderPID = this->PID;  
+
+    backupPacket.backupData = this->sumTable.getSum();
+
+    printf("Enviando mensagem de backup para: %s\n", inet_ntoa(sockClient->sin_addr));
+
+    // Envia mensagem de backup
+    this->socketHandler.send(&backupPacket, sizeof(packet), sockClient);
 }
 
 bool Server::leaderTimeout(){
@@ -169,3 +184,9 @@ bool Server::getIsLeader() {
 void Server::setCoordinatorPID(int coordinatorPID) {
     this->coordinatorPID = coordinatorPID;
 }
+
+void Server::setCoordinatorIP(string coordinatorIP) {
+    this->coordinatorIP = coordinatorIP;
+}
+
+

@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
         // Recebe mensagens de outros servidores ou clientes
         srcAddr = server.receiveMessage(&packetReceived);
 
-        printf("Recebi uma mensagem do tipo %d\n", packetReceived.type);
+        printf("Recendo do tipo %d\n", packetReceived.type);
         
         // Ignora mensagens inválidas
         if (srcAddr.sin_family == 0 &&
@@ -37,6 +37,8 @@ int main(int argc, char* argv[]) {
                 if (server.getIsLeader()) {
                     // Responde com a mensagem de coordenador
                     server.sendCoordinatorMessage(&srcAddr);
+                    //std::thread e(&Server::sendCoordinatorMessage, ref(server), &srcAddr);
+                    //e.detach();
                 }
                 break;
             }
@@ -66,10 +68,11 @@ int main(int argc, char* argv[]) {
             //     break;
             // }  
 
-            // case RECEIVE_DATA: {
-            //     server.updateData(packetReceived.leaderId);
-            //     break;
-            // }
+            case BACKUP: {
+                //server.updateData(packetReceived.leaderId);
+                printf("Backup recebido: %d\n", packetReceived.backupData);
+                break;
+            }
 
             case DESC: {
                 // Requisição de descoberta (ex.: cliente ou backup)
@@ -94,6 +97,17 @@ int main(int argc, char* argv[]) {
         if (!server.getIsLeader() && server.leaderTimeout()) {
             cout << "Líder falhou. Iniciando nova eleição." << endl;
             //server.sendElectionMessage(); // Envia mensagens de eleição
+        }
+
+        if (server.getIsLeader()) {
+            //Envia mensagens de backup para os servidores
+            printf("Enviando backup\n");
+            std::thread b(&Server::sendBackup, ref(server), &srcAddr);
+            b.detach();
+        }
+        else{
+            //recebe backup
+            printf("Backup recebido: %d\n", packetReceived.backupData);
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Pequeno delay no loop principal
