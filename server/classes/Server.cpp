@@ -144,7 +144,8 @@ void Server::findCoordinatorMessage() {
                 // Verifica se a mensagem não veio do próprio servidor
                 bool sameIP = strcmp(inet_ntoa(responseAddr.sin_addr), inet_ntoa(this->socketHandler.getServAddr().sin_addr)) == 0;
                 //ol samePID = receivedPacket->senderPID == this->PID;
-                printf("Same IP: %d\n", sameIP);
+                printf("IP do próprio servidor: %s\n", inet_ntoa(this->socketHandler.getServAddr().sin_addr));
+                printf("IP do servidor que enviou a mensagem: %s\n", inet_ntoa(responseAddr.sin_addr));
                 printf("Type: %d\n", receivedPacket->type);
                 if (receivedPacket->type == COORDINATOR && !sameIP) {   
                     // Coordenador encontrado
@@ -152,6 +153,7 @@ void Server::findCoordinatorMessage() {
                     this->setIsLeader(false);
                     this->setCoordinatorIP(inet_ntoa(responseAddr.sin_addr));
                     this->setCoordinatorPID(receivedPacket->senderPID);
+                    leaderFound = true;
                     return;
                 }
 
@@ -174,7 +176,7 @@ void Server::findCoordinatorMessage() {
 
     // Se nenhuma resposta válida foi encontrada, se proclama líder
     if (!leaderFound) {
-        printf("Timeout expirado: Coordenador não encontrado. Me proclamando Líder! PID %d, IP LOCAL\n", this->PID);
+        printf("Timeout expirado: Coordenador não encontrado. Me proclamando Líder! PID %d, IP: %s\n", this->PID, inet_ntoa(this->socketHandler.getServAddr().sin_addr));
         this->setIsLeader(true);
     }
 }
