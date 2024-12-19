@@ -144,6 +144,7 @@ void Server::findCoordinatorMessage() {
                 // Verifica se a mensagem não veio do próprio servidor
                 bool sameIP = strcmp(inet_ntoa(responseAddr.sin_addr), inet_ntoa(this->socketHandler.getServAddr().sin_addr)) == 0;
                 //ol samePID = receivedPacket->senderPID == this->PID;
+                printf("Same IP: %d\n", sameIP);
                 printf("Type: %d\n", receivedPacket->type);
                 if (receivedPacket->type == COORDINATOR && !sameIP) {   
                     // Coordenador encontrado
