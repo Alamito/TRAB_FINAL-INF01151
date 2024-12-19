@@ -19,8 +19,6 @@ int main(int argc, char* argv[]) {
         
         // Recebe mensagens de outros servidores ou clientes
         srcAddr = server.receiveMessage(&packetReceived);
-
-        printf("Recendo do tipo %d\n", packetReceived.type);
         
         // Ignora mensagens inválidas
         if (srcAddr.sin_family == 0 &&
@@ -69,10 +67,7 @@ int main(int argc, char* argv[]) {
             // }  
 
             case BACKUP: {
-                //server.updateData(packetReceived.leaderId);
-                printf("Lider? %d\n", server.getIsLeader());
                 if (!server.getIsLeader()) {
-                    // Atualiza a soma com o backup recebido
                     printf("Backup recebido: %d\n", packetReceived.backupData);
                 }
                 break;
@@ -91,7 +86,6 @@ int main(int argc, char* argv[]) {
                 t.detach();
                 if (server.getIsLeader()) {
                     //Envia mensagens de backup para os servidores
-                    printf("Enviando backup\n");
                     server.sendBackup();
                     //d::thread b(&Server::sendBackup, ref(server), &srcAddr);
                     //detach();
@@ -109,12 +103,6 @@ int main(int argc, char* argv[]) {
             cout << "Líder falhou. Iniciando nova eleição." << endl;
             //server.sendElectionMessage(); // Envia mensagens de eleição
         }
-
-
-        // else{
-        //     //recebe backup
-        //     printf("Backup recebido: %d\n", packetReceived.backupData);
-        // }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Pequeno delay no loop principal
     }

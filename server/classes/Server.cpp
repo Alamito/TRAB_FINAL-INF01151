@@ -3,6 +3,10 @@
 #include <cstdlib>  
 #include <time.h>
 #include <unistd.h>
+#include <algorithm>
+#include <iterator>
+#include <sstream>
+#include <iostream>
 
 using namespace std; 
 
@@ -113,21 +117,18 @@ void Server::findCoordinatorMessage() {
     packet electionPacket;
     electionPacket.type = DISC_LEADER;
     electionPacket.senderPID = this->PID;
-
     char buf[SIZE_BUFFER];
 
     // Envia broadcast para achar coordenador
     this->socketHandler.sendBroadcast(&electionPacket, sizeof(packet));
-    //imprime myAddr
-    string myIp = "172.29.15.246";
 
+    string myIp = "172.29.15.246";
     // Configura um timeout inicial
     struct timeval timeout;
     timeout.tv_sec = 2; // Tempo total de espera em segundos
     timeout.tv_usec = 0;
 
     sockaddr_in responseAddr;
-
     fd_set readfds;
     FD_ZERO(&readfds);
     FD_SET(this->socketHandler.getSocketFd(), &readfds);
@@ -145,11 +146,8 @@ void Server::findCoordinatorMessage() {
 
                 // Verifica se a mensagem não veio do próprio servidor
                 bool sameIP = strcmp(inet_ntoa(responseAddr.sin_addr), myIp.c_str()) == 0;
-              //bool samePID = receivedPacket->senderPID == this->PID;
-                printf("IP do meu servidor: %s\n", myIp.c_str());
-                printf("IP do servidor que enviou a mensagem: %s\n", inet_ntoa(responseAddr.sin_addr));
-                printf("Type: %d\n", receivedPacket->type);
-                if (receivedPacket->type == COORDINATOR && !sameIP) {   
+                // bool samePID = receivedPacket->senderPID == this->PID;
+                if (receivedPacket->type == COORDINATOR && !sameIP) {
                     // Coordenador encontrado
                     printf("Coordenador encontrado: PID %d, IP %s\n", receivedPacket->senderPID, inet_ntoa(responseAddr.sin_addr));
                     this->setIsLeader(false);
@@ -189,12 +187,9 @@ void Server::sendCoordinatorMessage(sockaddr_in * sockClient) {
     coordinatorPacket.type = COORDINATOR;
     coordinatorPacket.senderPID = this->PID;
 
-    printf("Salvando IP do backup\n");
     this->backupsIPs.push_back(inet_ntoa(sockClient->sin_addr));
-    
-    printf("Enviando mensagem de coordenador\n");
 
-    // Envia mensagem de coordenador
+    printf("Enviando mensagem de coordenador para IP: %s\n", inet_ntoa(sockClient->sin_addr));
     this->socketHandler.send(&coordinatorPacket, sizeof(packet), sockClient);
 }
 
@@ -202,8 +197,6 @@ void Server::sendBackup() {
     packet backupPacket;
     backupPacket.type = BACKUP;
     backupPacket.backupData = this->sumTable.getSum();
-
-    printf("Enviando mensagem de backup para os IPs configurados:\n");
 
     for (const std::string &ip : this->backupsIPs) {
         sockaddr_in destAddr;
