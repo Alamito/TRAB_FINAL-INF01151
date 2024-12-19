@@ -16,6 +16,7 @@ Server::Server(int port)
     cout << __DATE__ << " " << __TIME__ << "num_reqs 0 total_sum 0" << endl;
 }
 
+
 sockaddr_in Server::receiveMessage(packet * packetReceived_pt) {
     char buf[SIZE_BUFFER]; 
     sockaddr_in clientAddr;
@@ -117,6 +118,8 @@ void Server::findCoordinatorMessage() {
 
     // Envia broadcast para achar coordenador
     this->socketHandler.sendBroadcast(&electionPacket, sizeof(packet));
+    //imprime myAddr
+    string myIp = "172.29.15.246";
 
     // Configura um timeout inicial
     struct timeval timeout;
@@ -135,16 +138,15 @@ void Server::findCoordinatorMessage() {
         // Configurações do select
         struct timeval currentTimeout = timeout;
         int activity = select(this->socketHandler.getSocketFd() + 1, &readfds, NULL, NULL, &currentTimeout);
-
         if (activity > 0) {
             int coordinatorResponse = this->socketHandler.receive(buf, sizeof(packet), &responseAddr);
             if (coordinatorResponse > 0) {
                 packet *receivedPacket = (packet *)buf;
 
                 // Verifica se a mensagem não veio do próprio servidor
-                bool sameIP = strcmp(inet_ntoa(responseAddr.sin_addr), inet_ntoa(this->socketHandler.getServAddr().sin_addr)) == 0;
-                //ol samePID = receivedPacket->senderPID == this->PID;
-                printf("IP do próprio servidor: %s\n", inet_ntoa(this->socketHandler.getServAddr().sin_addr));
+                bool sameIP = strcmp(inet_ntoa(responseAddr.sin_addr), myIp.c_str()) == 0;
+              //bool samePID = receivedPacket->senderPID == this->PID;
+                printf("IP do meu servidor: %s\n", myIp.c_str());
                 printf("IP do servidor que enviou a mensagem: %s\n", inet_ntoa(responseAddr.sin_addr));
                 printf("Type: %d\n", receivedPacket->type);
                 if (receivedPacket->type == COORDINATOR && !sameIP) {   
