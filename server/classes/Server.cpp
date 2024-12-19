@@ -2,6 +2,7 @@
 #include <cstring>
 #include <cstdlib>  
 #include <time.h>
+#include <unistd.h>
 
 using namespace std; 
 
@@ -114,47 +115,77 @@ void Server::findCoordinatorMessage() {
 
     char buf[SIZE_BUFFER];
 
-    // envia broadcast para achar coordenador
+    // Envia broadcast para achar coordenador
     this->socketHandler.sendBroadcast(&electionPacket, sizeof(packet));
 
-    // Configura um timeout para aguardar resposta
+    // Configura um timeout inicial
     struct timeval timeout;
-    timeout.tv_sec = 2; // Tempo de espera em segundos
+    timeout.tv_sec = 2; // Tempo total de espera em segundos
     timeout.tv_usec = 0;
 
     sockaddr_in responseAddr;
 
     fd_set readfds;
-    FD_ZERO(&readfds);  
+    FD_ZERO(&readfds);
     FD_SET(this->socketHandler.getSocketFd(), &readfds);
 
-    int activity = select(this->socketHandler.getSocketFd() + 1, &readfds, NULL, NULL, &timeout);
+    bool leaderFound = false;
 
-    printf("activity: %d\n", activity);
-    if (activity > 0) {
-        int coordinatorResponse = this->socketHandler.receive(buf, sizeof(packet), &responseAddr);
-        packet *receivedPacket = (packet *)buf;
+    while (timeout.tv_sec > 0 || timeout.tv_usec > 0) {
+        // Configurações do select
+        struct timeval currentTimeout = timeout;
+        int activity = select(this->socketHandler.getSocketFd() + 1, &readfds, NULL, NULL, &currentTimeout);
 
-        
-        //verifica se recebeu algo e se ips sao diferentes (colocar o receivedPacket->receiverPID != this->PID para testar  local)
-        if (coordinatorResponse > 0 && strcmp(inet_ntoa(responseAddr.sin_addr), inet_ntoa(this->socketHandler.getMyAddr().sin_addr)) != 0) {
-            if (receivedPacket->type == COORDINATOR) {
-                printf("Coordenador encontrado: PID %d, IP %s\n", receivedPacket->senderPID, inet_ntoa(responseAddr.sin_addr));
-                this->setIsLeader(false);
-                this->setCoordinatorIP(inet_ntoa(responseAddr.sin_addr));
-                this->setCoordinatorPID(receivedPacket->senderPID);   
+        if (activity > 0) {
+            int coordinatorResponse = this->socketHandler.receive(buf, sizeof(packet), &responseAddr);
+            if (coordinatorResponse > 0) {
+                packet *receivedPacket = (packet *)buf;
+
+                // Verifica se a mensagem não veio do próprio servidor
+                bool sameIP = strcmp(inet_ntoa(responseAddr.sin_addr), inet_ntoa(this->socketHandler.getServAddr().sin_addr)) == 0;
+                bool samePID = receivedPacket->senderPID == this->PID;
+                printf("Type: %d\n", receivedPacket->type);
+                if (receivedPacket->type == COORDINATOR && !samePID) {
+                    // Coordenador encontrado
+                    printf("Coordenador encontrado: PID %d, IP %s\n", receivedPacket->senderPID, inet_ntoa(responseAddr.sin_addr));
+                    this->setIsLeader(false);
+                    this->setCoordinatorIP(inet_ntoa(responseAddr.sin_addr));
+                    this->setCoordinatorPID(receivedPacket->senderPID);
+                    return;
+                }
+
+                if (receivedPacket->type == DISC_LEADER && samePID) {
+                    printf("Mensagem do próprio IP, ignorando\n");
+                    // Continue esperando no loop sem se proclamar líder ainda
+                }
             }
-            return;
+        } else if (activity == 0) {
+            break;
+        } else {
+            perror("Erro no select");
+            break;
         }
-        printf("Coordenador não encontrado, estou me proclamando Líder! PID %d, IP LOCAL\n", this->PID);
+
+        // Atualiza o tempo restante para o próximo loop
+        timeout.tv_sec = currentTimeout.tv_sec;
+        timeout.tv_usec = currentTimeout.tv_usec;
+    }
+
+    // Se nenhuma resposta válida foi encontrada, se proclama líder
+    if (!leaderFound) {
+        printf("Timeout expirado: Coordenador não encontrado. Me proclamando Líder! PID %d, IP LOCAL\n", this->PID);
         this->setIsLeader(true);
     }
 }
+
 
 void Server::sendCoordinatorMessage(sockaddr_in * sockClient) {
     packet coordinatorPacket;
     coordinatorPacket.type = COORDINATOR;
     coordinatorPacket.senderPID = this->PID;
+
+    printf("Salvando IP do backup\n");
+    this->backupsIPs.push_back(inet_ntoa(sockClient->sin_addr));
     
     printf("Enviando mensagem de coordenador\n");
 
@@ -162,17 +193,23 @@ void Server::sendCoordinatorMessage(sockaddr_in * sockClient) {
     this->socketHandler.send(&coordinatorPacket, sizeof(packet), sockClient);
 }
 
-void Server::sendBackup(sockaddr_in * sockClient) {
+void Server::sendBackup() {
     packet backupPacket;
     backupPacket.type = BACKUP;
-    //backupPacket.senderPID = this->PID;  
-
     backupPacket.backupData = this->sumTable.getSum();
 
-    printf("Enviando mensagem de backup para: %s\n", inet_ntoa(sockClient->sin_addr));
+    printf("Enviando mensagem de backup para os IPs configurados:\n");
 
-    // Envia mensagem de backup
-    this->socketHandler.send(&backupPacket, sizeof(packet), sockClient);
+    for (const std::string &ip : this->backupsIPs) {
+        sockaddr_in destAddr;
+        memset(&destAddr, 0, sizeof(destAddr));
+        destAddr.sin_family = AF_INET;
+        destAddr.sin_port = htons(this->socketHandler.getPort()); // Porta do servidor de destino
+        inet_pton(AF_INET, ip.c_str(), &destAddr.sin_addr);
+
+        printf("Backup sendo enviado para IP: %s\n", ip.c_str());
+        this->socketHandler.send(&backupPacket, sizeof(packet), &destAddr);
+    }
 }
 
 bool Server::leaderTimeout(){

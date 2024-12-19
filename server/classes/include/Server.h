@@ -5,6 +5,8 @@
 #include "packets.h"
 #include "SumTable.h"
 #include "ClientsTable.h"
+#include <vector>
+#include <string>
 
 using namespace std; 
 
@@ -20,6 +22,7 @@ class Server
         pid_t coordinatorPID; 
         string coordinatorIP;   
         pid_t PID;
+        std::vector<string> backupsIPs;//array de backupsIP somente para o lider
         
     public:
         /*constructor*/
@@ -36,7 +39,7 @@ class Server
         void setIsLeader(bool isLeader); 
         void setCoordinatorPID(int coordinatorPID);
         void setCoordinatorIP(string coordinatorIP);    
-        void sendBackup(sockaddr_in * sockClient);
+        void sendBackup();
 
 
 };

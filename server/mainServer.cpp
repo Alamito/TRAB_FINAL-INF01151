@@ -70,7 +70,11 @@ int main(int argc, char* argv[]) {
 
             case BACKUP: {
                 //server.updateData(packetReceived.leaderId);
-                printf("Backup recebido: %d\n", packetReceived.backupData);
+                printf("Lider? %d\n", server.getIsLeader());
+                if (!server.getIsLeader()) {
+                    // Atualiza a soma com o backup recebido
+                    printf("Backup recebido: %d\n", packetReceived.backupData);
+                }
                 break;
             }
 
@@ -85,6 +89,13 @@ int main(int argc, char* argv[]) {
                 // Requisição de soma de um cliente
                 std::thread t(&Server::sumRequisitionResponse, ref(server), packetReceived.req.value, packetReceived.seqn, &srcAddr);
                 t.detach();
+                if (server.getIsLeader()) {
+                    //Envia mensagens de backup para os servidores
+                    printf("Enviando backup\n");
+                    server.sendBackup();
+                    //d::thread b(&Server::sendBackup, ref(server), &srcAddr);
+                    //detach();
+                }
                 break;
             }
 
@@ -99,16 +110,11 @@ int main(int argc, char* argv[]) {
             //server.sendElectionMessage(); // Envia mensagens de eleição
         }
 
-        if (server.getIsLeader()) {
-            //Envia mensagens de backup para os servidores
-            printf("Enviando backup\n");
-            std::thread b(&Server::sendBackup, ref(server), &srcAddr);
-            b.detach();
-        }
-        else{
-            //recebe backup
-            printf("Backup recebido: %d\n", packetReceived.backupData);
-        }
+
+        // else{
+        //     //recebe backup
+        //     printf("Backup recebido: %d\n", packetReceived.backupData);
+        // }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Pequeno delay no loop principal
     }
