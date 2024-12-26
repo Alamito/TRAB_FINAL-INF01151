@@ -41,6 +41,8 @@ int main(int argc, char* argv[]) {
                 break;
             }
 
+
+            //nao usado pra nada aqui atualmente, mas esse tipo é usado la no receive de findCoordinatorMessage... 
             case COORDINATOR: {
                 // Mensagem de coordenador (novo líder eleito)
                 // server.sendCoordinatorMessage();

@@ -122,7 +122,7 @@ void Server::findCoordinatorMessage() {
     // Envia broadcast para achar coordenador
     this->socketHandler.sendBroadcast(&electionPacket, sizeof(packet));
 
-    string myIp = "172.29.15.246";
+    string myIp = "172.29.15.246";  
     // Configura um timeout inicial
     struct timeval timeout;
     timeout.tv_sec = 2; // Tempo total de espera em segundos
@@ -134,7 +134,6 @@ void Server::findCoordinatorMessage() {
     FD_SET(this->socketHandler.getSocketFd(), &readfds);
 
     bool leaderFound = false;
-
     while (timeout.tv_sec > 0 || timeout.tv_usec > 0) {
         // Configurações do select
         struct timeval currentTimeout = timeout;
@@ -145,8 +144,8 @@ void Server::findCoordinatorMessage() {
                 packet *receivedPacket = (packet *)buf;
 
                 // Verifica se a mensagem não veio do próprio servidor
-                bool sameIP = strcmp(inet_ntoa(responseAddr.sin_addr), myIp.c_str()) == 0;
-                // bool samePID = receivedPacket->senderPID == this->PID;
+                bool sameIP = strcmp(inet_ntoa(responseAddr.sin_addr), myIp.c_str()) == 0;  //sepa q n precisa
+                //bool samePID = receivedPacket->senderPID == this->PID;
                 if (receivedPacket->type == COORDINATOR && !sameIP) {
                     // Coordenador encontrado
                     printf("Coordenador encontrado: PID %d, IP %s\n", receivedPacket->senderPID, inet_ntoa(responseAddr.sin_addr));
