@@ -26,7 +26,7 @@ void SocketClient::create() {
     bzero(&(this->serv_addr.sin_zero), 8);  
 
     struct timeval timeout;
-    timeout.tv_sec = 1;
+    timeout.tv_sec = 5/1000;
     timeout.tv_usec = 10000;
     if (setsockopt(this->socketFd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0)
         std::cout << "Deu Ruim" << std::endl; 
