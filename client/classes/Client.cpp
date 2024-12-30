@@ -31,6 +31,13 @@ void Client::sendSumRequisition(int numToSum) {
         do {
             sockHandler.send(&sumPacket, sizeof(sumPacket));
             ackReceived = sockHandler.receive(buf, SIZE_BUFFER, &ipServerAddr);
+
+            if (ackReceived < 0) {
+                if (errno == EWOULDBLOCK || errno == EAGAIN) {
+                    cout << "Timeout" << endl;
+                    break;
+                }
+            }
         } while (ackReceived <= 0);
 
         memcpy(&packetReceived, buf, sizeof(packet));
