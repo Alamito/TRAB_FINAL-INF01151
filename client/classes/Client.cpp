@@ -24,7 +24,7 @@ void Client::sendSumRequisition(int numToSum) {
     int ackReceived = -1;
 
     char buf[SIZE_BUFFER];
-    int waitedSeq = 0, waitedType = 0;
+    int waitedSeq = 0, waitedType = 0, isServerAlive = 1;
 
     while (!waitedType){
         waitedType = 0;
@@ -34,11 +34,20 @@ void Client::sendSumRequisition(int numToSum) {
 
             if (ackReceived < 0) {
                 if (errno == EWOULDBLOCK || errno == EAGAIN) {
-                    cout << "Timeout" << endl;
-                    break;
+                    if(!this->isServerAlive()) {
+                        isServerAlive = 0;
+                        waitedType = 1;
+                        break;
+                    } 
                 }
             }
+        
         } while (ackReceived <= 0);
+
+        if (isServerAlive == 0) {
+            printf("Algoritmo do valentão!");
+            return;
+        }
 
         memcpy(&packetReceived, buf, sizeof(packet));
         if (packetReceived.type == REQ_ACK) {
@@ -52,6 +61,49 @@ void Client::sendSumRequisition(int numToSum) {
 
     cout << __DATE__ << " " << __TIME__ << " " << "server " << serverAdress << " id_req " << lastReq << " value " << numToSum << " num_reqs " << packetReceived.ack.num_reqs << " total_sum " << lastSum << endl;
 
+}
+
+int Client::isServerAlive() {
+    if (this->sendAliveMessage()) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int Client::sendAliveMessage() {
+    packet packet, packetReceived;
+    packet.type = ALIVE;
+    
+    sockaddr_in ipServerAddr;
+    int ackReceived = -1;
+
+    char buf[SIZE_BUFFER];
+
+    int waitedType = 0, isServerAlive = 1;
+    while (!waitedType){
+        waitedType = 0;
+        do {
+            sockHandler.send(&packet, sizeof(packet));
+            ackReceived = sockHandler.receive(buf, SIZE_BUFFER, &ipServerAddr);
+
+            if (ackReceived < 0) {
+                if (errno == EWOULDBLOCK || errno == EAGAIN) {
+                    isServerAlive = 0;
+                    break;
+                }
+            }
+        } while (ackReceived <= 0);
+
+        if (isServerAlive == 0) break;
+
+        memcpy(&packetReceived, buf, sizeof(packet));
+        if (packetReceived.type == ALIVE_ACK) {
+            waitedType = 1;
+        }
+    }
+
+    return isServerAlive;
 }
 
 void Client::discoverServer() {

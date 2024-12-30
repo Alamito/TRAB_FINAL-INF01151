@@ -21,6 +21,8 @@ class Client{
     public:
         Client(int port);
         void sendSumRequisition(int numToSum);
+        int isServerAlive();
+        int sendAliveMessage();
         void discoverServer();
         //void sendSumRequisition(Message* mensagem, int numRequisition);
         // int listenTerminal();

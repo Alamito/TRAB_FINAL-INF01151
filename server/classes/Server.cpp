@@ -88,6 +88,16 @@ void Server::discoverRequisitionResponse(sockaddr_in * sockClient){
     //this->clientsTable.printTable();
 }
 
+void Server::aliveRequisitionResponse(sockaddr_in * sockClient){
+    this->sendAliveAck(sockClient);
+}
+
+void Server::sendAliveAck(sockaddr_in * sockClient) {
+    packet ackPacket;
+    ackPacket.type = ALIVE_ACK;
+
+    this->socketHandler.send(&ackPacket, sizeof(packet), sockClient);
+}
 
 void Server::sendMessageAck(clientData client, sockaddr_in * sockClient) {
     packet ackPacket;

@@ -33,6 +33,10 @@ int main(int argc, char* argv[]) {
 
                 break;
             }
+            case ALIVE: {
+                server.aliveRequisitionResponse(&srcAddr);
+                break;
+            }
 
             default: 
                 cout << "pacote estranho" << endl;

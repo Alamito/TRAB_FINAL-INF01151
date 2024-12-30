@@ -25,6 +25,8 @@ class Server
         void discoverRequisitionResponse(sockaddr_in * sockClient);
         void sendMessageAck(clientData client, sockaddr_in * sockClient);
         void sendDiscoverAck(sockaddr_in * sockClient);
+        void aliveRequisitionResponse(sockaddr_in * sockClient);
+        void sendAliveAck(sockaddr_in * sockClient);
 
 };
 
