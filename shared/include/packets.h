@@ -8,6 +8,8 @@
 #define REQ 2
 #define DESC_ACK 3
 #define REQ_ACK 4
+#define ALIVE 5
+#define ALIVE_ACK 6
 
 struct requisicao {
     uint16_t value; // Valor da requsição
