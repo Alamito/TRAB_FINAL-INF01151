@@ -10,7 +10,10 @@
 
 using namespace std; 
 
-
+struct Server {
+    int pid;
+    std::string ip;
+}
 
 class Server 
 {
@@ -23,6 +26,7 @@ class Server
         string coordinatorIP;   
         pid_t PID;
         std::vector<string> backupsIPs;//array de backupsIP somente para o lider
+        std::vector<Server> servers; //array de servidores para eleição
         
     public:
         /*constructor*/
