@@ -11,6 +11,8 @@
 #define DISC_LEADER 5
 #define COORDINATOR 6
 #define BACKUP 7
+#define DESC_DATA_ELECTION 8
+#define RES_DATA_ELECTION 9
 
 struct requisicao {
     uint16_t value; // Valor da requsição

@@ -11,7 +11,8 @@ int main(int argc, char* argv[]) {
 
     server.setIsLeader(false); // Inicialmente, o servidor não é líder
     server.findCoordinatorMessage(); // Encontra o coordenador
-    server.printServers(); // Imprime a lista de servidores
+    server.GetDataAllOtherServers(); // Pega os dados dos outros servidore
+    // server.printServers(); // Imprime a lista de servidores
     
     while (true) {
         packetReceived.type = 5; 
@@ -93,6 +94,28 @@ int main(int argc, char* argv[]) {
                     //d::thread b(&Server::sendBackup, ref(server), &srcAddr);
                     //detach();
                 }
+                break;
+            }
+
+            case DESC_DATA_ELECTION: {
+                int pid = packetReceived.senderPID;
+                string ip = inet_ntoa(srcAddr.sin_addr);
+                server.addListElectionServer(pid, ip);
+                server.getAllDataResponse(ip);
+
+                printf("DESC_DATA_ELECTION\n");
+                server.printServers();
+                break;
+            }
+
+            case RES_DATA_ELECTION: {
+                int pid = packetReceived.senderPID;
+                string ip = inet_ntoa(srcAddr.sin_addr);
+                server.addListElectionServer(pid, ip);
+
+                printf("RES_DATA_ELECTION\n");
+                server.printServers();
+
                 break;
             }
 

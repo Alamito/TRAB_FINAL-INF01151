@@ -46,6 +46,8 @@ class Server
         void sendBackup();
         void addListElectionServer(int pid, string ip);
         void printServers();
+        void GetDataAllOtherServers();
+        void getAllDataResponse(string ip);
 
 
 };

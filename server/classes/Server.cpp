@@ -212,6 +212,32 @@ void Server::sendBackup() {
     }
 }
 
+void Server::GetDataAllOtherServers() {
+    packet electionPacket;
+    electionPacket.type = DESC_DATA_ELECTION;
+    electionPacket.senderPID = this->PID;
+    char buf[SIZE_BUFFER];
+
+    // Envia broadcast para achar coordenador
+    this->socketHandler.sendBroadcast(&electionPacket, sizeof(packet));
+}
+
+void Server::getAllDataResponse(string ip) {
+    packet electionPacket;
+    electionPacket.type = RES_DATA_ELECTION;
+    electionPacket.senderPID = this->PID;
+    char buf[SIZE_BUFFER];
+
+    sockaddr_in destAddr;
+    memset(&destAddr, 0, sizeof(destAddr));
+    destAddr.sin_family = AF_INET;
+    destAddr.sin_port = htons(this->socketHandler.getPort()); // Porta do servidor de destino
+    inet_pton(AF_INET, ip.c_str(), &destAddr.sin_addr);
+
+    printf("Enviando mensagem de resposta de eleição para IP: %s\n", ip.c_str());
+    this->socketHandler.send(&electionPacket, sizeof(packet), &destAddr);
+}
+
 bool Server::leaderTimeout(){
     return false;
 }
@@ -234,6 +260,18 @@ void Server::setCoordinatorIP(string coordinatorIP) {
 }
 
 void Server::addListElectionServer(int pid, string ip) {
+    if (this->PID == pid) {
+        return; // Não adiciona o próprio servidor
+    }
+
+    auto it = std::find_if(electionServers.begin(), electionServers.end(), [pid](const ElectionServer& server) {
+        return server.pid == pid;
+    });
+
+    if (it != electionServers.end()) {
+        return; // Não adiciona duplicados
+    }
+
     ElectionServer server;
     server.pid = pid;
     server.ip = ip;
@@ -242,8 +280,13 @@ void Server::addListElectionServer(int pid, string ip) {
 
 void Server::printServers() {
     for (int i = 0; i < this->electionServers.size(); i++) {
-        cout << this->electionServers[i].pid << " " << this->electionServers[i].ip << endl;
+        printf("Server %d: \n", i+1);
+        cout << this->electionServers[i].pid << " " << this->electionServers[i].ip << "\n" << endl;
     }
 }
+
+// string Server::getLocalIp() {
+//     return inet_ntoa(this->socketHandler.getServAddr().sin_addr);
+// }
 
 
