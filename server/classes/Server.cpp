@@ -148,10 +148,13 @@ void Server::findCoordinatorMessage() {
                 //bool samePID = receivedPacket->senderPID == this->PID;
                 if (receivedPacket->type == COORDINATOR && !sameIP) {
                     // Coordenador encontrado
-                    printf("Coordenador encontrado: PID %d, IP %s\n", receivedPacket->senderPID, inet_ntoa(responseAddr.sin_addr));
+                    int pid = receivedPacket->senderPID;
+                    string ip = inet_ntoa(responseAddr.sin_addr);
+                    printf("Coordenador encontrado: PID %d, IP %s\n", pid, ip.c_str());
                     this->setIsLeader(false);
                     this->setCoordinatorIP(inet_ntoa(responseAddr.sin_addr));
                     this->setCoordinatorPID(receivedPacket->senderPID);
+                    this->addListElectionServer(pid, ip);
                     leaderFound = true;
                     return;
                 }
@@ -228,6 +231,19 @@ void Server::setCoordinatorPID(int coordinatorPID) {
 
 void Server::setCoordinatorIP(string coordinatorIP) {
     this->coordinatorIP = coordinatorIP;
+}
+
+void Server::addListElectionServer(int pid, string ip) {
+    ElectionServer server;
+    server.pid = pid;
+    server.ip = ip;
+    this->electionServers.push_back(server);
+}
+
+void Server::printServers() {
+    for (int i = 0; i < this->electionServers.size(); i++) {
+        cout << this->electionServers[i].pid << " " << this->electionServers[i].ip << endl;
+    }
 }
 
 

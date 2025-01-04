@@ -11,6 +11,7 @@ int main(int argc, char* argv[]) {
 
     server.setIsLeader(false); // Inicialmente, o servidor não é líder
     server.findCoordinatorMessage(); // Encontra o coordenador
+    server.printServers(); // Imprime a lista de servidores
     
     while (true) {
         packetReceived.type = 5; 
