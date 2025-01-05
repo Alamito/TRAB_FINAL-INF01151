@@ -285,6 +285,17 @@ void Server::printServers() {
     }
 }
 
+void Server::aliveRequisitionResponse(sockaddr_in * sockClient){
+    this->sendAliveAck(sockClient);
+}
+
+void Server::sendAliveAck(sockaddr_in * sockClient) {
+    packet ackPacket;
+    ackPacket.type = ALIVE_ACK;
+
+    this->socketHandler.send(&ackPacket, sizeof(packet), sockClient);
+}
+
 // string Server::getLocalIp() {
 //     return inet_ntoa(this->socketHandler.getServAddr().sin_addr);
 // }

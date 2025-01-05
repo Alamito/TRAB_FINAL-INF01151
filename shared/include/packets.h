@@ -13,6 +13,8 @@
 #define BACKUP 7
 #define DESC_DATA_ELECTION 8
 #define RES_DATA_ELECTION 9
+#define ALIVE 10
+#define ALIVE_ACK 11
 
 struct requisicao {
     uint16_t value; // Valor da requsição

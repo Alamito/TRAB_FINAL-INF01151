@@ -119,6 +119,16 @@ int main(int argc, char* argv[]) {
                 break;
             }
 
+            case ALIVE: {
+                server.aliveRequisitionResponse(&srcAddr);
+                break;
+            }
+
+            case ALIVE_ACK: {
+                printf("Servidor coordenador vivo\n");
+                break;
+            }
+
             default: 
                 cout << "Pacote estranho recebido." << endl;
                 break; 

@@ -48,6 +48,8 @@ class Server
         void printServers();
         void GetDataAllOtherServers();
         void getAllDataResponse(string ip);
+        void aliveRequisitionResponse(sockaddr_in * sockClient);
+        void sendAliveAck(sockaddr_in * sockClient);
 
 
 };
