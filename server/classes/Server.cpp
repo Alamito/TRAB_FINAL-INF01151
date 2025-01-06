@@ -296,8 +296,48 @@ void Server::sendAliveAck(sockaddr_in * sockClient) {
     this->socketHandler.send(&ackPacket, sizeof(packet), sockClient);
 }
 
-// string Server::getLocalIp() {
-//     return inet_ntoa(this->socketHandler.getServAddr().sin_addr);
-// }
+int Server::isCoordenatorAlive() {
+    packet alivePacket;
+    alivePacket.type = ALIVE;
+
+    sockaddr_in destAddr;
+    memset(&destAddr, 0, sizeof(destAddr));
+    destAddr.sin_family = AF_INET;
+    destAddr.sin_port = htons(this->socketHandler.getPort()); // Porta do servidor de destino
+    inet_pton(AF_INET, this->coordinatorIP.c_str(), &destAddr.sin_addr);
+
+    // Envia o pacote de ALIVE
+    this->socketHandler.send(&alivePacket, sizeof(packet), &destAddr);
+
+    // Configura o timeout para receber
+    timeval timeout;
+    timeout.tv_sec = 2;  // 2 segundos de timeout
+    timeout.tv_usec = 0;
+
+    setsockopt(this->socketHandler.getSocketFd(), SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout));
+
+    // Buffer para receber a resposta
+    packet responsePacket;
+    sockaddr_in srcAddr;
+    socklen_t srcAddrLen = sizeof(srcAddr);
+    memset(&responsePacket, 0, sizeof(responsePacket));
+    memset(&srcAddr, 0, sizeof(srcAddr));
+
+    // Tenta receber a resposta
+    int bytesReceived = this->socketHandler.receive((char *)&responsePacket, sizeof(packet), &srcAddr);
+
+    if (bytesReceived < 0) {
+        if (errno == EWOULDBLOCK || errno == EAGAIN) {
+            // Restaura timeout para padrão
+            timeout.tv_sec = 0;
+            timeout.tv_usec = 0;
+            setsockopt(this->socketHandler.getSocketFd(), SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout));
+            return 0;
+        }
+    } else {
+        if (responsePacket.type == ALIVE_ACK) return 1;
+    }
+}
+
 
 

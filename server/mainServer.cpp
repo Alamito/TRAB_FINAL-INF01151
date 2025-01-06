@@ -13,21 +13,34 @@ int main(int argc, char* argv[]) {
     server.findCoordinatorMessage(); // Encontra o coordenador
     server.GetDataAllOtherServers(); // Pega os dados dos outros servidore
     // server.printServers(); // Imprime a lista de servidores
-    
+
     while (true) {
         packetReceived.type = 5; 
-        packetReceived.seqn = -1; 
+        packetReceived.seqn = -1;
 
-        
-        // Recebe mensagens de outros servidores ou clientes
-        srcAddr = server.receiveMessage(&packetReceived);
-        
-        // Ignora mensagens inválidas
-        if (srcAddr.sin_family == 0 &&
+        if (!server.getIsLeader()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            int isAlive = server.isCoordenatorAlive();
+            printf("isAlive: %d\n", isAlive);
+        } else {
+            srcAddr = server.receiveMessage(&packetReceived);
+
+            if (srcAddr.sin_family == 0 &&
             srcAddr.sin_port == 0 &&
             srcAddr.sin_addr.s_addr == 0) {
-            continue;
+                continue;
+            }
         }
+
+        // Recebe mensagens de outros servidores ou clientes
+        // srcAddr = server.receiveMessage(&packetReceived);
+        
+        // Ignora mensagens inválidas
+        // if (srcAddr.sin_family == 0 &&
+        //     srcAddr.sin_port == 0 &&
+        //     srcAddr.sin_addr.s_addr == 0) {
+        //     continue;
+        // }
 
         // Processa diferentes tipos de mensagens
         switch (packetReceived.type) {
